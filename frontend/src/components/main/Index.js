@@ -1,3 +1,5 @@
+
+
 import React from 'react'
 import { useState, useEffect, useParams } from 'react';
 import axios from 'axios';
@@ -33,12 +35,7 @@ const Index = () => {
 
 
     function getPosts() {
-<<<<<<< HEAD
         axios.get(`http://localhost/React/React_Project/backend/posts.php/`)
-=======
-        
-        axios.get(`http://localhost/React/React_project/backend/posts.php`)
->>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
             .then(response => {
                 setPosts(response.data);
                 getComments();
@@ -56,14 +53,10 @@ const Index = () => {
         formData.append("file", file);
         try {
             const response = await axios.post(
-<<<<<<< HEAD
                 "http://localhost/React/React_Project/backend/posts.php/", formData
-=======
-                "http://localhost/React/React_project/backend/posts.php", formData
->>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
             );
             console.log(response.data);
-            // window.location.assign('/home');
+            window.location.assign('/home');
         } catch (error) {
             console.error(error);
         }
@@ -108,11 +101,7 @@ const Index = () => {
 
         try {
             const response = await axios.post(
-<<<<<<< HEAD
                 "http://localhost/React/React_Project/backend/postEdit.php/", formEditData
-=======
-                "http://localhost/React/React_project/backend/postEdit.php/", formEditData
->>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
             );
             console.log(response.data);
             window.location.assign('/home');
@@ -124,13 +113,9 @@ const Index = () => {
 
 
     const deletePost = (id) => {
-<<<<<<< HEAD
         axios.delete(`http://localhost/React/React_Project/backend/posts.php/${id}`).then(function (response) {
-=======
-        axios.delete(`http://localhost/React/React_project/backend/posts.php/${id}`).then(function (response) {
->>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
-            window.location.assign('/home');
         })
+        window.location.assign('/home');
     }
 
 
@@ -138,12 +123,7 @@ const Index = () => {
 
 
     function getComments() {
-<<<<<<< HEAD
         axios.get(`http://localhost/React/React_Project/backend/comments.php/`)
-=======
-
-        axios.get(`http://localhost/React/React_project/backend/comments.php/`)
->>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
             .then(response => {
                 setComments(response.data);
             })
@@ -152,22 +132,13 @@ const Index = () => {
     const handleCreateComment = (e) => {
         e.preventDefault();
         console.log(inputs)
-<<<<<<< HEAD
         axios.post('http://localhost/React/React_Project/backend/comments.php/', inputs).then(
             // window.location.assign('/home')
-=======
-        axios.post('http://localhost/React/React_project/backend/comments.php/', inputs).then(
-            window.location.assign('/home')
->>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
         )
     }
 
     const deleteComment = (id) => {
-<<<<<<< HEAD
         axios.delete(`http://localhost/React/React_Project/backend/comments.php/${id}`).then(function (response) {
-=======
-        axios.delete(`http://localhost/React/React_project/backend/comments.php/${id}`).then(function (response) {
->>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
             getComments();
         })
     }
@@ -186,13 +157,8 @@ const Index = () => {
 
     const handleEditCommentSubmit = (e) => {
         e.preventDefault();
-<<<<<<< HEAD
         axios.put('http://localhost/React/React_Project/backend/comments.php/', inputs).then(
             // window.location.assign('/')
-=======
-        axios.put('http://localhost/React/React_project/backend/comments.php/', inputs).then(
-            window.location.assign('/')
->>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
         )
     }
 
@@ -218,11 +184,7 @@ const Index = () => {
 
 
     const getLikes = () => {
-<<<<<<< HEAD
         axios.get(`http://localhost/React/React_Project/backend/likes.php/`)
-=======
-        axios.get(`http://localhost/React/React_project/backend/likes.php/`)
->>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
         .then(response => {
             setLikes(response.data);
         })
@@ -237,23 +199,14 @@ const Index = () => {
       const likePost = (e) => {
         e.preventDefault();
         console.log(inputs)
-<<<<<<< HEAD
           axios.post('http://localhost/React/React_Project/backend/likes.php/' , inputs).then(
-=======
-          axios.post('http://localhost/React/React_project/backend/likes.php/' , inputs).then(
->>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
             getPosts()
           )
       }
       const removeLikePost = (e) => {
         e.preventDefault();
         console.log(inputs)
-<<<<<<< HEAD
           axios.post('http://localhost/React/React_Project/backend/likeDelete.php/' , inputs).then(
-=======
-
-          axios.post('http://localhost/React/React_project/backend/likeDelete.php/' , inputs).then(
->>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
             getPosts()
           )
       }
@@ -359,7 +312,7 @@ const Index = () => {
                                                                 {/* POST USER IMAGE */}
                                                                 <div className="me-3">
 
-                                                                    {/* <img className="rounded-circle img-fluid" width={'60px'} src={require(`../images/${post.image}`)} alt="" /> */}
+                                                                    <img className="rounded-circle img-fluid" width={'60px'} src={require(`../images/${post.image}`)} alt="" />
 
                                                                 </div>
                                                                 <div className="w-100">
@@ -399,12 +352,60 @@ const Index = () => {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        {(post.post_image != 'a') ?
+                                                        {(post.post_image !== 'a') ?
                                                             <>
                                                                 {/* CONTENT POST */}
-                                                                <div className="mt-3">
+                                                                {/* <div className="mt-3">
                                                                     <p id={`post${post.post_id}`} className="mt-3 mb-4 pb-2">{post.content}</p>
+                                                                </div> */}
+                                                                {/* EDIT POST */}
+                                                                <div className="user-post">
+                                                                    <div className=" d-grid grid-rows-2 grid-flow-col gap-3">
+                                                                        <form className="card card-block card-stretch" id={`editPostForm${post.post_id}`} action="" style={{ display: 'none' }} onSubmit={handleEditPostSubmit}>
+                                                                            <textarea
+                                                                                className="form-control rounded"
+                                                                                type="text"
+                                                                                defaultValue={post.content}
+                                                                                id={`editPostInput${post.post_id}`} onChange={() => handleEditPost(post.post_id)}
+                                                                            />
+
+                                                                            <br />
+
+                                                                            <div className='w-100 d-flex'>
+                                                                                <input
+                                                                                    type="file"
+                                                                                    id="file"
+                                                                                    onChange={(e) => setFile(e.target.files[0])}
+                                                                                />
+                                                                                <button className='btn btn-outline-secondary border w-25 me-2' type='submit'>Update</button>
+                                                                                <button className="btn btn-primary w-25" onClick={() => { canclePostEdit(post.post_id) }} type='button'>Cancle</button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
                                                                 </div>
+                                                                {/* IMAGE POST */}
+                                                                <div className="row-span-2 row-span-md-1 justify-content-center">
+                                                                    <hr />
+                                                                    {post.post_image !== 'null' ?(
+                                                                    <p id={`post${post.post_id}`} className="mt-3 mb-4 pb-2">{post.content}</p>
+                                                                    ):(
+                                                                        <img className="rounded-circle img-fluid" width={'60px'} src={require(`../images/profile.jpg`)} alt="" />
+
+                                                                    )
+                                                                    }
+
+                                                                    <img id={`imgPost${post.post_id}`}  className="img-thumnail rounded w-100" src={require(`../images/${post.post_image}`)} alt='' />
+
+
+                                                                </div>
+                                                            </>
+                                                            :
+                                                            // POPUP FORM POST
+                                                            <>
+                                                                {/* CONTENT POST */}
+                                                                {/* <div className="mt-3">
+                                                                    <p id={`post${post.post_id}`} className="mt-3 mb-4 pb-2">{post.content}</p>
+                                                                </div> */}
                                                                 {/* EDIT POST */}
                                                                 <div className="user-post">
                                                                     <div className=" d-grid grid-rows-2 grid-flow-col gap-3">
@@ -446,73 +447,9 @@ const Index = () => {
 
                                                                 </div>
                                                             </>
-                                                            :
-                                                            // POPUP FORM POST
-                                                            <div>
-                                                                <form id="post-modal-data" onSubmit={handleImagePost} className="card card-block card-stretch">
-                                                                    <div className="card-header d-flex justify-content-between">
-                                                                        <div className="header-title">
-                                                                            <h4 className="card-title">Create Post</h4>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="card-body">
-                                                                        <div className="d-flex align-items-center">
-                                                                            <div className="user-img">
-                                                                                <img src="/images/user/1.jpg" alt="userimg" className="avatar-60 rounded-circle" />
-                                                                            </div>
-                                                                            <div className="post-text ms-3 w-100 " data-bs-toggle="modal" data-bs-target="#post-modal">
-                                                                                <input
-                                                                                    type="text"
-                                                                                    className="form-control rounded"
-                                                                                    id={current_ID}
-                                                                                    placeholder="Write something here..."
-                                                                                    style={{ border: 'none' }}
-                                                                                />
-                                                                            </div>
-                                                                        </div>
-                                                                        <hr />
-                                                                    </div>
-                                                                    <div className="modal fade" id="post-modal" tabIndex={-1} aria-labelledby="post-modalLabel" aria-hidden="true">
-                                                                        <div className="modal-dialog   modal-fullscreen-sm-down">
-                                                                            <div className="modal-content">
-                                                                                <div className="modal-header">
-                                                                                    <h5 className="modal-title" id="post-modalLabel">Create Post</h5>
-                                                                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal"><i className="ri-close-fill" /></button>
-                                                                                </div>
-                                                                                <div className="modal-body">
-                                                                                    <div className="d-flex align-items-center">
-                                                                                        <div className="post-text ms-3 w-100">
-                                                                                            <input
-                                                                                                type="text"
-                                                                                                className="form-control rounded"
-                                                                                                id={current_ID}
-                                                                                                placeholder="Write something here..."
-                                                                                                style={{ border: 'none' }}
-                                                                                                onChange={handlePost}
-                                                                                            />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <hr />
-                                                                                    <ul className="d-flex flex-wrap align-items-center list-inline m-0 p-0">
-                                                                                        <li className="me-3 mb-md-0 mb-2">
-                                                                                            <input
-                                                                                                type='file'
-                                                                                                id="file"
-                                                                                                accept="image/*"
-                                                                                                onChange={(e) => setFile(e.target.files[0])}
-                                                                                            />
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                    <hr />
-                                                                                    <button type="submit" className="btn btn-primary d-block w-100 mt-3">Post</button>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
 
                                                         }
+
                                                         {/* LIKE AND COMMENT ICON */}
                                                    
                                                     <div className="comment-area mt-3"> 
@@ -525,19 +462,14 @@ const Index = () => {
                                                                             <div className="dropdown">
                                                                                 {/* BUTTON LIKE */}
                                                                                 {likes.map((like , index_like) => {
-                                                                                if (like.user_id == current_ID && like.post_id == post.post_id){
+                                                                                if (like.user_id === current_ID && like.post_id === post.post_id){
                                                                                 return ( flagLike = true )
                                                                                 }})}
 
-                                                                                {( flagLike == true ) ?
+                                                                                {( flagLike === true ) ?
                                                                                 <form action="" onSubmit={removeLikePost}>
                                                                                     <button className='border-0 bg-transparent' onClick={()=>handleLikePost(post.post_id)}>
-<<<<<<< HEAD
                                                                                         <AiFillLike className='fs-3 text-primary' />
-=======
-                                                                                        <AiOutlineLike className='fs-3 text-light' />
-                                                                                        <p className="mb-0" style={{color : 'blue' , fontWeight : 'bold'}}>Liked</p>
->>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
                                                                                         {/* LIKE NUMBER */}
                                                                                     </button>
                                                                                 </form>
@@ -545,10 +477,6 @@ const Index = () => {
                                                                                 <form action=""  onSubmit={likePost}>
                                                                                     <button className='border-0 bg-transparent'  onClick={()=>handleLikePost(post.post_id)}>
                                                                                         <AiOutlineLike className='fs-3 text-light' />
-<<<<<<< HEAD
-=======
-                                                                                        <p className="mb-0" >Like</p>
->>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
                                                                                         {/* LIKE NUMBER */}
                                                                                     </button>
                                                                                 </form>

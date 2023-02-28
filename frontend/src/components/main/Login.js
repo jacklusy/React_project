@@ -53,11 +53,7 @@ console.log(users);
   }
   
       const getUser = ()=> {
-<<<<<<< HEAD
         axios.get('http://localhost/React/React_Project/backend/log_reg.php').then(function(response){
-=======
-        axios.get('http://localhost/React/React_project/backend/log_reg.php').then(function(response){
->>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
             setUsers(response.data)
         })
     }
