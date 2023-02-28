@@ -12,7 +12,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
 
-
   const navigate = useNavigate();
 
 

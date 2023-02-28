@@ -33,7 +33,8 @@ const Index = () => {
 
 
     function getPosts() {
-        axios.get(`http://localhost/React/React_project/backend/posts.php/`)
+        
+        axios.get(`http://localhost/React/React_project/backend/posts.php`)
             .then(response => {
                 setPosts(response.data);
                 getComments();
@@ -51,7 +52,7 @@ const Index = () => {
         formData.append("file", file);
         try {
             const response = await axios.post(
-                "http://localhost/React/React_project/backend/posts.php/", formData
+                "http://localhost/React/React_project/backend/posts.php", formData
             );
             console.log(response.data);
             // window.location.assign('/');
@@ -121,6 +122,7 @@ const Index = () => {
 
 
     function getComments() {
+
         axios.get(`http://localhost/React/React_project/backend/comments.php/`)
             .then(response => {
                 setComments(response.data);
@@ -204,6 +206,7 @@ const Index = () => {
       const removeLikePost = (e) => {
         e.preventDefault();
         console.log(inputs)
+
           axios.post('http://localhost/React/React_project/backend/likeDelete.php/' , inputs).then(
             getPosts()
           )
@@ -310,7 +313,7 @@ const Index = () => {
                                                                 {/* POST USER IMAGE */}
                                                                 <div className="me-3">
 
-                                                                    <img className="rounded-circle img-fluid" width={'60px'} src={require(`../images/${post.image}`)} alt="" />
+                                                                    {/* <img className="rounded-circle img-fluid" width={'60px'} src={require(`../images/${post.image}`)} alt="" /> */}
 
                                                                 </div>
                                                                 <div className="w-100">
@@ -384,7 +387,17 @@ const Index = () => {
                                                                 {/* IMAGE POST */}
                                                                 <div className="row-span-2 row-span-md-1 justify-content-center">
                                                                     <hr />
-                                                                    <img id={`imgPost${post.post_id}`}  className="img-thumnail rounded w-100" src={require(`../images/${post.post_image}`)} alt='' />
+                                                                    {post.post_image !== 'null' ?(
+                                                                    <p id={`post${post.post_id}`} className="mt-3 mb-4 pb-2">{post.content}</p>
+                                                                    ):(
+                                                                        <img className="rounded-circle img-fluid" width={'60px'} src={require(`../images/profile.jpg`)} alt="" />
+
+                                                                    )
+                                                                    }
+
+                                                                    {/* <img id={`imgPost${post.post_id}`}  className="img-thumnail rounded w-100" src={require(`../images/${post.post_image}`)} alt='' /> */}
+
+
                                                                 </div>
                                                             </>
                                                             :
