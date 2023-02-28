@@ -136,7 +136,7 @@ const Index = () => {
         e.preventDefault();
         console.log(inputs)
         axios.post('http://localhost/React/React_Project/backend/comments.php/', inputs).then(
-            window.location.assign('/home')
+            // window.location.assign('/home')
         )
     }
 
