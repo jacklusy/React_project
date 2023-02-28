@@ -37,6 +37,11 @@ const LeftSidebar = () => {
                   <a href="/Chat" ><i className="ri-pages-line" /><span>Friends</span><i className="ri-arrow-right-s-line iq-arrow-right" /></a>
                 </li>
 
+                
+                <li className>
+                  <a href="/Mygroups" ><i className="ri-pages-line" /><span>My Groups</span><i className="ri-arrow-right-s-line iq-arrow-right" /></a>
+                </li>
+
                 <li className=" " onClick={handleClick}>
                   <a  className>
                     <i className="ri-login-box-line"  /><span>Logout</span>

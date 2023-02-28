@@ -28,7 +28,7 @@ switch($method){
             $stmt =$conn->prepare($sql);
             $status = "accepted" ;
             $stmt->bindParam(':status', $status);
-            $stmt->bindParam(':id', $path[4]);
+            $stmt->bindParam(':id', $path[5]);
 
             $stmt->execute();
 

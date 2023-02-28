@@ -183,8 +183,8 @@ const Index = () => {
     // Likes
 
 
-    const getLikes = () => {
-        axios.get(`http://localhost/React/React_project/backend/likes.php/`)
+    const getLikes = async () => {
+        await axios.get(`http://localhost/React/React_project/backend/likes.php/`)
         .then(response => {
             setLikes(response.data);
         })
@@ -196,18 +196,18 @@ const Index = () => {
         setInputs({'user_id': user_id , 'post_id' : post_id})
       }
   
-      const likePost = (e) => {
+      const likePost = async (e) => {
         e.preventDefault();
         console.log(inputs)
-          axios.post('http://localhost/React/React_project/backend/likes.php/' , inputs).then(
+         await axios.post('http://localhost/React/React_project/backend/likes.php/' , inputs).then(
             getPosts()
           )
       }
-      const removeLikePost = (e) => {
+      const removeLikePost = async (e) => {
         e.preventDefault();
         console.log(inputs)
 
-          axios.post('http://localhost/React/React_project/backend/likeDelete.php/' , inputs).then(
+          await axios.post('http://localhost/React/React_project/backend/likeDelete.php/' , inputs).then(
             getPosts()
           )
       }
@@ -313,8 +313,13 @@ const Index = () => {
                                                                 {/* POST USER IMAGE */}
                                                                 <div className="me-3">
 
-                                                                    {/* <img className="rounded-circle img-fluid" width={'60px'} src={require(`../images/${post.image}`)} alt="" /> */}
+                                                                {post.post_image !== 'null' ?(
+                                                                    <p id={`post${post.post_id}`} className="mt-3 mb-4 pb-2">{post.content}</p>
+                                                                    ):(
+                                                                        <img className="rounded-circle img-fluid" width={'60px'} src={require(`../images/profile.jpg`)} alt="" />
 
+                                                                    )
+                                                                    }
                                                                 </div>
                                                                 <div className="w-100">
                                                                     <div className="d-flex justify-content-between">
@@ -387,15 +392,15 @@ const Index = () => {
                                                                 {/* IMAGE POST */}
                                                                 <div className="row-span-2 row-span-md-1 justify-content-center">
                                                                     <hr />
-                                                                    {post.post_image !== 'null' ?(
+                                                                    {/* {post.post_image !== 'null' ?(
                                                                     <p id={`post${post.post_id}`} className="mt-3 mb-4 pb-2">{post.content}</p>
                                                                     ):(
                                                                         <img className="rounded-circle img-fluid" width={'60px'} src={require(`../images/profile.jpg`)} alt="" />
 
                                                                     )
-                                                                    }
+                                                                    } */}
 
-                                                                    {/* <img id={`imgPost${post.post_id}`}  className="img-thumnail rounded w-100" src={require(`../images/${post.post_image}`)} alt='' /> */}
+                                                                    <img id={`imgPost${post.post_id}`}  className="img-thumnail rounded w-100" src={require(`../images/${post.post_image}`)} alt='' />
 
 
                                                                 </div>
