@@ -1,9 +1,40 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import { useEffect, useState} from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 <script src="https://kit.fontawesome.com/b56885f075.js" crossorigin="anonymous"></script>
 
 function Navbar() {
   let id= localStorage.getItem("Id");
+
+
+
+
+  const navigate = useNavigate()
+  const [inputs, setInputs]=useState({}); 
+  // const {id}= useParams();
+
+  useEffect(()=>{
+      getUsers();
+  },[] );
+
+
+  const getUsers = () => {
+      let id= localStorage.getItem("Id");
+      
+      axios.get(`http://localhost/React/React_project/backend/log_reg.php/${id}`,inputs)
+      .then(function(response){
+          console.log(response.data);
+          setInputs(response.data);
+      })
+    }
+
+
+
+
+
+
     return (
       <div className="iq-top-navbar">
       <div className="iq-navbar-custom">
@@ -116,14 +147,14 @@ function Navbar() {
                 <a href="/Profile" className="   d-flex align-items-center dropdown-toggle" id="drop-down-arrow" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <img src="/images/user/1.jpg" className="img-fluid rounded-circle me-3" alt="user" />
                   <div className="caption">
-                    <h6 className="mb-0 line-height">Bni Cyst</h6>
+                    <h6 className="mb-0 line-height"> { inputs.first_name } <span> { inputs.last_name } </span></h6>
                   </div>
                 </a>
                 <div className="sub-drop dropdown-menu caption-menu" aria-labelledby="drop-down-arrow">
                   <div className="card shadow-none m-0">
                     <div className="card-header  bg-primary">
                       <div className="header-title">
-                        <h5 className="mb-0 text-white">Hello Bni Cyst</h5>
+                        <h5 className="mb-0 text-white">Hello { inputs.first_name } <span> { inputs.last_name } </span></h5>
                         <span className="text-white font-size-12">Available</span>
                       </div>
                     </div>

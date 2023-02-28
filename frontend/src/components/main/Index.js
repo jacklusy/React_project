@@ -126,7 +126,9 @@ const Index = () => {
 
 
     function getComments() {
+
         axios.get(`http://localhost/React/React_Project/backend/comments.php/`)
+
             .then(response => {
                 setComments(response.data);
             })
@@ -212,7 +214,9 @@ const Index = () => {
     const removeLikePost = (e) => {
         e.preventDefault();
         console.log(inputs)
+
           axios.post('http://localhost/React/React_Project/backend/likeDelete.php/' , inputs).then(
+
             getPosts()
         )
     }
@@ -321,11 +325,13 @@ const Index = () => {
                                                                     <img className="rounded-circle img-fluid" width={'60px'} src={require(`../images/${post.image}`)} alt="" />
 
 
+
                                                                    ):(
                                                                     <img className="rounded-circle img-fluid" width={'60px'} src={require(`../images/profile.jpg`)} alt="" />
 
                                                                    )}
                       */}
+
 
 
                                                                 </div>
