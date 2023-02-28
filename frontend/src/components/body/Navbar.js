@@ -74,6 +74,8 @@ function Navbar() {
                       <small className="badge  bg-light text-dark ">4</small>
                     </div>
                     <div className="card-body p-0">
+
+                      {/* FRIND REEQUIST */}
                       <div className="iq-friend-request">
                         <div className="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
                           <div className="d-flex align-items-center">
@@ -89,52 +91,8 @@ function Navbar() {
                           </div>
                         </div>
                       </div>
-                      <div className="iq-friend-request">
-                        <div className="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
-                          <div className="d-flex align-items-center">
-                            <img className="avatar-40 rounded" src="/images/user/02.jpg" alt="" />
-                            <div className="ms-3">
-                              <h6 className="mb-0 ">Lucy Tania</h6>
-                              <p className="mb-0">12 friends</p>
-                            </div>
-                          </div>
-                          <div className="d-flex align-items-center">
-                            <a href="javascript:void();" className="me-3 btn btn-primary rounded">Confirm</a>
-                            <a href="javascript:void();" className="me-3 btn btn-secondary rounded">Delete Request</a>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="iq-friend-request">
-                        <div className="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
-                          <div className="d-flex align-items-center">
-                            <img className="avatar-40 rounded" src="/images/user/03.jpg" alt="" />
-                            <div className=" ms-3">
-                              <h6 className="mb-0 ">Manny Petty</h6>
-                              <p className="mb-0">3 friends</p>
-                            </div>
-                          </div>
-                          <div className="d-flex align-items-center">
-                            <a href="javascript:void();" className="me-3 btn btn-primary rounded">Confirm</a>
-                            <a href="javascript:void();" className="me-3 btn btn-secondary rounded">Delete Request</a>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="iq-friend-request">
-                        <div className="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
-                          <div className="d-flex align-items-center">
-                            <img className="avatar-40 rounded" src="/images/user/04.jpg" alt="" />
-                            <div className="ms-3">
-                              <h6 className="mb-0 ">Marsha Mello</h6>
-                              <p className="mb-0">15 friends</p>
-                            </div>
-                          </div>
-                          <div className="d-flex align-items-center">
-                            <a href="javascript:void();" className="me-3 btn btn-primary rounded">Confirm</a>
-                            <a href="javascript:void();" className="me-3 btn btn-secondary rounded">Delete Request</a>
-                          </div>
-                        </div>
-                      </div>
                       <div className="text-center">
+                        {/* SHOW ALL PEOPLE IN PAGE WITH ALL GROUP */}
                         <a href="#" className=" btn text-primary">View More Request</a>
                       </div>
                     </div>

@@ -226,9 +226,9 @@ const Index = () => {
             <RightSidebar />
             <LeftSidebar />
             <div>
-                <meta charSet="utf-8" />
+                {/* <meta charSet="utf-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-                <title>Posts</title>
+                <title>Posts</title> */}
 
                 <div className="wrapper">
                     <div id="content-page" className="content-page">
@@ -645,10 +645,6 @@ const Index = () => {
                                         })}
                                     </div>
                                 </div>
-
-
-                            
-                              
                             </div>
                         </div>
                     </div>
