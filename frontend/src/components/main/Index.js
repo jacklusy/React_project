@@ -33,12 +33,8 @@ const Index = () => {
 
 
     function getPosts() {
-<<<<<<< HEAD
-        axios.get(`http://localhost/React/React_project/backend/posts.php/`)
-=======
         
         axios.get(`http://localhost/React/React_project/backend/posts.php`)
->>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
             .then(response => {
                 setPosts(response.data);
                 getComments();
@@ -56,11 +52,7 @@ const Index = () => {
         formData.append("file", file);
         try {
             const response = await axios.post(
-<<<<<<< HEAD
-                "http://localhost/React/React_project/backend/posts.php/", formData
-=======
                 "http://localhost/React/React_project/backend/posts.php", formData
->>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
             );
             console.log(response.data);
             // window.location.assign('/');
@@ -130,10 +122,6 @@ const Index = () => {
 
 
     function getComments() {
-<<<<<<< HEAD
-=======
-
->>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
         axios.get(`http://localhost/React/React_project/backend/comments.php/`)
             .then(response => {
                 setComments(response.data);
@@ -217,10 +205,6 @@ const Index = () => {
       const removeLikePost = (e) => {
         e.preventDefault();
         console.log(inputs)
-<<<<<<< HEAD
-=======
-
->>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
           axios.post('http://localhost/React/React_project/backend/likeDelete.php/' , inputs).then(
             getPosts()
           )
@@ -327,11 +311,8 @@ const Index = () => {
                                                                 {/* POST USER IMAGE */}
                                                                 <div className="me-3">
 
-<<<<<<< HEAD
-                                                                <img className="rounded-circle img-fluid" width={'60px'} src={require(`../images/${post.image}`)} alt="" /> 
-=======
-                                                                    {/* <img className="rounded-circle img-fluid" width={'60px'} src={require(`../images/${post.image}`)} alt="" /> */}
->>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
+                                                               
+                                                                    {/*  <img className="rounded-circle img-fluid" width={'60px'} src={require(`../images/${post.image}`)} alt="" />  */}
 
                                                                 </div>
                                                                 <div className="w-100">

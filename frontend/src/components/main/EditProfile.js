@@ -131,6 +131,12 @@ const EditProfile = () => {
                                                                 <label htmlFor="dob" className="form-label">Phone Number</label>
                                                                 <input className="form-control" name='phone' value={inputs.phone} id="phone"    onChange={handleChange}/>
                                                             </div>
+
+                                                            <div className="form-group col-sm-6">
+                                                                <label htmlFor="cname" className="form-label">Image</label>
+                                                                <input type="file" className="form-control" name='image'   id="image"    onChange={handleChange}/>
+                                                            </div>
+                                                            
                                                         </div>
                                                         <button type="submit" className="btn btn-primary me-2">Submit</button>
                                                         <button type="reset" className="btn bg-soft-danger">Cancle</button>
