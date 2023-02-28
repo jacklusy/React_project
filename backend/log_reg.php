@@ -79,7 +79,7 @@ switch($method){
                     $created_at = date('Y-m-d');
                 // $db->bindValue(':id' , $user->id);
                 // var_dump($user);
-                $db->bindValue(':id' , $user->id); // to reach the name email and mobile from data 
+                $db->bindValue(':id' , $user->id);  
                 $db->bindValue(':first_name' , $user->first_name); // to reach the name email and mobile from data 
                 $db->bindValue(':last_name' , $user->last_name); // to reach the name email and mobile from data 
                 $db->bindValue(':email' , $user->email);

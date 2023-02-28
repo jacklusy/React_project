@@ -33,7 +33,7 @@ const Index = () => {
 
 
     function getPosts() {
-        axios.get(`http://localhost/React/Group6_React/backend/posts.php/`)
+        axios.get(`http://localhost/React/React_project/backend/posts.php/`)
             .then(response => {
                 setPosts(response.data);
                 getComments();
@@ -51,7 +51,7 @@ const Index = () => {
         formData.append("file", file);
         try {
             const response = await axios.post(
-                "http://localhost/React/Group6_React/backend/posts.php/", formData
+                "http://localhost/React/React_project/backend/posts.php/", formData
             );
             console.log(response.data);
             // window.location.assign('/');
@@ -99,7 +99,7 @@ const Index = () => {
 
         try {
             const response = await axios.post(
-                "http://localhost/React/Group6_React/backend/postEdit.php/", formEditData
+                "http://localhost/React/React_project/backend/postEdit.php/", formEditData
             );
             console.log(response.data);
             window.location.assign('/home');
@@ -111,7 +111,7 @@ const Index = () => {
 
 
     const deletePost = (id) => {
-        axios.delete(`http://localhost/React/Group6_React/backend/posts.php/${id}`).then(function (response) {
+        axios.delete(`http://localhost/React/React_project/backend/posts.php/${id}`).then(function (response) {
             window.location.assign('/home');
         })
     }
@@ -123,7 +123,7 @@ const Index = () => {
 
 
     function getComments() {
-        axios.get(`http://localhost/React/Group6_React/backend/comments.php/`)
+        axios.get(`http://localhost/React/React_project/backend/comments.php/`)
             .then(response => {
                 setComments(response.data);
             })
@@ -132,13 +132,13 @@ const Index = () => {
     const handleCreateComment = (e) => {
         e.preventDefault();
         console.log(inputs)
-        axios.post('http://localhost/React/Group6_React/backend/comments.php/', inputs).then(
+        axios.post('http://localhost/React/React_project/backend/comments.php/', inputs).then(
             window.location.assign('/home')
         )
     }
 
     const deleteComment = (id) => {
-        axios.delete(`http://localhost/React/Group6_React/backend/comments.php/${id}`).then(function (response) {
+        axios.delete(`http://localhost/React/React_project/backend/comments.php/${id}`).then(function (response) {
             getComments();
         })
     }
@@ -157,7 +157,7 @@ const Index = () => {
 
     const handleEditCommentSubmit = (e) => {
         e.preventDefault();
-        axios.put('http://localhost/React/Group6_React/backend/comments.php/', inputs).then(
+        axios.put('http://localhost/React/React_project/backend/comments.php/', inputs).then(
             window.location.assign('/')
         )
     }
@@ -184,7 +184,7 @@ const Index = () => {
 
 
     const getLikes = () => {
-        axios.get(`http://localhost/React/Group6_React/backend/likes.php/`)
+        axios.get(`http://localhost/React/React_project/backend/likes.php/`)
         .then(response => {
             setLikes(response.data);
         })
@@ -199,14 +199,14 @@ const Index = () => {
       const likePost = (e) => {
         e.preventDefault();
         console.log(inputs)
-          axios.post('http://localhost/React/Group6_React/backend/likes.php/' , inputs).then(
+          axios.post('http://localhost/React/React_project/backend/likes.php/' , inputs).then(
             getPosts()
           )
       }
       const removeLikePost = (e) => {
         e.preventDefault();
         console.log(inputs)
-          axios.post('http://localhost/React/Group6_React/backend/likeDelete.php/' , inputs).then(
+          axios.post('http://localhost/React/React_project/backend/likeDelete.php/' , inputs).then(
             getPosts()
           )
       }
@@ -312,7 +312,7 @@ const Index = () => {
                                                                 {/* POST USER IMAGE */}
                                                                 <div className="me-3">
 
-                                                                    <img className="rounded-circle img-fluid" width={'60px'} src={require(`../images/${post.image}`)} alt="" />
+                                                                <img className="rounded-circle img-fluid" width={'60px'} src={require(`../images/${post.image}`)} alt="" /> 
 
                                                                 </div>
                                                                 <div className="w-100">
