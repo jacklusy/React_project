@@ -75,7 +75,7 @@ switch($method){
                     echo "Error decoding JSON: " . json_last_error_msg();
                 } else {
                     
-                    $db = crud::connect()->prepare("UPDATE users SET first_name=:first_name, last_name=:last_name, email=:email, password=:password, phone=:phone, Created_at=:created WHERE id=:id");
+                    $db = crud::connect()->prepare("UPDATE users SET first_name=:first_name, last_name=:last_name, email=:email, password=:password, phone=:phone,  image=:image, Created_at=:created WHERE id=:id");
                     $created_at = date('Y-m-d');
                 // $db->bindValue(':id' , $user->id);
                 // var_dump($user);
@@ -85,6 +85,7 @@ switch($method){
                 $db->bindValue(':email' , $user->email);
                 $db->bindValue(':password' , $user->password);
                 $db->bindValue(':phone' , $user->phone);
+                $db->bindValue(':image' , $user->image);
                 $db->bindValue(':created' , $created_at);
                 if($db -> execute()) {
                     $response = ['status' =>1, 'message'=>"Record updated succcesfully"];
