@@ -229,7 +229,7 @@ const Index = () => {
                     <div id="content-page" className="content-page">
                         <div className="container">
                             <div className="row">
-                                <div className="col-lg-8 row m-0 p-0">
+                                <div className="col-lg-12 row m-0 p-0">
                                     <div className="col-sm-12">
                                         {/* POST FORM */}
                                         <form id="post-modal-data" onSubmit={handleImagePost} className="card card-block card-stretch ">
@@ -665,162 +665,10 @@ const Index = () => {
                                         })}
                                     </div>
                                 </div>
-                                <div className="col-lg-4">
-                                    <div className="card">
-                                        <div className="card-header d-flex justify-content-between">
-                                            <div className="header-title">
-                                                <h4 className="card-title">Stories</h4>
-                                            </div>
-                                        </div>
-                                        <div className="card-body">
-                                            <ul className="media-story list-inline m-0 p-0">
-                                                <li className="d-flex mb-3 align-items-center">
-                                                    <i className="ri-add-line" />
-                                                    <div className="stories-data ms-3">
-                                                        <h5>Creat Your Story</h5>
-                                                        <p className="mb-0">time to story</p>
-                                                    </div>
-                                                </li>
-                                                <li className="d-flex mb-3 align-items-center active">
-                                                    <img src="/images/page-img/s2.jpg" alt="story-img" className="rounded-circle img-fluid" />
-                                                    <div className="stories-data ms-3">
-                                                        <h5>Anna Mull</h5>
-                                                        <p className="mb-0">1 hour ago</p>
-                                                    </div>
-                                                </li>
-                                                <li className="d-flex mb-3 align-items-center">
-                                                    <img src="/images/page-img/s3.jpg" alt="story-img" className="rounded-circle img-fluid" />
-                                                    <div className="stories-data ms-3">
-                                                        <h5>Ira Membrit</h5>
-                                                        <p className="mb-0">4 hour ago</p>
-                                                    </div>
-                                                </li>
-                                                <li className="d-flex align-items-center">
-                                                    <img src="/images/page-img/s1.jpg" alt="story-img" className="rounded-circle img-fluid" />
-                                                    <div className="stories-data ms-3">
-                                                        <h5>Bob Frapples</h5>
-                                                        <p className="mb-0">9 hour ago</p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                            <a href="#" className="btn btn-primary d-block mt-3">See All</a>
-                                        </div>
-                                    </div>
-                                    <div className="card">
-                                        <div className="card-header d-flex justify-content-between">
-                                            <div className="header-title">
-                                                <h4 className="card-title">Events</h4>
-                                            </div>
-                                            <div className="card-header-toolbar d-flex align-items-center">
-                                                <div className="dropdown">
-                                                    <div className="dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" role="button">
-                                                        <i className="ri-more-fill h4" />
-                                                    </div>
-                                                    <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style={{}}>
-                                                        <a className="dropdown-item" href="#"><i className="ri-eye-fill me-2" />View</a>
-                                                        <a className="dropdown-item" href="#"><i className="ri-delete-bin-6-fill me-2" />Delete</a>
-                                                        <a className="dropdown-item" href="#"><i className="ri-pencil-fill me-2" />Edit</a>
-                                                        <a className="dropdown-item" href="#"><i className="ri-printer-fill me-2" />Print</a>
-                                                        <a className="dropdown-item" href="#"><i className="ri-file-download-fill me-2" />Download</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="card-body">
-                                            <ul className="media-story list-inline m-0 p-0">
-                                                <li className="d-flex mb-4 align-items-center ">
-                                                    <img src="/images/page-img/s4.jpg" alt="story-img" className="rounded-circle img-fluid" />
-                                                    <div className="stories-data ms-3">
-                                                        <h5>Web Workshop</h5>
-                                                        <p className="mb-0">1 hour ago</p>
-                                                    </div>
-                                                </li>
-                                                <li className="d-flex align-items-center">
-                                                    <img src="/images/page-img/s5.jpg" alt="story-img" className="rounded-circle img-fluid" />
-                                                    <div className="stories-data ms-3">
-                                                        <h5>Fun Events and Festivals</h5>
-                                                        <p className="mb-0">1 hour ago</p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div className="card">
-                                        <div className="card-header d-flex justify-content-between">
-                                            <div className="header-title">
-                                                <h4 className="card-title">Upcoming Birthday</h4>
-                                            </div>
-                                        </div>
-                                        <div className="card-body">
-                                            <ul className="media-story list-inline m-0 p-0">
-                                                <li className="d-flex mb-4 align-items-center">
-                                                    <img src="/images/user/01.jpg" alt="story-img" className="rounded-circle img-fluid" />
-                                                    <div className="stories-data ms-3">
-                                                        <h5>Anna Sthesia</h5>
-                                                        <p className="mb-0">Today</p>
-                                                    </div>
-                                                </li>
-                                                <li className="d-flex align-items-center">
-                                                    <img src="/images/user/02.jpg" alt="story-img" className="rounded-circle img-fluid" />
-                                                    <div className="stories-data ms-3">
-                                                        <h5>Paul Molive</h5>
-                                                        <p className="mb-0">Tomorrow</p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div className="card">
-                                        <div className="card-header d-flex justify-content-between">
-                                            <div className="header-title">
-                                                <h4 className="card-title">Suggested Pages</h4>
-                                            </div>
-                                            <div className="card-header-toolbar d-flex align-items-center">
-                                                <div className="dropdown">
-                                                    <div className="dropdown-toggle" id="dropdownMenuButton01" data-bs-toggle="dropdown" aria-expanded="false" role="button">
-                                                        <i className="ri-more-fill h4" />
-                                                    </div>
-                                                    <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton01">
-                                                        <a className="dropdown-item" href="#"><i className="ri-eye-fill me-2" />View</a>
-                                                        <a className="dropdown-item" href="#"><i className="ri-delete-bin-6-fill me-2" />Delete</a>
-                                                        <a className="dropdown-item" href="#"><i className="ri-pencil-fill me-2" />Edit</a>
-                                                        <a className="dropdown-item" href="#"><i className="ri-printer-fill me-2" />Print</a>
-                                                        <a className="dropdown-item" href="#"><i className="ri-file-download-fill me-2" />Download</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="card-body">
-                                            <ul className="suggested-page-story m-0 p-0 list-inline">
-                                                <li className="mb-3">
-                                                    <div className="d-flex align-items-center mb-3">
-                                                        <img src="/images/page-img/42.png" alt="story-img" className="rounded-circle img-fluid avatar-50" />
-                                                        <div className="stories-data ms-3">
-                                                            <h5>Iqonic Studio</h5>
-                                                            <p className="mb-0">Lorem Ipsum</p>
-                                                        </div>
-                                                    </div>
-                                                    <img src="/images/small/img-1.jpg" className="img-fluid rounded" alt="Responsive image" />
-                                                    <div className="mt-3"><a href="#" className="btn d-block"><i className="ri-thumb-up-line me-2" /> Like Page</a></div>
-                                                </li>
-                                                <li className>
-                                                    <div className="d-flex align-items-center mb-3">
-                                                        <img src="/images/page-img/42.png" alt="story-img" className="rounded-circle img-fluid avatar-50" />
-                                                        <div className="stories-data ms-3">
-                                                            <h5>Cakes &amp; Bakes </h5>
-                                                            <p className="mb-0">Lorem Ipsum</p>
-                                                        </div>
-                                                    </div>
-                                                    <img src="/images/small/img-2.jpg" className="img-fluid rounded" alt="Responsive image" />
-                                                    <div className="mt-3"><a href="#" className="btn d-block"><i className="ri-thumb-up-line me-2" /> Like Page</a></div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-sm-12 text-center">
-                                    <img src="/images/page-img/page-load-loader.gif" alt="loader" style={{ height: '100px' }} />
-                                </div>
+
+
+                            
+                              
                             </div>
                         </div>
                     </div>
