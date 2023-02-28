@@ -34,12 +34,15 @@ import Login from "./components/main/Login";
 import Register from "./components/main/Register";
 import { ToastContainer } from "react-toastify";
 import Mygroups from "./components/main/MyGroups";
+import ErrorMessage from "./components/main/messageLogin";
 //import Login from "./components/main/Login";
 
 
 
 const App = () => {
-  
+  const isLoggedin = sessionStorage.getItem('isloggedin');
+  let isLoggedIn = JSON.parse(isLoggedin);
+  console.log(isLoggedin);
   return (
 
     <div>
@@ -56,28 +59,45 @@ pauseOnHover
 >
 </ToastContainer>
 
-      <Router>
+<Router>
+        {isLoggedIn ? (
+          <Routes>
+            <Route exact path="/home" element={<Index />} />
 
-        <Routes>
-          {/* <Route path="/" element={ isAuthenticated ? <HomePage  /> : <Login />} /> */}
-          <Route exact path="/home" element={<Index/>} />
+            <Route exact path="/Profile" element={<Profile />} />
+            <Route exact path="/EditProfile/:id/edit" element={<EditProfile />} />
+            <Route exact path="/ProfileForum" element={<ProfileForum />} />
 
-          <Route exact path="/" element={<Login />} />
-          <Route exact path="/Register" element={<Register />} />
+            <Route exact path="/Group" element={<Group />} />
+            <Route exact path="/GroupDetails" element={<GroupDetails />} />
 
-          <Route exact path="/Profile" element={<Profile />} />
-          <Route exact path="/EditProfile/:id/edit" element={<EditProfile />} />
-          <Route exact path="/ProfileForum" element={<ProfileForum />} />
+            <Route exact path="/Chat" element={<Chat />} />
+            <Route exact path="/Email" element={<Email />} />
+            {/* <Route exact path="*" element={<Login />} /> */}
 
-          <Route exact path="/Group" element={<Group />} />
-          <Route exact path="/groups/:id/show" element={<GroupDetails />} />
-          <Route exact path="/MyGroups" element={<Mygroups />} />
+          </Routes>
+        )
+          :
+          (
+            <Routes>
+              <Route exact path="/" element={<Login />} />
+              <Route exact path="/Register" element={<Register />} />
 
-          <Route exact path="/Chat" element={<Chat />} />
-          <Route exact path="/Email" element={<Email />} />
+              <Route exact path="/home" element={<ErrorMessage />} />
 
-        </Routes>
-      </Router>
+              <Route exact path="/Profile" element={<ErrorMessage />} />
+              <Route exact path="/EditProfile/:id/edit" element={<ErrorMessage />} />
+              <Route exact path="/ProfileForum" element={<ErrorMessage />} />
+
+              <Route exact path="/Group" element={<ErrorMessage />} />
+              <Route exact path="/GroupDetails" element={<ErrorMessage />} />
+
+              <Route exact path="/Chat" element={<ErrorMessage />} />
+              <Route exact path="/Email" element={<ErrorMessage />} />
+            </Routes>
+          )
+        }
+      </Router> 
     </div>
   );
 }

@@ -33,28 +33,31 @@ console.log(users);
       if (email.length === 0 || password.length === 0) {
         setError(true)
       } else {
-        if (user.email == email && user.password == password && Object.entries(email).length > 0 && Object.entries(password).length > 0) {
-
+        if (user.email === email && user.password === password && Object.entries(email).length > 0 && Object.entries(password).length > 0) {
           localStorage.setItem('Id', JSON.stringify(user.id));
           localStorage.setItem('Email', JSON.stringify(user.email));
           localStorage.setItem('Password', JSON.stringify(user.password));
+          let isloggedin = JSON.stringify(true)
+          sessionStorage.setItem('isloggedin', isloggedin);
           toast.success('Welcome User ❤️');
-          navigate('/home');
+          window.location.assign('/home'); ;
           return;
         }
 
       }
     }
+    let isloggedin = JSON.stringify(false)
+    sessionStorage.setItem('isloggedin', isloggedin);
+
     toast.error('Wrong email or password');
     console.log("Wrong email or password");
-
 
 
 
   }
   
       const getUser = ()=> {
-        axios.get('http://localhost/React/React_project/backend/log_reg.php').then(function(response){
+        axios.get('http://localhost/React/React_Project/backend/log_reg.php').then(function(response){
             setUsers(response.data)
         })
     }

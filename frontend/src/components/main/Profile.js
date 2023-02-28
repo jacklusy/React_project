@@ -3,8 +3,55 @@ import Footer from '../body/Footer';
 import LeftSidebar from '../body/LeftSidebar';
 import Navbar from '../body/Navbar';
 import RightSidebar from '../body/RightSidebar';
+import { useEffect, useState} from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+// import { toast } from 'react-toastify';
 
 const Profile = () => {
+
+
+
+
+
+
+
+
+    const navigate = useNavigate()
+    const [inputs, setInputs]=useState({}); 
+    // const {id}= useParams();
+
+    useEffect(()=>{
+        getUsers();
+    },[] );
+
+
+    const getUsers = () => {
+
+        let id= localStorage.getItem("Id");
+        
+        axios.get(`http://localhost/React/React_project/backend/log_reg.php/${id}`,inputs)
+        .then(function(response){
+            console.log(response.data);
+            setInputs(response.data);
+        })
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     return (
         <div>
         <Navbar />
@@ -27,62 +74,23 @@ const Profile = () => {
                                 <div className="profile-header">
                                 <div className="position-relative">
                                     <img src="/images/page-img/profile-bg1.jpg" alt="profile-bg" className="rounded img-fluid" />
-                                    <ul className="header-nav list-inline d-flex flex-wrap justify-end p-0 m-0">
-                                    <li><a href="#"><i className="ri-pencil-line" /></a></li>
-                                    <li><a href="#"><i className="ri-settings-4-line" /></a></li>
-                                    </ul>
+                                    
                                 </div>
                                 <div className="user-detail text-center mb-3">
                                     <div className="profile-img">
                                     <img src="/images/user/11.png" alt="profile-img" className="avatar-130 img-fluid" />
                                     </div>
                                     <div className="profile-detail">
-                                    <h3 className>Bni Cyst</h3>
+                                    <h3 className> { inputs.first_name } <span> { inputs.last_name } </span></h3>
                                     </div>
                                 </div>
                                 <div className="profile-info p-3 d-flex align-items-center justify-content-between position-relative">
-                                    <div className="social-links">
-                                    <ul className="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">
-                                        <li className="text-center pe-3">
-                                        <a href="#"><img src="/images/icon/08.png" className="img-fluid rounded" alt="facebook" /></a>
-                                        </li>
-                                        <li className="text-center pe-3">
-                                        <a href="#"><img src="/images/icon/09.png" className="img-fluid rounded" alt="Twitter" /></a>
-                                        </li>
-                                        <li className="text-center pe-3">
-                                        <a href="#"><img src="/images/icon/10.png" className="img-fluid rounded" alt="Instagram" /></a>
-                                        </li>
-                                        <li className="text-center pe-3">
-                                        <a href="#"><img src="/images/icon/11.png" className="img-fluid rounded" alt="Google plus" /></a>
-                                        </li>
-                                        <li className="text-center pe-3">
-                                        <a href="#"><img src="/images/icon/12.png" className="img-fluid rounded" alt="You tube" /></a>
-                                        </li>
-                                        <li className="text-center md-pe-3 pe-0">
-                                        <a href="#"><img src="/images/icon/13.png" className="img-fluid rounded" alt="linkedin" /></a>
-                                        </li>
-                                    </ul>
-                                    </div>
-                                    <div className="social-info">
-                                    <ul className="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">
-                                        <li className="text-center ps-3">
-                                        <h6>Posts</h6>
-                                        <p className="mb-0">690</p>
-                                        </li>
-                                        <li className="text-center ps-3">
-                                        <h6>Followers</h6>
-                                        <p className="mb-0">206</p>
-                                        </li>
-                                        <li className="text-center ps-3">
-                                        <h6>Following</h6>
-                                        <p className="mb-0">100</p>
-                                        </li>
-                                    </ul>
-                                    </div>
+                                  
                                 </div>
                                 </div>
                             </div>
                             </div>
+
                             <div className="card">
                             <div className="card-body p-0">
                                 <div className="user-tabing">
@@ -90,19 +98,16 @@ const Profile = () => {
                                     <li className="nav-item col-12 col-sm-3 p-0">
                                     <a className="nav-link active" href="#pills-timeline-tab" data-bs-toggle="pill" data-bs-target="#timeline" role="button">Timeline</a>
                                     </li>
+                                   
                                     <li className="nav-item col-12 col-sm-3 p-0">
-                                    <a className="nav-link" href="#pills-about-tab" data-bs-toggle="pill" data-bs-target="#about" role="button">About</a>
+                                    <a className="nav-link" href="#pills-friends-tab" data-bs-toggle="pill" data-bs-target="#friends" role="button"> Friend Request</a>
                                     </li>
-                                    <li className="nav-item col-12 col-sm-3 p-0">
-                                    <a className="nav-link" href="#pills-friends-tab" data-bs-toggle="pill" data-bs-target="#friends" role="button">Friends</a>
-                                    </li>
-                                    <li className="nav-item col-12 col-sm-3 p-0">
-                                    <a className="nav-link" href="#pills-photos-tab" data-bs-toggle="pill" data-bs-target="#photos" role="button">Photos</a>
-                                    </li>
+                                  
                                 </ul>
                                 </div>
                             </div>
                             </div>
+
                         </div>
                         <div className="col-sm-12">
                             <div className="tab-content">
@@ -111,161 +116,21 @@ const Profile = () => {
                                 <div className="row">
                                     <div className="col-lg-4">
                                     <div className="card">
-                                        <div className="card-body">
-                                        <a href="#"><span className="badge badge-pill bg-primary font-weight-normal ms-auto me-1"><i className="ri-star-line" /></span> 27 Items for yoou</a>
-                                        </div>
+                                      
                                     </div>
-                                    <div className="card">
-                                        <div className="card-header d-flex justify-content-between">
-                                        <div className="header-title">
-                                            <h4 className="card-title">Life Event</h4>
-                                        </div>
-                                        <div className="card-header-toolbar d-flex align-items-center">
-                                            <p className="m-0"><a href="javacsript:void();"> Create </a></p>
-                                        </div>
-                                        </div>
-                                        <div className="card-body">
-                                        <div className="row">
-                                            <div className="col-sm-12">
-                                            <div className="event-post position-relative">
-                                                <a href="#"><img src="/images/page-img/07.jpg" alt="gallary-image" className="img-fluid rounded" /></a>
-                                                <div className="job-icon-position">
-                                                <div className="job-icon bg-primary p-2 d-inline-block rounded-circle"><i className="ri-briefcase-line text-white" /></div>
-                                                </div>
-                                                <div className="card-body text-center p-2">
-                                                <h5>Started New Job at Apple</h5>
-                                                <p>January 24, 2019</p>
-                                                </div>
-                                            </div>
-                                            </div>
-                                            <div className="col-sm-12">
-                                            <div className="event-post position-relative">
-                                                <a href="#"><img src="/images/page-img/06.jpg" alt="gallary-image" className="img-fluid rounded" /></a>
-                                                <div className="job-icon-position">
-                                                <div className="job-icon bg-primary p-2 d-inline-block rounded-circle"><i className="ri-briefcase-line text-white" /></div>
-                                                </div>
-                                                <div className="card-body text-center p-2">
-                                                <h5>Freelance Photographer</h5>
-                                                <p className="mb-0">January 24, 2019</p>
-                                                </div>
-                                            </div>
-                                            </div>
-                                        </div>
-                                        </div>
+                                     
+                                    
+                                  
                                     </div>
-                                    <div className="card">
-                                        <div className="card-header d-flex justify-content-between">
-                                        <div className="header-title">
-                                            <h4 className="card-title">Photos</h4>
-                                        </div>
-                                        <div className="card-header-toolbar d-flex align-items-center">
-                                            <p className="m-0"><a href="javacsript:void();">Add Photo </a></p>
-                                        </div>
-                                        </div>
-                                        <div className="card-body">
-                                        <ul className="profile-img-gallary p-0 m-0 list-unstyled">
-                                            <li className><a href="#"><img src="/images/page-img/g1.jpg" alt="gallary-image" className="img-fluid" /></a></li>
-                                            <li className><a href="#"><img src="/images/page-img/g2.jpg" alt="gallary-image" className="img-fluid" /></a></li>
-                                            <li className><a href="#"><img src="/images/page-img/g3.jpg" alt="gallary-image" className="img-fluid" /></a></li>
-                                            <li className><a href="#"><img src="/images/page-img/g4.jpg" alt="gallary-image" className="img-fluid" /></a></li>
-                                            <li className><a href="#"><img src="/images/page-img/g5.jpg" alt="gallary-image" className="img-fluid" /></a></li>
-                                            <li className><a href="#"><img src="/images/page-img/g6.jpg" alt="gallary-image" className="img-fluid" /></a></li>
-                                            <li className><a href="#"><img src="/images/page-img/g7.jpg" alt="gallary-image" className="img-fluid" /></a></li>
-                                            <li className><a href="#"><img src="/images/page-img/g8.jpg" alt="gallary-image" className="img-fluid" /></a></li>
-                                            <li className><a href="#"><img src="/images/page-img/g9.jpg" alt="gallary-image" className="img-fluid" /></a></li>
-                                        </ul>
-                                        </div>
-                                    </div>
-                                    <div className="card">
-                                        <div className="card-header d-flex justify-content-between">
-                                        <div className="header-title">
-                                            <h4 className="card-title">Friends</h4>
-                                        </div>
-                                        <div className="card-header-toolbar d-flex align-items-center">
-                                            <p className="m-0"><a href="javacsript:void();">Add New </a></p>
-                                        </div>
-                                        </div>
-                                        <div className="card-body">
-                                        <ul className="profile-img-gallary p-0 m-0 list-unstyled">
-                                            <li className>
-                                            <a href="#">
-                                                <img src="/images/user/05.jpg" alt="gallary-image" className="img-fluid" /></a>
-                                            <h6 className="mt-2 text-center">Anna Rexia</h6>
-                                            </li>
-                                            <li className>
-                                            <a href="#"><img src="/images/user/06.jpg" alt="gallary-image" className="img-fluid" /></a>
-                                            <h6 className="mt-2 text-center">Tara Zona</h6>
-                                            </li>
-                                            <li className>
-                                            <a href="#"><img src="/images/user/07.jpg" alt="gallary-image" className="img-fluid" /></a>
-                                            <h6 className="mt-2 text-center">Polly Tech</h6>
-                                            </li>
-                                            <li className>
-                                            <a href="#"><img src="/images/user/08.jpg" alt="gallary-image" className="img-fluid" /></a>
-                                            <h6 className="mt-2 text-center">Bill Emia</h6>
-                                            </li>
-                                            <li className>
-                                            <a href="#"><img src="/images/user/09.jpg" alt="gallary-image" className="img-fluid" /></a>
-                                            <h6 className="mt-2 text-center">Moe Fugga</h6>
-                                            </li>
-                                            <li className>
-                                            <a href="#"><img src="/images/user/10.jpg" alt="gallary-image" className="img-fluid" /></a>
-                                            <h6 className="mt-2 text-center">Hal Appeno </h6>
-                                            </li>
-                                            <li className>
-                                            <a href="#"><img src="/images/user/07.jpg" alt="gallary-image" className="img-fluid" /></a>
-                                            <h6 className="mt-2 text-center">Zack Lee</h6>
-                                            </li>
-                                            <li className>
-                                            <a href="#"><img src="/images/user/06.jpg" alt="gallary-image" className="img-fluid" /></a>
-                                            <h6 className="mt-2 text-center">Terry Aki</h6>
-                                            </li>
-                                            <li className>
-                                            <a href="#"><img src="/images/user/05.jpg" alt="gallary-image" className="img-fluid" /></a>
-                                            <h6 className="mt-2 text-center">Greta Life</h6>
-                                            </li>
-                                        </ul>
-                                        </div>
-                                    </div>
-                                    </div>
-                                    <div className="col-lg-8">
+                                    <div className="col-lg-12">
                                     <div id="post-modal-data" className="card">
-                                        <div className="card-header d-flex justify-content-between">
-                                        <div className="header-title">
-                                            <h4 className="card-title">Create Post</h4>
-                                        </div>
-                                        </div>
+                                        
                                         <div className="card-body">
                                         <div className="d-flex align-items-center">
-                                            <div className="user-img">
-                                            <img src="/images/user/1.jpg" alt="userimg" className="avatar-60 rounded-circle" />
-                                            </div>
-                                            <form className="post-text ms-3 w-100 " data-bs-toggle="modal" data-bs-target="#post-modal" action="#">
-                                            <input type="text" className="form-control rounded" placeholder="Write something here..." style={{border: 'none'}} />
-                                            </form>
+                                          
+                                          
                                         </div>
-                                        <hr />
-                                        <ul className=" post-opt-block d-flex list-inline m-0 p-0 flex-wrap">
-                                            <li className="bg-soft-primary rounded p-2 pointer d-flex align-items-center me-3 mb-md-0 mb-2"><img src="/images/small/07.png" alt="icon" className="img-fluid me-2" /> Photo/Video</li>
-                                            <li className="bg-soft-primary rounded p-2 pointer d-flex align-items-center me-3 mb-md-0 mb-2"><img src="/images/small/08.png" alt="icon" className="img-fluid me-2" /> Tag Friend</li>
-                                            <li className="bg-soft-primary rounded p-2 pointer d-flex align-items-center me-3"><img src="/images/small/09.png" alt="icon" className="img-fluid me-2" /> Feeling/Activity</li>
-                                            <li className="bg-soft-primary rounded p-2 pointer text-center">
-                                            <div className="card-header-toolbar d-flex align-items-center">
-                                                <div className="dropdown">
-                                                <div className="dropdown-toggle" id="post-option" data-bs-toggle="dropdown">
-                                                    <i className="ri-more-fill h4" />
-                                                </div>
-                                                <div className="dropdown-menu dropdown-menu-right" aria-labelledby="post-option" style={{}}>
-                                                    <a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#post-modal">Check in</a>
-                                                    <a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#post-modal">Live Video</a>
-                                                    <a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#post-modal">Gif</a>
-                                                    <a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#post-modal">Watch Party</a>
-                                                    <a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#post-modal">Play with Friend</a>
-                                                </div>
-                                                </div>
-                                            </div>
-                                            </li>
-                                        </ul>
+                                       
                                         </div>
                                         <div className="modal fade" id="post-modal" tabIndex={-1} aria-labelledby="post-modalLabel" aria-hidden="true">
                                         <div className="modal-dialog  modal-lg modal-fullscreen-sm-down">
@@ -1133,13 +998,13 @@ const Profile = () => {
                                                 <h6>Email</h6>
                                             </div>
                                             <div className="col-9">
-                                                <p className="mb-0">Bnijohn@gmail.com</p>
+                                                <p className="mb-0"> {inputs.email} </p>
                                             </div>
                                             <div className="col-3">
                                                 <h6>Mobile</h6>
                                             </div>
                                             <div className="col-9">
-                                                <p className="mb-0">(001) 4544 565 456</p>
+                                                <p className="mb-0"> {inputs.phone} </p>
                                             </div>
                                             <div className="col-3">
                                                 <h6>Address</h6>
