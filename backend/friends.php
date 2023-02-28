@@ -33,20 +33,21 @@ switch($method){
             FROM users
             INNER JOIN friends
             ON users.id = friends.friend_id
-            WHERE user_id = :id and status = :status";
+            WHERE user_id = :id
+             and status = :status";
             $stmt =$conn->prepare($sql);
             $status = "accepted" ;
             $stmt->bindParam(':status', $status);
             $stmt->bindParam(':id', $path[5]);
 
             $stmt->execute();
-            $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $users = $stmt->fetchall(PDO::FETCH_ASSOC);
 
         }else{
 
             $stmt =$conn->prepare($sql);
             $stmt->execute();
-            $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $users = $stmt->fetchall(PDO::FETCH_ASSOC);
         }
         
         echo json_encode( $users);
