@@ -1,10 +1,105 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom';
 import Footer from '../body/Footer';
 import LeftSidebar from '../body/LeftSidebar';
 import Navbar from '../body/Navbar';
 import RightSidebar from '../body/RightSidebar';
 
 const GroupDetails = () => {
+
+
+    const {id} =useParams();
+    const current_ID = JSON.parse(localStorage.getItem('id'));
+
+
+    const [groups , setGroups] = useState([]);
+    const [usersGroups , setUserGroups] = useState([]);
+    const [pendingRequestGroups , setPendingRequestGroups] = useState([]);
+
+    
+  useEffect(()=>{
+    getDataGroups();
+    getUsersGroup();
+    getPendingRequest();
+   
+    
+} , [])
+
+const getDataGroups = () => {
+    axios.get(`http://localhost/React/React_project/backend/getDataGroups.php/${id}`)
+    .then(response => {
+        console.log(response.data[0])
+        setGroups(response.data[0]);
+    })
+}
+
+const getUsersGroup = () => {
+
+    axios.get(`http://localhost/React/React_project/backend/getUsersGroup.php/${id}`)
+    .then(response => {
+        console.log(response.data)
+        setUserGroups(response.data);
+    })
+
+}
+
+const getPendingRequest = () => {
+    axios.get(`http://localhost/React/React_project/backend/getPendingRequestForGroup.php/${id}`)
+    .then((respone)=>{
+        // console.log(respone.data);
+      
+        setPendingRequestGroups(respone.data);
+        // setPendingMempers(respone.data)
+    })
+}
+
+
+ // Delete member of the group
+const deleteFromGroup = (userId) => {
+
+    let inputs = {user_id:userId , group_id:id};
+    axios.put(`http://localhost/React/React_project/backend/deleteRequestForGroup.php`,inputs)
+    .then((respone)=>{
+        console.log(respone.data);
+        getDataGroups();
+        getUsersGroup();
+        getPendingRequest();
+        
+    })
+
+}
+
+// delete a request for the group
+const deleteRequest = (userId) => {
+
+    let inputs = {user_id:userId , group_id:id};
+    axios.put(`http://localhost/React/React_project/backend/deleteRequestForGroup.php`,inputs)
+    .then((respone)=>{
+        console.log(respone.data);
+        getDataGroups();
+        getUsersGroup();
+        getPendingRequest();
+        
+    })
+
+}
+// To accept request to join the group
+const acceptRequest = (userId) => {
+
+    let inputs = {user_id:userId , group_id:id};
+    axios.put(`http://localhost/React/React_project/backend/membersGroup.php`,inputs)
+    .then((respone)=>{
+        console.log(respone.data);
+        getDataGroups();
+        getUsersGroup();
+        getPendingRequest();
+        
+    })
+}
+
+let i = 1;
+
     return (
         <>
 

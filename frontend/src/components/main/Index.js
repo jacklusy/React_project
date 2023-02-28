@@ -121,9 +121,8 @@ const Index = () => {
     // Comments
 
 
-
-
     function getComments() {
+
         axios.get(`http://localhost/React/React_project/backend/comments.php/`)
             .then(response => {
                 setComments(response.data);
@@ -207,7 +206,8 @@ const Index = () => {
     const removeLikePost = (e) => {
         e.preventDefault();
         console.log(inputs)
-        axios.post('http://localhost/React/React_project/backend/likeDelete.php/', inputs).then(
+
+          axios.post('http://localhost/React/React_project/backend/likeDelete.php/' , inputs).then(
             getPosts()
         )
     }
@@ -337,7 +337,7 @@ const Index = () => {
                                                                                     <div className="dropdown-menu m-0 p-0">
                                                                                         <a className="dropdown-item p-3" href="#">
                                                                                             <button className="d-flex text-start  border-0 bg-transparent" onClick={() => { deletePost(post.post_id) }}>
-                                                                                                {/* <AiOutlineDelete className='fs-4' /> */}
+                                                                                                <AiOutlineDelete className='fs-4' />
                                                                                                 <div className="data ms-2">
                                                                                                     <h6>Delete</h6>
                                                                                                 </div>
@@ -345,7 +345,7 @@ const Index = () => {
                                                                                         </a>
                                                                                         <a className="dropdown-item p-3" href="#">
                                                                                             <button className="d-flex text-start align-items-top border-0 bg-transparent" id={`editPostBTN${post.post_id}`} onClick={() => { editPost(post.post_id) }}>
-                                                                                                {/* <AiOutlineEdit className='fs-4' /> */}
+                                                                                                <AiOutlineEdit className='fs-4' />
                                                                                                 <div className="data ms-2">
                                                                                                     <h6>Edit</h6>
                                                                                                 </div>
@@ -550,7 +550,7 @@ const Index = () => {
                                                                                                                         className="d-flex text-start  border-0 bg-transparent"
                                                                                                                         onClick={() => { deleteComment(comment.comment_id) }}
                                                                                                                     >
-                                                                                                                        {/* <AiOutlineDelete className='fs-4' /> */}
+                                                                                                                        <AiOutlineDelete className='fs-4' />
                                                                                                                         <div className="data ms-2">
                                                                                                                             <h6>Delete</h6>
                                                                                                                         </div>
@@ -583,7 +583,7 @@ const Index = () => {
                                                                                                                             className="d-flex text-start  border-0 bg-transparent"
                                                                                                                             onClick={() => { deleteComment(comment.comment_id) }}
                                                                                                                         >
-                                                                                                                            {/* <AiOutlineDelete className='fs-4' /> */}
+                                                                                                                            <AiOutlineDelete className='fs-4' />
                                                                                                                             <div className="data ms-2">
                                                                                                                                 <h6>Delete</h6>
                                                                                                                             </div>
@@ -595,7 +595,7 @@ const Index = () => {
                                                                                                                             id={`editCommentBTN${comment.comment_id}`}
                                                                                                                             onClick={() => { editComment(comment.comment_id) }}
                                                                                                                         >
-                                                                                                                            {/* <AiOutlineEdit className='fs-4' /> */}
+                                                                                                                            <AiOutlineEdit className='fs-4' />
                                                                                                                             <div className="data ms-2">
                                                                                                                                 <h6>Edit</h6>
                                                                                                                             </div>

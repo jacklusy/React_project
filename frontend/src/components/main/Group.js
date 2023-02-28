@@ -1,29 +1,118 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Footer from '../body/Footer';
 import LeftSidebar from '../body/LeftSidebar';
 import RightSidebar from '../body/RightSidebar';
 import Navbar from '../body/Navbar';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
 
 
 const Group = () => {
+
+  const current_ID = JSON.parse(localStorage.getItem('Id'));
+
+  const [groups, setGroups] = useState([]);
+  const [pendingMembers, setPendingMembers] = useState([]);
+  const [acceptedMembers, setAcceptedMembers] = useState([]);
+
+
+  useEffect(() => {
+    getGroups();
+    getPendingMempers();
+    getAcceptedMempers();
+
+  }, [])
+
+
+  // لعرض كل الجروبات في الموقع
+
+  function getGroups() {
+    axios.get(`http://localhost/React/React_project/backend/groups.php/`)
+      .then(response => {
+        console.log(response.data)
+        setGroups(response.data);
+
+      })
+  }
+
+
+// To add a member to a group
+
+  const AddToGroup = (groupId) => {
+    let inputs = { user_id: current_ID, group_id: groupId };
+    axios.post(`http://localhost/React/React_project/backend/membersGroup.php/save`, inputs)
+      .then((respone) => {
+        console.log(respone.data);
+        getGroups();
+        getPendingMempers();
+
+        // getFriendsRequest();
+      })
+  }
+  //للجروبات pending لعرض كل طلبات المستخدم اللي حالتهم 
+  const getPendingMempers = () => {
+
+    axios.get(`http://localhost/React/React_project/backend/getPendingMember.php/${current_ID}`)
+      .then((respone) => {
+        console.log(respone.data);
+        let pendingMembers = respone.data.map((ele) => {
+          return ele.group_id
+        })
+        console.log(pendingMembers);
+        setPendingMembers(pendingMembers);
+        // setPendingMempers(respone.data)
+      })
+  }
+
+  //للجروبات accepted لعرض كل طلبات المستخدم اللي حالتهم 
+  const getAcceptedMempers = () => {
+
+    axios.get(`http://localhost/React/React_project/backend/getAcceptedMember.php/${current_ID}`)
+      .then((respone) => {
+        console.log(respone.data);
+        let acceptedMembers = respone.data.map((ele) => {
+          return ele.group_id
+        })
+        console.log(acceptedMembers);
+        setAcceptedMembers(acceptedMembers);
+        // setPendingMempers(respone.data)
+      })
+  }
+
+  // لحذب طلب الاضافة 
+  const removeRequest = (GroupId) => {
+    let inputs = { user_id: current_ID, group_id: GroupId };
+    axios.put(`http://localhost/React/React_project/backend/getPendingMember.php/edit`, inputs)
+      .then((respone) => {
+        console.log(respone.data);
+        getGroups();
+        getPendingMempers();
+      })
+
+  }
+
+
+  let i = 1;
+
   return (
     <>
       <Navbar />
-      <RightSidebar/>
+      <RightSidebar />
       <LeftSidebar />
 
       <div>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <title>SocialV | Responsive Bootstrap 5 Admin Dashboard Template</title>
-      
+
         <div className="wrapper">
-          
+
           <div className="header-for-bg">
             <div className="background-header position-relative">
-            <img src="/images/page-img/profile-bg7.jpg" classname="img-fluid w-100" style={{width: '100%'}}  alt="header-bg" />
+              <img src="/images/page-img/profile-bg7.jpg" classname="img-fluid w-100" style={{ width: '100%' }} alt="header-bg" />
               <div className="title-on- header">
                 <div className="data-block">
                   <h2>Groups</h2>
@@ -35,35 +124,48 @@ const Group = () => {
           <div id="content-page" className="content-page">
             <div className="container">
               <div className="d-grid gap-3 d-grid-template-1fr-19">
-                <div className="card mb-0">
-                  <div className="top-bg-image">
-                    <img src="/images/page-img/profile-bg1.jpg" className="img-fluid w-100" alt="group-bg" />
-                  </div>
-                  <div className="card-body text-center">
-                    <div className="group-icon">
-                      <img src="/images/page-img/gi-1.jpg" alt="profile-img" className="rounded-circle img-fluid avatar-120" />
+
+
+
+                {groups.filter(function (ele) {
+                  if (ele.user_id === current_ID) {
+                    return false;
+                  } // skip
+
+                  return true;
+                }).map((element, index) => (
+
+
+
+                  <div className="card mb-0">
+                    <div className="top-bg-image">
+                      <img src="/images/page-img/profile-bg1.jpg" className="img-fluid w-100" alt="group-bg" />
                     </div>
-                    <div className="group-info pt-3 pb-3">
-                      <h4><a href="../app/group-detail.html">Designer</a></h4>
-                      <p>Lorem Ipsum data</p>
-                    </div>
-                    <div className="group-details d-inline-block pb-3">
-                      <ul className="d-flex align-items-center justify-content-between list-inline m-0 p-0">
-                        <li className="pe-3 ps-3">
-                          <p className="mb-0">Post</p>
-                          <h6>600</h6>
-                        </li>
-                        <li className="pe-3 ps-3">
-                          <p className="mb-0">Member</p>
-                          <h6>320</h6>
-                        </li>
-                        <li className="pe-3 ps-3">
-                          <p className="mb-0">Visit</p>
-                          <h6>1.2k</h6>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="group-member mb-3">
+                    <div className="card-body text-center">
+                      <div className="group-icon">
+                        <img src={require(`../images/${element.group_image}`)} alt="profile-img" className="rounded-circle img-fluid avatar-120" />
+                      </div>
+                      <div className="group-info pt-3 pb-3">
+                        <h4>{element.group_name}<a href="../app/group-detail.html"></a></h4>
+                        <p>Lorem Ipsum datcccccccccccca</p>
+                      </div>
+                      <div className="group-details d-inline-block pb-3">
+                        <ul className="d-flex align-items-center justify-content-between list-inline m-0 p-0">
+                          <li className="pe-3 ps-3">
+                            <p className="mb-0">Post</p>
+                            <h6>14</h6>
+                          </li>
+                          <li className="pe-3 ps-3">
+                            <p className="mb-0">Member</p>
+                            <h6>320</h6>
+                          </li>
+                          <li className="pe-3 ps-3">
+                            <p className="mb-0">Visit</p>
+                            <h6>157.4k</h6>
+                          </li>
+                        </ul>
+                      </div>
+                      {/* <div className="group-member mb-3">
                       <div className="iq-media-group">
                         <a href="#" className="iq-media">
                           <img className="img-fluid avatar-40 rounded-circle" src="/images/user/05.jpg" alt="" />
@@ -84,467 +186,65 @@ const Group = () => {
                           <img className="img-fluid avatar-40 rounded-circle" src="/images/user/10.jpg" alt="" />
                         </a>
                       </div>
+                    </div> */}
+                      {(() => {
+                        if (pendingMembers.includes(element.group_id) || acceptedMembers.includes(element.group_id)) {
+                          if (pendingMembers.includes(element.group_id)) {
+                            return (
+                              <td>
+                                <Link>
+                                  <Button variant="primary" onClick={() => removeRequest(element.group_id)}>remove request</Button>
+                                </Link>
+                              </td>
+                            )
+                          }
+                          if (acceptedMembers.includes(element.group_id)) {
+                            return (
+                              <td>
+
+                                <Link to={`/groups/${element.group_id}/show`}>
+                                  <Button variant="primary">show</Button>
+                                </Link>
+
+                              </td>
+                            )
+                          }
+                        } else {
+                          return (
+
+                            
+                            <td>
+                              <Link>
+                                <Button variant="primary" className="btn btn-primary d-block w-100" onClick={() => AddToGroup(element.group_id)}>Join</Button>
+                                
+                              </Link>
+                            </td>
+                            
+                          )
+                        }
+                      })()}
                     </div>
-                    <a href='/GroupDetails'>
+                    {/* <a href='/GroupDetails'>
                       <button type="submit" className="btn btn-primary d-block w-100">Join</button>
-                    </a>
+                    </a> */}
+
                   </div>
-                </div>
-                <div className="card mb-0">
-                  <div className="top-bg-image">
-                    <img src="/images/page-img/profile-bg2.jpg" className="img-fluid w-100" alt="group-bg" />
-                  </div>
-                  <div className="card-body text-center">
-                    <div className="group-icon">
-                      <img src="/images/page-img/gi-2.jpg" alt="profile-img" className="rounded-circle img-fluid avatar-120" />
-                    </div>
-                    <div className="group-info pt-3 pb-3">
-                      <h4><a href="../app/group-detail.html">R &amp; D</a></h4>
-                      <p>Lorem Ipsum data</p>
-                    </div>
-                    <div className="group-details d-inline-block pb-3">
-                      <ul className="d-flex align-items-center justify-content-between list-inline m-0 p-0">
-                        <li className="pe-3 ps-3">
-                          <p className="mb-0">Post</p>
-                          <h6>300</h6>
-                        </li>
-                        <li className="pe-3 ps-3">
-                          <p className="mb-0">Member</p>
-                          <h6>210</h6>
-                        </li>
-                        <li className="pe-3 ps-3">
-                          <p className="mb-0">Visit</p>
-                          <h6>1.1k</h6>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="group-member mb-3">
-                      <div className="iq-media-group">
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/05.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/06.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/07.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/08.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/09.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/10.jpg" alt="" />
-                        </a>
-                      </div>
-                    </div>
-                    <a href='/GroupDetails'>
-                      <button type="submit" className="btn btn-primary d-block w-100">Join</button>
-                    </a>
-                  </div>
-                </div>
-                <div className="card mb-0">
-                  <div className="top-bg-image">
-                    <img src="/images/page-img/profile-bg3.jpg" className="img-fluid w-100" alt="group-bg" />
-                  </div>
-                  <div className="card-body text-center">
-                    <div className="group-icon">
-                      <img src="/images/page-img/gi-3.jpg" alt="profile-img" className="rounded-circle img-fluid avatar-120" />
-                    </div>
-                    <div className="group-info pt-3 pb-3">
-                      <h4><a href="../app/group-detail.html">Graphics</a></h4>
-                      <p>Lorem Ipsum data</p>
-                    </div>
-                    <div className="group-details d-inline-block pb-3">
-                      <ul className="d-flex align-items-center justify-content-between list-inline m-0 p-0">
-                        <li className="pe-3 ps-3">
-                          <p className="mb-0">Post</p>
-                          <h6>320</h6>
-                        </li>
-                        <li className="pe-3 ps-3">
-                          <p className="mb-0">Member</p>
-                          <h6>100</h6>
-                        </li>
-                        <li className="pe-3 ps-3">
-                          <p className="mb-0">Visit</p>
-                          <h6>1.0k</h6>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="group-member mb-3">
-                      <div className="iq-media-group">
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/05.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/06.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/07.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/08.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/09.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/10.jpg" alt="" />
-                        </a>
-                      </div>
-                    </div>
-                    <a href='/GroupDetails'>
-                      <button type="submit" className="btn btn-primary d-block w-100">Join</button>
-                    </a>
-                  </div>
-                </div>
-                <div className="card mb-0">
-                  <div className="top-bg-image">
-                    <img src="/images/page-img/profile-bg4.jpg" className="img-fluid w-100" alt="group-bg" />
-                  </div>
-                  <div className="card-body text-center">
-                    <div className="group-icon">
-                      <img src="/images/page-img/gi-4.jpg" alt="profile-img" className="rounded-circle img-fluid avatar-120" />
-                    </div>
-                    <div className="group-info pt-3 pb-3">
-                      <h4><a href="../app/group-detail.html">Developer</a></h4>
-                      <p>Lorem Ipsum data</p>
-                    </div>
-                    <div className="group-details d-inline-block pb-3">
-                      <ul className="d-flex align-items-center justify-content-between list-inline m-0 p-0">
-                        <li className="pe-3 ps-3">
-                          <p className="mb-0">Post</p>
-                          <h6>800</h6>
-                        </li>
-                        <li className="pe-3 ps-3">
-                          <p className="mb-0">Member</p>
-                          <h6>480</h6>
-                        </li>
-                        <li className="pe-3 ps-3">
-                          <p className="mb-0">Visit</p>
-                          <h6>2.2k</h6>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="group-member mb-3">
-                      <div className="iq-media-group">
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/05.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/06.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/07.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/08.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/09.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/10.jpg" alt="" />
-                        </a>
-                      </div>
-                    </div>
-                    <a href='/GroupDetails'>
-                      <button type="submit" className="btn btn-primary d-block w-100">Join</button>
-                    </a>
-                  </div>
-                </div>
-                <div className="card mb-0">
-                  <div className="top-bg-image">
-                    <img src="/images/page-img/profile-bg5.jpg" className="img-fluid w-100" alt="group-bg" />
-                  </div>
-                  <div className="card-body text-center">
-                    <div className="group-icon">
-                      <img src="/images/page-img/gi-5.jpg" alt="profile-img" className="rounded-circle img-fluid avatar-120" />
-                    </div>
-                    <div className="group-info pt-3 pb-3">
-                      <h4><a href="../app/group-detail.html">Tester</a></h4>
-                      <p>Lorem Ipsum data</p>
-                    </div>
-                    <div className="group-details d-inline-block pb-3">
-                      <ul className="d-flex align-items-center justify-content-between list-inline m-0 p-0">
-                        <li className="pe-3 ps-3">
-                          <p className="mb-0">Post</p>
-                          <h6>200</h6>
-                        </li>
-                        <li className="pe-3 ps-3">
-                          <p className="mb-0">Member</p>
-                          <h6>100</h6>
-                        </li>
-                        <li className="pe-3 ps-3">
-                          <p className="mb-0">Visit</p>
-                          <h6>32</h6>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="group-member mb-3">
-                      <div className="iq-media-group">
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/05.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/06.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/07.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/08.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/09.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/10.jpg" alt="" />
-                        </a>
-                      </div>
-                    </div>
-                    <a href='/GroupDetails'>
-                      <button type="submit" className="btn btn-primary d-block w-100">Join</button>
-                    </a>
-                  </div>
-                </div>
-                <div className="card mb-0">
-                  <div className="top-bg-image">
-                    <img src="/images/page-img/profile-bg6.jpg" className="img-fluid w-100" alt="group-bg" />
-                  </div>
-                  <div className="card-body text-center">
-                    <div className="group-icon">
-                      <img src="/images/page-img/gi-6.jpg" alt="profile-img" className="rounded-circle img-fluid avatar-120" />
-                    </div>
-                    <div className="group-info pt-3 pb-3">
-                      <h4><a href="../app/group-detail.html">Events</a></h4>
-                      <p>Lorem Ipsum data</p>
-                    </div>
-                    <div className="group-details d-inline-block pb-3">
-                      <ul className="d-flex align-items-center justify-content-between list-inline m-0 p-0">
-                        <li className="pe-3 ps-3">
-                          <p className="mb-0">Post</p>
-                          <h6>1000</h6>
-                        </li>
-                        <li className="pe-3 ps-3">
-                          <p className="mb-0">Member</p>
-                          <h6>500</h6>
-                        </li>
-                        <li className="pe-3 ps-3">
-                          <p className="mb-0">Visit</p>
-                          <h6>3.2k</h6>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="group-member mb-3">
-                      <div className="iq-media-group">
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/05.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/06.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/07.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/08.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/09.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/10.jpg" alt="" />
-                        </a>
-                      </div>
-                    </div>
-                    <a href='/GroupDetails'>
-                      <button type="submit" className="btn btn-primary d-block w-100">Join</button>
-                    </a>
-                  </div>
-                </div>
-                <div className="card">
-                  <div className="top-bg-image">
-                    <img src="/images/page-img/profile-bg7.jpg" className="img-fluid w-100" alt="group-bg" />
-                  </div>
-                  <div className="card-body text-center">
-                    <div className="group-icon">
-                      <img src="/images/page-img/gi-7.jpg" alt="profile-img" className="rounded-circle img-fluid avatar-120" />
-                    </div>
-                    <div className="group-info pt-3 pb-3">
-                      <h4><a href="../app/group-detail.html">Coder</a></h4>
-                      <p>Lorem Ipsum data</p>
-                    </div>
-                    <div className="group-details d-inline-block pb-3">
-                      <ul className="d-flex align-items-center justify-content-between list-inline m-0 p-0">
-                        <li className="pe-3 ps-3">
-                          <p className="mb-0">Post</p>
-                          <h6>300</h6>
-                        </li>
-                        <li className="pe-3 ps-3">
-                          <p className="mb-0">Member</p>
-                          <h6>220</h6>
-                        </li>
-                        <li className="pe-3 ps-3">
-                          <p className="mb-0">Visit</p>
-                          <h6>25k</h6>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="group-member mb-3">
-                      <div className="iq-media-group">
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/05.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/06.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/07.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/08.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/09.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/10.jpg" alt="" />
-                        </a>
-                      </div>
-                    </div>
-                    <a href='/GroupDetails'>
-                      <button type="submit" className="btn btn-primary d-block w-100">Join</button>
-                    </a>
-                  </div>
-                </div>
-                <div className="card">
-                  <div className="top-bg-image">
-                    <img src="/images/page-img/profile-bg9.jpg" className="img-fluid w-100" alt="group-bg" />
-                  </div>
-                  <div className="card-body text-center">
-                    <div className="group-icon">
-                      <img src="/images/page-img/gi-8.jpg" alt="profile-img" className="rounded-circle img-fluid avatar-120" />
-                    </div>
-                    <div className="group-info pt-3 pb-3">
-                      <h4><a href="../app/group-detail.html">Themes</a></h4>
-                      <p>Lorem Ipsum data</p>
-                    </div>
-                    <div className="group-details d-inline-block pb-3">
-                      <ul className="d-flex align-items-center justify-content-between list-inline m-0 p-0">
-                        <li className="pe-3 ps-3">
-                          <p className="mb-0">Post</p>
-                          <h6>1200</h6>
-                        </li>
-                        <li className="pe-3 ps-3">
-                          <p className="mb-0">Member</p>
-                          <h6>800</h6>
-                        </li>
-                        <li className="pe-3 ps-3">
-                          <p className="mb-0">Visit</p>
-                          <h6>3.2k</h6>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="group-member mb-3">
-                      <div className="iq-media-group">
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/05.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/06.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/07.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/08.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/09.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/10.jpg" alt="" />
-                        </a>
-                      </div>
-                    </div>
-                    <a href='/GroupDetails'>
-                      <button type="submit" className="btn btn-primary d-block w-100">Join</button>
-                    </a>
-                  </div>
-                </div>
-                <div className="card">
-                  <div className="top-bg-image">
-                    <img src="/images/page-img/profile-bg1.jpg" className="img-fluid w-100" alt="group-bg" />
-                  </div>
-                  <div className="card-body text-center">
-                    <div className="group-icon">
-                      <img src="/images/page-img/gi-9.jpg" alt="profile-img" className="rounded-circle img-fluid avatar-120" />
-                    </div>
-                    <div className="group-info pt-3 pb-3">
-                      <h4><a href="../app/group-detail.html">Review</a></h4>
-                      <p>Lorem Ipsum data</p>
-                    </div>
-                    <div className="group-details d-inline-block pb-3">
-                      <ul className="d-flex align-items-center justify-content-between list-inline m-0 p-0">
-                        <li className="pe-3 ps-3">
-                          <p className="mb-0">Post</p>
-                          <h6>300</h6>
-                        </li>
-                        <li className="pe-3 ps-3">
-                          <p className="mb-0">Member</p>
-                          <h6>1000</h6>
-                        </li>
-                        <li className="pe-3 ps-3">
-                          <p className="mb-0">Visit</p>
-                          <h6>4.5k</h6>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="group-member mb-3">
-                      <div className="iq-media-group">
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/05.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/06.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/07.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/08.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/09.jpg" alt="" />
-                        </a>
-                        <a href="#" className="iq-media">
-                          <img className="img-fluid avatar-40 rounded-circle" src="/images/user/10.jpg" alt="" />
-                        </a>
-                      </div>
-                    </div>
-                    <a href='/GroupDetails'>
-                      <button type="submit" className="btn btn-primary d-block w-100">Join</button>
-                    </a>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
-        
-    
+
+
       </div>
 
-      <Footer /> 
+      <Footer />
 
     </>
   );
 }
 
-export default  Group
+export default Group
 
 
 
