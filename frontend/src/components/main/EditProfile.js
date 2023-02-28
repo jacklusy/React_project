@@ -21,7 +21,7 @@ const EditProfile = () => {
 
     const getUsers = () => {
         
-        axios.get(`http://localhost/React/Group6_React/backend/log_reg.php/${id}`)
+        axios.get(`http://localhost/React/React_project/backend/log_reg.php/${id}`)
         .then(function(response){
             console.log(response.data);
             setInputs(response.data);
@@ -44,7 +44,7 @@ const EditProfile = () => {
         event.preventDefault(); // to prevent the page from refresh on submit
        console.log(inputs, "My inputs")
 
-        axios.put(`http://localhost/React/Group6_React/backend/log_reg.php/${id}/edit`, inputs)
+        axios.put(`http://localhost/React/React_project/backend/log_reg.php/${id}/edit`, inputs)
         .then(function(response){
          console.log(response.data);
          navigate('/EditProfile/:id/edit');

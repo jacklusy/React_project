@@ -34,7 +34,11 @@ const Register = () => {
       else{
    
       //console.log(inputs);
+<<<<<<< HEAD
      axios.post('http://localhost/React/React_Project/backend/log_reg.php', inputs ).then(function(response){
+=======
+     axios.post('http://localhost/React/React_project/backend/log_reg.php', inputs ).then(function(response){
+>>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
       console.log(response.data); 
       //console.log(response); 
      })

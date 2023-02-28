@@ -33,7 +33,12 @@ const Index = () => {
 
 
     function getPosts() {
+<<<<<<< HEAD
         axios.get(`http://localhost/React/React_Project/backend/posts.php/`)
+=======
+        
+        axios.get(`http://localhost/React/React_project/backend/posts.php`)
+>>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
             .then(response => {
                 setPosts(response.data);
                 getComments();
@@ -51,7 +56,11 @@ const Index = () => {
         formData.append("file", file);
         try {
             const response = await axios.post(
+<<<<<<< HEAD
                 "http://localhost/React/React_Project/backend/posts.php/", formData
+=======
+                "http://localhost/React/React_project/backend/posts.php", formData
+>>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
             );
             console.log(response.data);
             // window.location.assign('/home');
@@ -99,7 +108,11 @@ const Index = () => {
 
         try {
             const response = await axios.post(
+<<<<<<< HEAD
                 "http://localhost/React/React_Project/backend/postEdit.php/", formEditData
+=======
+                "http://localhost/React/React_project/backend/postEdit.php/", formEditData
+>>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
             );
             console.log(response.data);
             window.location.assign('/home');
@@ -111,7 +124,11 @@ const Index = () => {
 
 
     const deletePost = (id) => {
+<<<<<<< HEAD
         axios.delete(`http://localhost/React/React_Project/backend/posts.php/${id}`).then(function (response) {
+=======
+        axios.delete(`http://localhost/React/React_project/backend/posts.php/${id}`).then(function (response) {
+>>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
             window.location.assign('/home');
         })
     }
@@ -120,10 +137,13 @@ const Index = () => {
     // Comments
 
 
-
-
     function getComments() {
+<<<<<<< HEAD
         axios.get(`http://localhost/React/React_Project/backend/comments.php/`)
+=======
+
+        axios.get(`http://localhost/React/React_project/backend/comments.php/`)
+>>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
             .then(response => {
                 setComments(response.data);
             })
@@ -132,13 +152,22 @@ const Index = () => {
     const handleCreateComment = (e) => {
         e.preventDefault();
         console.log(inputs)
+<<<<<<< HEAD
         axios.post('http://localhost/React/React_Project/backend/comments.php/', inputs).then(
             // window.location.assign('/home')
+=======
+        axios.post('http://localhost/React/React_project/backend/comments.php/', inputs).then(
+            window.location.assign('/home')
+>>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
         )
     }
 
     const deleteComment = (id) => {
+<<<<<<< HEAD
         axios.delete(`http://localhost/React/React_Project/backend/comments.php/${id}`).then(function (response) {
+=======
+        axios.delete(`http://localhost/React/React_project/backend/comments.php/${id}`).then(function (response) {
+>>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
             getComments();
         })
     }
@@ -157,8 +186,13 @@ const Index = () => {
 
     const handleEditCommentSubmit = (e) => {
         e.preventDefault();
+<<<<<<< HEAD
         axios.put('http://localhost/React/React_Project/backend/comments.php/', inputs).then(
             // window.location.assign('/')
+=======
+        axios.put('http://localhost/React/React_project/backend/comments.php/', inputs).then(
+            window.location.assign('/')
+>>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
         )
     }
 
@@ -184,7 +218,11 @@ const Index = () => {
 
 
     const getLikes = () => {
+<<<<<<< HEAD
         axios.get(`http://localhost/React/React_Project/backend/likes.php/`)
+=======
+        axios.get(`http://localhost/React/React_project/backend/likes.php/`)
+>>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
         .then(response => {
             setLikes(response.data);
         })
@@ -199,14 +237,23 @@ const Index = () => {
       const likePost = (e) => {
         e.preventDefault();
         console.log(inputs)
+<<<<<<< HEAD
           axios.post('http://localhost/React/React_Project/backend/likes.php/' , inputs).then(
+=======
+          axios.post('http://localhost/React/React_project/backend/likes.php/' , inputs).then(
+>>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
             getPosts()
           )
       }
       const removeLikePost = (e) => {
         e.preventDefault();
         console.log(inputs)
+<<<<<<< HEAD
           axios.post('http://localhost/React/React_Project/backend/likeDelete.php/' , inputs).then(
+=======
+
+          axios.post('http://localhost/React/React_project/backend/likeDelete.php/' , inputs).then(
+>>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
             getPosts()
           )
       }
@@ -386,7 +433,17 @@ const Index = () => {
                                                                 {/* IMAGE POST */}
                                                                 <div className="row-span-2 row-span-md-1 justify-content-center">
                                                                     <hr />
-                                                                    <img id={`imgPost${post.post_id}`}  className="img-thumnail rounded w-100" src={require(`../images/${post.post_image}`)} alt='' />
+                                                                    {post.post_image !== 'null' ?(
+                                                                    <p id={`post${post.post_id}`} className="mt-3 mb-4 pb-2">{post.content}</p>
+                                                                    ):(
+                                                                        <img className="rounded-circle img-fluid" width={'60px'} src={require(`../images/profile.jpg`)} alt="" />
+
+                                                                    )
+                                                                    }
+
+                                                                    {/* <img id={`imgPost${post.post_id}`}  className="img-thumnail rounded w-100" src={require(`../images/${post.post_image}`)} alt='' /> */}
+
+
                                                                 </div>
                                                             </>
                                                             :
@@ -475,7 +532,12 @@ const Index = () => {
                                                                                 {( flagLike == true ) ?
                                                                                 <form action="" onSubmit={removeLikePost}>
                                                                                     <button className='border-0 bg-transparent' onClick={()=>handleLikePost(post.post_id)}>
+<<<<<<< HEAD
                                                                                         <AiFillLike className='fs-3 text-primary' />
+=======
+                                                                                        <AiOutlineLike className='fs-3 text-light' />
+                                                                                        <p className="mb-0" style={{color : 'blue' , fontWeight : 'bold'}}>Liked</p>
+>>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
                                                                                         {/* LIKE NUMBER */}
                                                                                     </button>
                                                                                 </form>
@@ -483,6 +545,10 @@ const Index = () => {
                                                                                 <form action=""  onSubmit={likePost}>
                                                                                     <button className='border-0 bg-transparent'  onClick={()=>handleLikePost(post.post_id)}>
                                                                                         <AiOutlineLike className='fs-3 text-light' />
+<<<<<<< HEAD
+=======
+                                                                                        <p className="mb-0" >Like</p>
+>>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
                                                                                         {/* LIKE NUMBER */}
                                                                                     </button>
                                                                                 </form>
