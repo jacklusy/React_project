@@ -17,23 +17,20 @@ const LeftSidebar = () => {
             <nav className="iq-sidebar-menu">
               <ul id="iq-sidebar-toggle" className="iq-menu">
 
-                <li className>
-                  <a href="/EditProfile" className=" ">
-                    <i className="las la-user" /><span>Edit Profile</span>
+                <li className="active">
+                  <a href="/Profile" className=" ">
+                    <i className="las la-user" /><span>Profile</span>
                   </a>
                 </li>
                
-                <li className="active">
+                <li className="=">
                   <a href="/Group" className=" ">
                     <i className="las la-users" /><span>Group</span>
                   </a>
                 </li>
-                
-                <li className>
-                  <a href="/ProfileForum" ><i className="ri-focus-2-line" /><span>Profile Forum</span><i className="ri-arrow-right-s-line iq-arrow-right" /></a>
-                </li>
+          
 
-                <li className>
+                <li className="">
                   <a href="/Chat" ><i className="ri-pages-line" /><span>Friends</span><i className="ri-arrow-right-s-line iq-arrow-right" /></a>
                 </li>
 
