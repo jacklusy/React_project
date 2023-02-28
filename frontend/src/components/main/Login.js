@@ -33,8 +33,7 @@ console.log(users);
       if (email.length === 0 || password.length === 0) {
         setError(true)
       } else {
-        if (user.email == email && user.password == password && Object.entries(email).length > 0 && Object.entries(password).length > 0) {
-
+        if (user.email === email && user.password === password && Object.entries(email).length > 0 && Object.entries(password).length > 0) {
           localStorage.setItem('Id', JSON.stringify(user.id));
           localStorage.setItem('Email', JSON.stringify(user.email));
           localStorage.setItem('Password', JSON.stringify(user.password));
@@ -54,7 +53,7 @@ console.log(users);
   }
   
       const getUser = ()=> {
-        axios.get('http://localhost/React/React_project/backend/log_reg.php').then(function(response){
+        axios.get('http://localhost/React/React_Project/backend/log_reg.php').then(function(response){
             setUsers(response.data)
         })
     }
