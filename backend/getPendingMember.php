@@ -25,7 +25,7 @@ switch($method){
             $stmt =$conn->prepare($sql);
             $status = "pending" ;
             $stmt->bindParam(':status', $status);
-            $stmt->bindParam(':id', $path[4]);
+            $stmt->bindParam(':id', $path[5]);
 
             $stmt->execute();
 
@@ -37,7 +37,7 @@ switch($method){
 
 
             // Remove request
-            
+
         case "PUT":
 
 

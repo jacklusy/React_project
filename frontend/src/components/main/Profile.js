@@ -3,8 +3,55 @@ import Footer from '../body/Footer';
 import LeftSidebar from '../body/LeftSidebar';
 import Navbar from '../body/Navbar';
 import RightSidebar from '../body/RightSidebar';
+import { useEffect, useState} from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+// import { toast } from 'react-toastify';
 
 const Profile = () => {
+
+
+
+
+
+
+
+
+    const navigate = useNavigate()
+    const [inputs, setInputs]=useState({}); 
+    // const {id}= useParams();
+
+    useEffect(()=>{
+        getUsers();
+    },[] );
+
+
+    const getUsers = () => {
+
+        let id= localStorage.getItem("Id");
+        
+        axios.get(`http://localhost/React/React_project/backend/log_reg.php/${id}`,inputs)
+        .then(function(response){
+            console.log(response.data);
+            setInputs(response.data);
+        })
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     return (
         <div>
         <Navbar />
@@ -34,7 +81,7 @@ const Profile = () => {
                                     <img src="/images/user/11.png" alt="profile-img" className="avatar-130 img-fluid" />
                                     </div>
                                     <div className="profile-detail">
-                                    <h3 className>Bni Cyst</h3>
+                                    <h3 className> { inputs.first_name } <span> { inputs.last_name } </span></h3>
                                     </div>
                                 </div>
                                 <div className="profile-info p-3 d-flex align-items-center justify-content-between position-relative">
@@ -951,13 +998,13 @@ const Profile = () => {
                                                 <h6>Email</h6>
                                             </div>
                                             <div className="col-9">
-                                                <p className="mb-0">Bnijohn@gmail.com</p>
+                                                <p className="mb-0"> {inputs.email} </p>
                                             </div>
                                             <div className="col-3">
                                                 <h6>Mobile</h6>
                                             </div>
                                             <div className="col-9">
-                                                <p className="mb-0">(001) 4544 565 456</p>
+                                                <p className="mb-0"> {inputs.phone} </p>
                                             </div>
                                             <div className="col-3">
                                                 <h6>Address</h6>

@@ -37,16 +37,20 @@ console.log(users);
           localStorage.setItem('Id', JSON.stringify(user.id));
           localStorage.setItem('Email', JSON.stringify(user.email));
           localStorage.setItem('Password', JSON.stringify(user.password));
+          let isloggedin = JSON.stringify(true)
+          sessionStorage.setItem('isloggedin', isloggedin);
           toast.success('Welcome User ❤️');
-          navigate('/home');
+          window.location.assign('/home'); ;
           return;
         }
 
       }
     }
+    let isloggedin = JSON.stringify(false)
+    sessionStorage.setItem('isloggedin', isloggedin);
+
     toast.error('Wrong email or password');
     console.log("Wrong email or password");
-
 
 
 

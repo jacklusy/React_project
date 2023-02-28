@@ -37,7 +37,7 @@ switch ($method) {
             $targetDir = "../frontend/src/components/images/";
             $fileName = basename($file["name"]);
             $targetPath = $targetDir . $fileName;
-        
+            
             if (move_uploaded_file($file["tmp_name"], $targetPath)) {
             echo "File uploaded successfully";
                 $sql = "INSERT INTO posts (user_id , content , post_image)
