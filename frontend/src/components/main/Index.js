@@ -33,7 +33,12 @@ const Index = () => {
 
 
     function getPosts() {
+<<<<<<< HEAD
         axios.get(`http://localhost/React/React_project/backend/posts.php/`)
+=======
+        
+        axios.get(`http://localhost/React/React_project/backend/posts.php`)
+>>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
             .then(response => {
                 setPosts(response.data);
                 getComments();
@@ -51,7 +56,11 @@ const Index = () => {
         formData.append("file", file);
         try {
             const response = await axios.post(
+<<<<<<< HEAD
                 "http://localhost/React/React_project/backend/posts.php/", formData
+=======
+                "http://localhost/React/React_project/backend/posts.php", formData
+>>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
             );
             console.log(response.data);
             // window.location.assign('/');
@@ -120,9 +129,11 @@ const Index = () => {
     // Comments
 
 
-
-
     function getComments() {
+<<<<<<< HEAD
+=======
+
+>>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
         axios.get(`http://localhost/React/React_project/backend/comments.php/`)
             .then(response => {
                 setComments(response.data);
@@ -206,6 +217,10 @@ const Index = () => {
       const removeLikePost = (e) => {
         e.preventDefault();
         console.log(inputs)
+<<<<<<< HEAD
+=======
+
+>>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
           axios.post('http://localhost/React/React_project/backend/likeDelete.php/' , inputs).then(
             getPosts()
           )
@@ -312,7 +327,11 @@ const Index = () => {
                                                                 {/* POST USER IMAGE */}
                                                                 <div className="me-3">
 
+<<<<<<< HEAD
                                                                 <img className="rounded-circle img-fluid" width={'60px'} src={require(`../images/${post.image}`)} alt="" /> 
+=======
+                                                                    {/* <img className="rounded-circle img-fluid" width={'60px'} src={require(`../images/${post.image}`)} alt="" /> */}
+>>>>>>> e0cb283d65425a2e81bfabe27e120634ae68b673
 
                                                                 </div>
                                                                 <div className="w-100">
@@ -330,7 +349,7 @@ const Index = () => {
                                                                                     <div className="dropdown-menu m-0 p-0">
                                                                                         <a className="dropdown-item p-3" href="#">
                                                                                             <button className="d-flex text-start  border-0 bg-transparent" onClick={() => { deletePost(post.post_id) }}>
-                                                                                                {/* <AiOutlineDelete className='fs-4' /> */}
+                                                                                                <AiOutlineDelete className='fs-4' />
                                                                                                 <div className="data ms-2">
                                                                                                     <h6>Delete</h6>
                                                                                                 </div>
@@ -338,7 +357,7 @@ const Index = () => {
                                                                                         </a>
                                                                                         <a className="dropdown-item p-3" href="#">
                                                                                             <button className="d-flex text-start align-items-top border-0 bg-transparent" id={`editPostBTN${post.post_id}`} onClick={() => { editPost(post.post_id) }}>
-                                                                                                {/* <AiOutlineEdit className='fs-4' /> */}
+                                                                                                <AiOutlineEdit className='fs-4' />
                                                                                                 <div className="data ms-2">
                                                                                                     <h6>Edit</h6>
                                                                                                 </div>
@@ -386,7 +405,17 @@ const Index = () => {
                                                                 {/* IMAGE POST */}
                                                                 <div className="row-span-2 row-span-md-1 justify-content-center">
                                                                     <hr />
-                                                                    <img id={`imgPost${post.post_id}`}  className="img-thumnail rounded w-100" src={require(`../images/${post.post_image}`)} alt='' />
+                                                                    {post.post_image !== 'null' ?(
+                                                                    <p id={`post${post.post_id}`} className="mt-3 mb-4 pb-2">{post.content}</p>
+                                                                    ):(
+                                                                        <img className="rounded-circle img-fluid" width={'60px'} src={require(`../images/profile.jpg`)} alt="" />
+
+                                                                    )
+                                                                    }
+
+                                                                    {/* <img id={`imgPost${post.post_id}`}  className="img-thumnail rounded w-100" src={require(`../images/${post.post_image}`)} alt='' /> */}
+
+
                                                                 </div>
                                                             </>
                                                             :
@@ -475,7 +504,7 @@ const Index = () => {
                                                                                 {( flagLike == true ) ?
                                                                                 <form action="" onSubmit={removeLikePost}>
                                                                                     <button className='border-0 bg-transparent' onClick={()=>handleLikePost(post.post_id)}>
-                                                                                        {/* <AiOutlineLike className='fs-3 text-light' /> */}
+                                                                                        <AiOutlineLike className='fs-3 text-light' />
                                                                                         <p className="mb-0" style={{color : 'blue' , fontWeight : 'bold'}}>Liked</p>
                                                                                         {/* LIKE NUMBER */}
                                                                                     </button>
@@ -483,7 +512,7 @@ const Index = () => {
                                                                                 :
                                                                                 <form action=""  onSubmit={likePost}>
                                                                                     <button className='border-0 bg-transparent'  onClick={()=>handleLikePost(post.post_id)}>
-                                                                                        {/* <AiOutlineLike className='fs-3 text-light' /> */}
+                                                                                        <AiOutlineLike className='fs-3 text-light' />
                                                                                         <p className="mb-0" >Like</p>
                                                                                         {/* LIKE NUMBER */}
                                                                                     </button>
@@ -497,7 +526,7 @@ const Index = () => {
                                                                             <div className="dropdown">
                                                                                 {/* BUTTON COMMENT */}
                                                                                 <button className='border-0 bg-transparent' onClick={() => foucsOnComment(post.post_id)}>
-                                                                                    {/* <AiOutlineComment className='fs-3 text-light' /> */}
+                                                                                    <AiOutlineComment className='fs-3 text-light' />
                                                                                     {/* COMMENT NUMBER */}
                                                                                 </button>
                                                                             </div>
@@ -538,7 +567,7 @@ const Index = () => {
                                                                                                                         className="d-flex text-start  border-0 bg-transparent"
                                                                                                                         onClick={() => { deleteComment(comment.comment_id) }}
                                                                                                                     >
-                                                                                                                        {/* <AiOutlineDelete className='fs-4' /> */}
+                                                                                                                        <AiOutlineDelete className='fs-4' />
                                                                                                                         <div className="data ms-2">
                                                                                                                             <h6>Delete</h6>
                                                                                                                         </div>
@@ -571,7 +600,7 @@ const Index = () => {
                                                                                                                             className="d-flex text-start  border-0 bg-transparent"
                                                                                                                             onClick={() => { deleteComment(comment.comment_id) }}
                                                                                                                         >
-                                                                                                                            {/* <AiOutlineDelete className='fs-4' /> */}
+                                                                                                                            <AiOutlineDelete className='fs-4' />
                                                                                                                             <div className="data ms-2">
                                                                                                                                 <h6>Delete</h6>
                                                                                                                             </div>
@@ -583,7 +612,7 @@ const Index = () => {
                                                                                                                             id={`editCommentBTN${comment.comment_id}`}
                                                                                                                             onClick={() => { editComment(comment.comment_id) }}
                                                                                                                         >
-                                                                                                                            {/* <AiOutlineEdit className='fs-4' /> */}
+                                                                                                                            <AiOutlineEdit className='fs-4' />
                                                                                                                             <div className="data ms-2">
                                                                                                                                 <h6>Edit</h6>
                                                                                                                             </div>
