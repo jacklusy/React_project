@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
 
-  console.log("test");
+
   const navigate = useNavigate();
 
 
@@ -31,8 +31,6 @@ console.log(users);
   const ProceedLogin = (e) => {
     e.preventDefault();
     for (const user of users) {
-      // if(user.password == password)
-      console.log(user.password,password)
       if (email.length === 0 || password.length === 0) {
         setError(true)
       } else {
@@ -41,7 +39,6 @@ console.log(users);
           localStorage.setItem('Id', JSON.stringify(user.id));
           localStorage.setItem('Email', JSON.stringify(user.email));
           localStorage.setItem('Password', JSON.stringify(user.password));
-          console.log(`Welcome User`);
           toast.success('Welcome User ❤️');
           navigate('/home');
           return;
@@ -58,7 +55,7 @@ console.log(users);
   }
   
       const getUser = ()=> {
-        axios.get('http://localhost/React/Group6_React/backend/log_reg.php').then(function(response){
+        axios.get('http://localhost/React/React_project/backend/log_reg.php').then(function(response){
             setUsers(response.data)
         })
     }
