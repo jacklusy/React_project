@@ -186,32 +186,7 @@ const GroupDetails = () => {
                                                             </form>
                                                         </div>
                                                         <hr />
-                                                        <ul className="d-flex flex-wrap align-items-center list-inline m-0 p-0">
-                                                            <li className="col-md-6 mb-3">
-                                                                <div className="bg-soft-primary rounded p-2 pointer me-3"><a href="#" /><img src="/images/small/07.png" alt="icon" className="img-fluid" /> Photo/Video</div>
-                                                            </li>
-                                                            <li className="col-md-6 mb-3">
-                                                                <div className="bg-soft-primary rounded p-2 pointer me-3"><a href="#" /><img src="/images/small/08.png" alt="icon" className="img-fluid" /> Tag Friend</div>
-                                                            </li>
-                                                            <li className="col-md-6 mb-3">
-                                                                <div className="bg-soft-primary rounded p-2 pointer me-3"><a href="#" /><img src="/images/small/09.png" alt="icon" className="img-fluid" /> Feeling/Activity</div>
-                                                            </li>
-                                                            <li className="col-md-6 mb-3">
-                                                                <div className="bg-soft-primary rounded p-2 pointer me-3"><a href="#" /><img src="/images/small/10.png" alt="icon" className="img-fluid" /> Check in</div>
-                                                            </li>
-                                                            <li className="col-md-6 mb-3">
-                                                                <div className="bg-soft-primary rounded p-2 pointer me-3"><a href="#" /><img src="/images/small/11.png" alt="icon" className="img-fluid" /> Live Video</div>
-                                                            </li>
-                                                            <li className="col-md-6 mb-3">
-                                                                <div className="bg-soft-primary rounded p-2 pointer me-3"><a href="#" /><img src="/images/small/12.png" alt="icon" className="img-fluid" /> Gif</div>
-                                                            </li>
-                                                            <li className="col-md-6 mb-3">
-                                                                <div className="bg-soft-primary rounded p-2 pointer me-3"><a href="#" /><img src="/images/small/13.png" alt="icon" className="img-fluid" /> Watch Party</div>
-                                                            </li>
-                                                            <li className="col-md-6 mb-3">
-                                                                <div className="bg-soft-primary rounded p-2 pointer me-3"><a href="#" /><img src="/images/small/14.png" alt="icon" className="img-fluid" /> Play with Friends</div>
-                                                            </li>
-                                                        </ul>
+                                                        
                                                         <hr />
                                                         <div className="other-option">
                                                             <div className="d-flex align-items-center justify-content-between">
@@ -358,7 +333,8 @@ const GroupDetails = () => {
                                                                         <span className="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
                                                                             <img src="/images/icon/01.png" className="img-fluid" alt="" />
                                                                         </span>
-                                                                        <div className="dropdown-menu py-2">
+                                                                        {/* smiles */}
+                                                                        {/* <div className="dropdown-menu py-2">
                                                                             <a className="ms-2 me-2" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Like"><img src="/images/icon/01.png" className="img-fluid" alt="" /></a>
                                                                             <a className="me-2" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Love"><img src="/images/icon/02.png" className="img-fluid" alt="" /></a>
                                                                             <a className="me-2" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Happy"><img src="/images/icon/03.png" className="img-fluid" alt="" /></a>
@@ -366,7 +342,7 @@ const GroupDetails = () => {
                                                                             <a className="me-2" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Think"><img src="/images/icon/05.png" className="img-fluid" alt="" /></a>
                                                                             <a className="me-2" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Sade"><img src="/images/icon/06.png" className="img-fluid" alt="" /></a>
                                                                             <a className="me-2" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Lovely"><img src="/images/icon/07.png" className="img-fluid" alt="" /></a>
-                                                                        </div>
+                                                                        </div> */}
                                                                     </div>
                                                                 </div>
                                                                 <div className="total-like-block ms-2 me-3">

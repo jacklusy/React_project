@@ -22,7 +22,7 @@ switch ($method) {
         } else {
             $file = $_FILES["file"] ;
         }
-
+        
         if($file != ""){
             $targetDir = "../src/Components/images/";
             $fileName = basename($file["name"]);

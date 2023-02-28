@@ -75,7 +75,6 @@ pauseOnHover
 
           <Route exact path="/Chat" element={<Chat />} />
           <Route exact path="/Email" element={<Email />} />
-          <Route exact path="*" element={<Login />} />
 
         </Routes>
       </Router>
