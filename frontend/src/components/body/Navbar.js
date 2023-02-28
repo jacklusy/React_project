@@ -259,12 +259,14 @@ function Navbar() {
                   </div>
                 </div>
               </li>
+
               <li className="nav-item dropdown">
                 <a href="/Profile" className="   d-flex align-items-center dropdown-toggle" id="drop-down-arrow" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <img src="/images/user/1.jpg" className="img-fluid rounded-circle me-3" alt="user" />
+                  <img src="/images/{$post.image}.jpg" className="img-fluid rounded-circle me-3" alt="user" />
                   <div className="caption">
-                    <h6 className="mb-0 line-height">Bni Cyst</h6>
+                    <h6 className="mb-0 line-height">salwa</h6>
                   </div>
+                
                 </a>
                 <div className="sub-drop dropdown-menu caption-menu" aria-labelledby="drop-down-arrow">
                   <div className="card shadow-none m-0">
