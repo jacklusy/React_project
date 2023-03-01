@@ -71,7 +71,7 @@ pauseOnHover
 
             <Route exact path="/Group" element={<Group />} />
             <Route exact path="/Mygroups" element={<MyGroups />} />
-            <Route exact path="/GroupDetails" element={<GroupDetails />} />
+            <Route exact path="/groupd/:id/show" element={<GroupDetails />} />
 
             <Route exact path="/Chat" element={<Chat />} />
             <Route exact path="/Email" element={<Email />} />
