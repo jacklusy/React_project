@@ -14,7 +14,7 @@ $conn = $object->connect();
 
 
 $user = json_decode(file_get_contents('php://input'));
-            print_r($user);
+            // print_r($user);
 
             $sql = "DELETE  FROM friends WHERE user_id = :user_id and friend_id = :friend_id ";
             

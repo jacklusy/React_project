@@ -7,28 +7,155 @@ import { useNavigate } from 'react-router-dom';
 
 function Navbar() {
   let id = localStorage.getItem("Id");
-
-
-
-
   const navigate = useNavigate()
   const [inputs, setInputs] = useState({});
-  // const {id}= useParams();
-
-  useEffect(() => {
-    getUsers();
-  }, []);
-
-
-  const getUsers = () => {
+  const [users,setUsers] = useState([]);
+  const [pendingFriends,setpendingFriends] = useState([]);
+  const [acceptrdFriends,setAcceptedFriends] = useState([]);
+  const [requestFriends,setRequestFriends] = useState([]);  
+  const [pendingRequest,setpendingRequest] = useState([]);
+  const [friends,setfriends] = useState([]);
+  const [requestFriend,setrequestFriend] = useState([]);
+  
+  
+  const getusers = () => {
     let id = localStorage.getItem("Id");
-
+    
     axios.get(`http://localhost/React/React_project/backend/log_reg.php/${id}`, inputs)
       .then(function (response) {
         console.log(response.data);
         setInputs(response.data);
       })
-  }
+    }
+    
+    
+    useEffect(()=>{
+        getUsers();
+        getusers();
+        getFriendsPending();
+        getFriendsAccepted();
+        getFriendsRequest();
+
+    },[]);
+
+        // لعرض جميع المستخدمين في الموقع
+        const getUsers = () => {
+
+            axios.get("http://localhost:80/frontend/back_end/user.php/users")
+            .then((respone)=>{
+                setUsers(respone.data)
+                console.log(respone.data);
+            })
+        }
+        
+    // اللي بعثهم المستخدم pending عرض جميع طلبات الصداقة في حالة 
+    const getFriendsPending = () => {
+
+        axios.get(`http://localhost:80/frontend/back_end/acceptFriend.php/${id}`)
+        .then((respone)=>{
+            console.log(respone.data);
+            let pendingRequest = respone.data.map((ele)=>{
+                return ele.friend_id
+            })
+            setpendingRequest(pendingRequest);
+            console.log(pendingRequest);
+            setpendingFriends(respone.data)
+        })
+    }
+    //   عرض جميع طلبات الصداقة الذين تمت الموافقة عليهم
+
+    
+    const getFriendsAccepted = () => {
+
+        axios.get(`http://localhost:80/frontend/back_end/friends.php/${id}`)
+        .then((respone)=>{
+            console.log(respone.data);
+            let friends = respone.data.map((ele)=>{
+                return ele.friend_id
+            })
+            console.log(friends);
+            setfriends(friends);
+            setAcceptedFriends(respone.data)
+        })
+    }
+
+        // عرض طلبات الصداقة الخاصة بالمستخدم واللي لسا ما وافق عليهم
+
+        const getFriendsRequest = () => {
+
+            axios.get(`http://localhost:80/frontend/back_end/friendRequests.php/${id}`)
+            .then((respone)=>{
+                console.log(respone.data);
+                let requestFriend = respone.data.map((ele)=>{
+                    return ele.user_id
+                })
+                console.log(requestFriend);
+                setrequestFriend(requestFriend);
+                setRequestFriends(respone.data)
+            })
+        }
+
+        
+    //  pending وحالته بتكون friends  اضافة صديق جديد في جدول ال 
+    const AddFriends = (friendId) => {
+        let inputs = {user_id:id , friend_id:friendId};
+        axios.post(`http://localhost:80/frontend/back_end/friends.php/save`,inputs)
+        .then((respone)=>{
+            console.log(respone.data);
+            getUsers();
+            getFriendsPending();
+            getFriendsRequest();
+        })
+
+
+        
+    }
+
+    
+    // status الموافقة على طلب الصداقة وتغيير ال 
+    const AcceptFriend = (friendId) => {
+        let inputs = {user_id:id , friend_id:friendId};
+        axios.put(`http://localhost:80/frontend/back_end/friends.php/edit`,inputs)
+        .then((respone)=>{
+            console.log(respone.data);
+            getFriendsPending();
+            getFriendsAccepted();
+            getFriendsRequest();
+        })
+
+
+        
+    }
+
+       
+    // الغاء ارسال طلب الصداقة
+    const removeRequest = (friendId) => {
+        let inputs = {user_id:id , friend_id:friendId};
+        axios.put(`http://localhost:80/frontend/back_end/removeRequest.php/edit`,inputs)
+        .then((respone)=>{
+            console.log(respone.data);
+            getFriendsPending();
+            getFriendsAccepted();
+        })
+
+
+        
+    }
+    
+    // حذف الصداقة
+    const removeFriend = (friendId) => {
+        let inputs = {user_id:id , friend_id:friendId};
+        axios.put(`http://localhost:80/frontend/back_end/removeFriends.php`,inputs)
+        .then((respone)=>{
+            console.log(respone.data);
+            getFriendsPending();
+            getFriendsAccepted();
+            
+        })
+
+
+        
+    }
 
 
 
@@ -76,6 +203,8 @@ function Navbar() {
                       <small className="badge  bg-light text-dark ">4</small>
                     </div>
                     <div className="card-body p-0">
+
+                      {/* FRIND REEQUIST */}
                       <div className="iq-friend-request">
                         <div className="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
                           <div className="d-flex align-items-center">
@@ -91,52 +220,8 @@ function Navbar() {
                           </div>
                         </div>
                       </div>
-                      <div className="iq-friend-request">
-                        <div className="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
-                          <div className="d-flex align-items-center">
-                            <img className="avatar-40 rounded" src="/images/user/02.jpg" alt="" />
-                            <div className="ms-3">
-                              <h6 className="mb-0 ">Lucy Tania</h6>
-                              <p className="mb-0">12 friends</p>
-                            </div>
-                          </div>
-                          <div className="d-flex align-items-center">
-                            <a href="javascript:void();" className="me-3 btn btn-primary rounded">Confirm</a>
-                            <a href="javascript:void();" className="me-3 btn btn-secondary rounded">Delete Request</a>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="iq-friend-request">
-                        <div className="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
-                          <div className="d-flex align-items-center">
-                            <img className="avatar-40 rounded" src="/images/user/03.jpg" alt="" />
-                            <div className=" ms-3">
-                              <h6 className="mb-0 ">Manny Petty</h6>
-                              <p className="mb-0">3 friends</p>
-                            </div>
-                          </div>
-                          <div className="d-flex align-items-center">
-                            <a href="javascript:void();" className="me-3 btn btn-primary rounded">Confirm</a>
-                            <a href="javascript:void();" className="me-3 btn btn-secondary rounded">Delete Request</a>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="iq-friend-request">
-                        <div className="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
-                          <div className="d-flex align-items-center">
-                            <img className="avatar-40 rounded" src="/images/user/04.jpg" alt="" />
-                            <div className="ms-3">
-                              <h6 className="mb-0 ">Marsha Mello</h6>
-                              <p className="mb-0">15 friends</p>
-                            </div>
-                          </div>
-                          <div className="d-flex align-items-center">
-                            <a href="javascript:void();" className="me-3 btn btn-primary rounded">Confirm</a>
-                            <a href="javascript:void();" className="me-3 btn btn-secondary rounded">Delete Request</a>
-                          </div>
-                        </div>
-                      </div>
                       <div className="text-center">
+                        {/* SHOW ALL PEOPLE IN PAGE WITH ALL GROUP */}
                         <a href="#" className=" btn text-primary">View More Request</a>
                       </div>
                     </div>
@@ -149,7 +234,12 @@ function Navbar() {
 
               <li className="nav-item dropdown">
                 <a href="/Profile" className="   d-flex align-items-center dropdown-toggle" id="drop-down-arrow" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {!photoUrl ? <img src="/images/user/default.jpg" alt="userimg" className="img-fluid rounded-circle me-3" /> : <img src={'/images/user/' + photoUrl} alt="userimg" className="img-fluid rounded-circle me-3" />}
+                    {/* IMAGE NAVBAR FOR USER */}
+                    {!photoUrl ? ( 
+                      <img src="/images/user/default.jpg" alt="userimg" className="img-fluid rounded-circle me-3" /> 
+                    ): ( 
+                      <img src={require(`../images/${photoUrl}`)} alt="userimg" className="img-fluid rounded-circle me-3" />
+                    )}
                   <div className="caption">
                     <h6 className="mb-0 line-height"> {inputs.first_name} <span> {inputs.last_name} </span></h6>
                   </div>
