@@ -149,7 +149,7 @@ const ShowUpdateForm = () => {
               <img src="/images/page-img/profile-bg7.jpg" classname="img-fluid w-100" style={{ width: '100%' }} alt="header-bg" />
               <div className="title-on- header">
                 <div className="data-block">
-                  <h2>Groups</h2>
+                  <h2>Create Groups</h2>
                 </div>
               </div>
             </div>
@@ -157,8 +157,8 @@ const ShowUpdateForm = () => {
           
 
 
-          <button className="button_submit" onClick={()=>ShowUpdateForm()}>Create new Group</button>
-          {showUpdateForm&& <CreateGroup handleSubmit={handleSubmit} setText={setText} setFile={setFile} setGroupDescription={setGroupDescription} text={text} />}
+          {/* <button className="button_submit" onClick={()=>ShowUpdateForm()}>Create new Group</button> */}
+           <CreateGroup handleSubmit={handleSubmit} setText={setText} setFile={setFile} setGroupDescription={setGroupDescription} text={text} />
 
 
           {/* <button type="submit" className="btn btn-primary d-block w-100"><i className="ri-add-line pe-2" />Create New Group</button> */}
