@@ -1,48 +1,3 @@
-<<<<<<< HEAD
-import React from "react";
-import { useState, useEffect, useParams } from "react";
-import axios from "axios";
-import {
-    AiOutlineLike,
-    AiOutlineComment,
-    AiOutlineDelete,
-    AiOutlineEdit,
-    AiFillLike,
-} from "react-icons/ai";
-import Navbar from "../body/Navbar";
-import RightSidebar from "../body/RightSidebar";
-import LeftSidebar from "../body/LeftSidebar";
-import Footer from "../body/Footer";
-
-const Index = () => {
-    const current_Fname = JSON.parse(localStorage.getItem("first_name"));
-    const current_Lname = JSON.parse(localStorage.getItem("last_name"));
-    const current_ID = JSON.parse(localStorage.getItem("Id"));
-    const current_Email = JSON.parse(localStorage.getItem("email"));
-
-    const [inputs, setInputs] = useState("");
-    const [posts, setPosts] = useState([]);
-    const [likes, setLikes] = useState([]);
-    const [comments, setComments] = useState([]);
-    const [file, setFile] = useState(null);
-
-    useEffect(() => {
-        getPosts();
-        getComments();
-    }, []);
-
-    // Posts
-
-    function getPosts() {
-        axios
-            .get(`http://localhost/React/React_project/backend/posts.php`)
-
-            .then((response) => {
-                setPosts(response.data);
-                getComments();
-                getLikes();
-            });
-=======
 
 
 import React from 'react'
@@ -89,7 +44,6 @@ const Index = () => {
                 getComments();
                 getLikes();
             })
->>>>>>> 77fb92dffdae558d57799ea01df78b335eed7dd5
     }
 
     const handleImagePost = async (e) => {
@@ -102,18 +56,10 @@ const Index = () => {
         formData.append("file", file);
         try {
             const response = await axios.post(
-<<<<<<< HEAD
-                "http://localhost/React/React_Project/backend/posts.php/",
-                formData
-            );
-            console.log(response.data);
-            window.location.assign("/home");
-=======
                 "http://localhost/React/React_Project/backend/posts.php/", formData
             );
             console.log(response.data);
             window.location.assign('/home');
->>>>>>> 77fb92dffdae558d57799ea01df78b335eed7dd5
         } catch (error) {
             console.error(error);
         }
@@ -121,7 +67,6 @@ const Index = () => {
 
     const handlePost = (e) => {
         const value = e.target.value;
-<<<<<<< HEAD
         setInputs(value);
     };
 
@@ -288,176 +233,6 @@ const Index = () => {
             <LeftSidebar />
             <div>
                 {/* <meta charSet="utf-8" />
-=======
-        setInputs(value)
-    }
-
-    const handleChange = (e) => {
-        const value = e.target.value;
-        const post_id = e.target.id;
-        const user_id = e.target.name;
-        setInputs({ 'comment_content': value, 'post_id': post_id, 'user_id': user_id })
-    }
-
-
-
-    const editPost = (id) => {
-        document.getElementById(`post${id}`).style.display = 'none';
-        document.getElementById(`editPostForm${id}`).style.display = 'block';
-        document.getElementById(`editPostBTN${id}`).style.display = 'none';
-    }
-
-    const handleEditPost = (id) => {
-        const post_id = id;
-        const value = document.getElementById(`editPostInput${id}`).value;
-        setInputs({ 'post_content': value, 'post_id': post_id })
-    }
-
-    const handleEditPostSubmit = async (e) => {
-        e.preventDefault();
-
-        const formEditData = new FormData();
-
-        formEditData.append("post_content", inputs['post_content']);
-        formEditData.append("post_id", inputs['post_id']);
-        formEditData.append("file", file);
-
-        console.log(formEditData);
-
-        try {
-            const response = await axios.post(
-                "http://localhost/React/React_Project/backend/postEdit.php/", formEditData
-            );
-            console.log(response.data);
-            window.location.assign('/home');
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-
-
-    const deletePost = (id) => {
-        axios.delete(`http://localhost/React/React_Project/backend/posts.php/${id}`).then(function (response) {
-        })
-        window.location.assign('/home');
-    }
-
-
-    // Comments
-
-
-    function getComments() {
-        axios.get(`http://localhost/React/React_Project/backend/comments.php/`)
-            .then(response => {
-                setComments(response.data);
-            })
-    }
-
-    const handleCreateComment = (e) => {
-        e.preventDefault();
-        console.log(inputs)
-        axios.post('http://localhost/React/React_Project/backend/comments.php/', inputs).then(
-            // window.location.assign('/home')
-        )
-    }
-
-    const deleteComment = (id) => {
-        axios.delete(`http://localhost/React/React_Project/backend/comments.php/${id}`).then(function (response) {
-            getComments();
-        })
-
-    }
-
-    const editComment = (id) => {
-        document.getElementById(`comment${id}`).style.display = 'none';
-        document.getElementById(`editCommentForm${id}`).style.display = 'block';
-        document.getElementById(`editCommentBTN${id}`).style.display = 'none';
-    }
-
-    const handleEditComment = (id) => {
-        const comment_id = id;
-        const value = document.getElementById(`editCommentInput${id}`).value;
-        setInputs({ 'comment_content': value, 'comment_id': comment_id })
-    }
-
-    const handleEditCommentSubmit = (e) => {
-        e.preventDefault();
-        axios.put('http://localhost/React/React_Project/backend/comments.php/', inputs).then(
-            // window.location.assign('/')
-        )
-    }
-
-    const foucsOnComment = (id) => {
-        document.getElementById(id).focus();
-    }
-
-    const canclePostEdit = (id) => {
-        document.getElementById(`post${id}`).style.display = 'block';
-        document.getElementById(`editPostForm${id}`).style.display = 'none';
-        document.getElementById(`editPostBTN${id}`).style.display = 'inline-block';
-        document.getElementById(`imgPost${id}`).style.display = 'block';
-    }
-
-    const cancleCommentEdit = (id) => {
-        document.getElementById(`comment${id}`).style.display = 'block';
-        document.getElementById(`editCommentForm${id}`).style.display = 'none';
-        document.getElementById(`editCommentBTN${id}`).style.display = 'inline-block';
-        window.location.assign('/home');
-
-
-    }
-
-    // Likes
-
-
-    const getLikes = () => {
-
-        axios.get(`http://localhost/React/React_project/backend/likes.php/`)
-            .then(response => {
-                setLikes(response.data);
-            })
-    }
-
-    const handleLikePost = (id) => {
-        const post_id = id;
-        const user_id = current_ID;
-        setInputs({ 'user_id': user_id, 'post_id': post_id })
-    }
-
-    const likePost = (e) => {
-        e.preventDefault();
-        console.log(inputs)
-
-        axios.post('http://localhost/React/React_project/backend/likes.php/', inputs).then(
-
-            getPosts()
-        )
-    }
-    const removeLikePost = (e) => {
-        e.preventDefault();
-        console.log(inputs)
-        axios.post('http://localhost/React/React_Project/backend/likeDelete.php/', inputs).then(
-            getPosts()
-        )
-    }
-
-
-    const photoUrl = inputs.image;
-    // console.log(inputs);
-
-
-    // Return
-    return (
-        <>
-
-            <Navbar />
-
-            <RightSidebar />
-            <LeftSidebar />
-            <div>
-                <meta charSet="utf-8" />
->>>>>>> 77fb92dffdae558d57799ea01df78b335eed7dd5
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
                 <title>Posts</title>
 
@@ -468,14 +243,7 @@ const Index = () => {
                                 <div className="col-lg-12 row m-0 p-0">
                                     <div className="col-sm-12">
                                         {/* POST FORM */}
-<<<<<<< HEAD
-                                        <form
-                                            id="post-modal-data"
-                                            onSubmit={handleImagePost}
-                                            className="card card-block card-stretch ">
-=======
                                         <form id="post-modal-data" onSubmit={handleImagePost} className="card card-block card-stretch ">
->>>>>>> 77fb92dffdae558d57799ea01df78b335eed7dd5
                                             <div className="card-header d-flex justify-content-between">
                                                 <div className="header-title">
                                                     <h4 className="card-title">Create Post</h4>
@@ -484,80 +252,39 @@ const Index = () => {
                                             <div className="card-body">
                                                 <div className="d-flex align-items-center">
                                                     <div className="user-img">
-<<<<<<< HEAD
                                                         <img
                                                             src="/images/user/1.jpg"
                                                             alt="userimg"
                                                             className="avatar-60 rounded-circle"
                                                         />
-=======
-                                                        {!photoUrl ? <img src="/images/user/default.jpg" alt="userimg" className="avatar-60 rounded-circle img-fluid" /> : <img src={'/images/user/' + photoUrl} alt="userimg" className="avatar-60 rounded-circle img-fluid" />}
->>>>>>> 77fb92dffdae558d57799ea01df78b335eed7dd5
                                                     </div>
                                                     <div
                                                         className="post-text ms-3 w-100 "
                                                         data-bs-toggle="modal"
-<<<<<<< HEAD
-                                                        data-bs-target="#post-modal">
-=======
                                                         data-bs-target="#post-modal"
                                                     >
->>>>>>> 77fb92dffdae558d57799ea01df78b335eed7dd5
                                                         <input
                                                             type="text"
                                                             className="form-control rounded"
                                                             id={current_ID}
                                                             placeholder="Write something here..."
-<<<<<<< HEAD
-                                                            style={{ border: "none" }}
-=======
                                                             style={{ border: 'none' }}
->>>>>>> 77fb92dffdae558d57799ea01df78b335eed7dd5
                                                         />
                                                     </div>
                                                 </div>
                                                 <hr />
                                             </div>
-<<<<<<< HEAD
-                                            <div
-                                                className="modal fade"
-                                                id="post-modal"
-                                                tabIndex={-1}
-                                                aria-labelledby="post-modalLabel"
-                                                aria-hidden="true">
-                                                <div className="modal-dialog   modal-fullscreen-sm-down">
-                                                    <div className="modal-content">
-                                                        <div className="modal-header">
-                                                            <h5 className="modal-title" id="post-modalLabel">
-                                                                Create Post
-                                                            </h5>
-                                                            <button
-                                                                type="button"
-                                                                className="btn btn-secondary"
-                                                                data-bs-dismiss="modal">
-                                                                <i className="ri-close-fill" />
-                                                            </button>
-=======
                                             <div className="modal fade" id="post-modal" tabIndex={-1} aria-labelledby="post-modalLabel" aria-hidden="true">
                                                 <div className="modal-dialog   modal-fullscreen-sm-down">
                                                     <div className="modal-content">
                                                         <div className="modal-header">
                                                             <h5 className="modal-title" id="post-modalLabel">Create Post</h5>
                                                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal"><i className="ri-close-fill" /></button>
->>>>>>> 77fb92dffdae558d57799ea01df78b335eed7dd5
                                                         </div>
                                                         <div className="modal-body">
                                                             <div className="d-flex align-items-center">
                                                                 <div className="user-img">
-<<<<<<< HEAD
-                                                                    <img
-                                                                        src="/images/user/1.jpg"
-                                                                        alt="userimg"
-                                                                        className="avatar-60 rounded-circle img-fluid"
-                                                                    />
-=======
                                                                     <img src="/images/user/1.jpg" alt="userimg" className="avatar-60 rounded-circle img-fluid" />
->>>>>>> 77fb92dffdae558d57799ea01df78b335eed7dd5
                                                                 </div>
                                                                 <div className="post-text ms-3 w-100">
                                                                     <input
@@ -565,11 +292,7 @@ const Index = () => {
                                                                         className="form-control rounded"
                                                                         id={current_ID}
                                                                         placeholder="Write something here..."
-<<<<<<< HEAD
-                                                                        style={{ border: "none" }}
-=======
                                                                         style={{ border: 'none' }}
->>>>>>> 77fb92dffdae558d57799ea01df78b335eed7dd5
                                                                         onChange={handlePost}
                                                                     />
                                                                 </div>
@@ -578,11 +301,7 @@ const Index = () => {
                                                             <ul className="d-flex flex-wrap align-items-center list-inline m-0 p-0">
                                                                 <li className="me-3 mb-md-0 mb-2">
                                                                     <input
-<<<<<<< HEAD
-                                                                        type="file"
-=======
                                                                         type='file'
->>>>>>> 77fb92dffdae558d57799ea01df78b335eed7dd5
                                                                         id="file"
                                                                         accept="image/*"
                                                                         onChange={(e) => setFile(e.target.files[0])}
@@ -590,43 +309,24 @@ const Index = () => {
                                                                 </li>
                                                             </ul>
                                                             <hr />
-<<<<<<< HEAD
-                                                            <button
-                                                                type="submit"
-                                                                className="btn btn-primary d-block w-100 mt-3">
-                                                                Post
-                                                            </button>
-=======
                                                             <button type="submit" className="btn btn-primary d-block w-100 mt-3">Post</button>
->>>>>>> 77fb92dffdae558d57799ea01df78b335eed7dd5
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
-<<<<<<< HEAD
-                                    <div className="col-sm-12 p-2">
-=======
                                     <div className="col-sm-12">
->>>>>>> 77fb92dffdae558d57799ea01df78b335eed7dd5
                                         {/* ALL POSTS */}
                                         {posts.map((post, index_post) => {
                                             var flagLike = false;
                                             return (
-<<<<<<< HEAD
-                                                <div
-                                                    className="card card-block card-stretch"
-                                                    key={index_post}>
-=======
                                                 <div className="card card-block card-stretch" key={index_post}>
->>>>>>> 77fb92dffdae558d57799ea01df78b335eed7dd5
                                                     <div className="card-body">
                                                         <div className="user-post-data">
                                                             <div className="d-flex justify-content-between">
                                                                 {/* POST USER IMAGE */}
                                                                 <div className="me-3">
-<<<<<<< HEAD
                                                                     {!post.image ? (
                                                                         <img className="rounded-circle avatar-60" src={require('../images/default_user.jpeg')} alt="" />
                                                                     ) : (
@@ -831,19 +531,6 @@ const Index = () => {
                                   )} */}
 
                                                                     {/* <img id={`imgPost${post.post_id}`}  className="img-thumnail rounded w-100" src={require(`../images/${post.post_image}`)} alt='' /> */}
-=======
-                                                                    {/* {post.image !== 'null' ?(
-                                                                    <img className="rounded-circle img-fluid" width={'60px'} src={require(`../images/${post.image}`)} alt="" />
-
-
-                                                                   ):(
-                                                                    <img className="rounded-circle img-fluid" width={'60px'} src={require(`../images/profile.jpg`)} alt="" />
-
-                                                                   )}
-                                                                    */}
-
-
->>>>>>> 77fb92dffdae558d57799ea01df78b335eed7dd5
                                                                 </div>
                                                             </>
                                                         )}
@@ -897,8 +584,6 @@ const Index = () => {
                                                                         </div>
                                                                     </div>
                                                                 </div>
-<<<<<<< HEAD
-=======
                                                             </div>
                                                         </div>
                                                         {(post.post_image !== 'a') ?
@@ -1033,7 +718,6 @@ const Index = () => {
                                                                         </div>
                                                                     </div>
                                                                 </div>
->>>>>>> 77fb92dffdae558d57799ea01df78b335eed7dd5
                                                             </>
 
                                                             <hr />
@@ -1041,63 +725,11 @@ const Index = () => {
                                                             {comments.map((comment, index_comment) => {
                                                                 if (comment.post_id == post.post_id) {
                                                                     return (
-<<<<<<< HEAD
-                                                                        <div
-                                                                            className="card card-block card-stretch"
-                                                                            key={index_comment}>
-=======
                                                                         <div className="card card-block card-stretch" key={index_comment}>
->>>>>>> 77fb92dffdae558d57799ea01df78b335eed7dd5
                                                                             <div className="card-body">
                                                                                 <div className="user-post-data">
                                                                                     <div className="d-flex justify-content-between">
                                                                                         <div className="me-2">
-<<<<<<< HEAD
-                                                                                            <img
-                                                                                                src="/images/user/02.jpg"
-                                                                                                width={"60px"}
-                                                                                                alt="userimg"
-                                                                                                className="rounded-circle img-fluid"
-                                                                                            />
-                                                                                        </div>
-                                                                                        <div className="w-100">
-                                                                                            <div className="d-flex justify-content-between">
-                                                                                                <div className="mt-1">
-                                                                                                    <h5 className="mb-0 d-inline-block">
-                                                                                                        {comment.first_name}
-                                                                                                    </h5>
-                                                                                                    <p
-                                                                                                        className="mb-0 text-primary"
-                                                                                                        style={{ fontSize: "8px" }}>
-                                                                                                        {comment.comment_created_at}
-                                                                                                    </p>
-                                                                                                </div>
-                                                                                                {/* TOOLS COMMENT  */}
-                                                                                                {comment.user_id ==
-                                                                                                    current_ID ? (
-                                                                                                    <div className="card-post-toolbar">
-                                                                                                        <div className="dropdown">
-                                                                                                            <span
-                                                                                                                className="dropdown-toggle"
-                                                                                                                data-bs-toggle="dropdown"
-                                                                                                                aria-haspopup="true"
-                                                                                                                aria-expanded="false"
-                                                                                                                role="button">
-                                                                                                                <i className="ri-more-fill" />
-                                                                                                            </span>
-                                                                                                            <div className="dropdown-menu m-0 p-0">
-                                                                                                                <a
-                                                                                                                    className="dropdown-item p-3"
-                                                                                                                    href="#">
-                                                                                                                    <button
-                                                                                                                        className="d-flex text-start  border-0 bg-transparent"
-                                                                                                                        onClick={() => {
-                                                                                                                            deleteComment(
-                                                                                                                                comment.comment_id
-                                                                                                                            );
-                                                                                                                        }}>
-                                                                                                                        <AiOutlineDelete className="fs-4" />
-=======
                                                                                             <img src="/images/user/02.jpg" width={'60px'} alt="userimg" className="rounded-circle img-fluid" />
                                                                                         </div>
                                                                                         <div className="w-100">
@@ -1120,26 +752,11 @@ const Index = () => {
                                                                                                                         onClick={() => { deleteComment(comment.comment_id) }}
                                                                                                                     >
                                                                                                                         <AiOutlineDelete className='fs-4' />
->>>>>>> 77fb92dffdae558d57799ea01df78b335eed7dd5
                                                                                                                         <div className="data ms-2">
                                                                                                                             <h6>Delete</h6>
                                                                                                                         </div>
                                                                                                                     </button>
                                                                                                                 </a>
-<<<<<<< HEAD
-                                                                                                                <a
-                                                                                                                    className="dropdown-item p-3"
-                                                                                                                    href="#">
-                                                                                                                    <button
-                                                                                                                        className="d-flex text-start align-items-top border-0 bg-transparent"
-                                                                                                                        id={`editCommentBTN${comment.comment_id}`}
-                                                                                                                        onClick={() => {
-                                                                                                                            editComment(
-                                                                                                                                comment.comment_id
-                                                                                                                            );
-                                                                                                                        }}>
-                                                                                                                        <AiOutlineEdit className="fs-4" />
-=======
                                                                                                                 <a className="dropdown-item p-3" href="#">
                                                                                                                     <button
                                                                                                                         className="d-flex text-start align-items-top border-0 bg-transparent"
@@ -1147,7 +764,6 @@ const Index = () => {
                                                                                                                         onClick={() => { editComment(comment.comment_id) }}
                                                                                                                     >
                                                                                                                         <AiOutlineEdit className='fs-4' />
->>>>>>> 77fb92dffdae558d57799ea01df78b335eed7dd5
                                                                                                                         <div className="data ms-2">
                                                                                                                             <h6>Edit</h6>
                                                                                                                         </div>
@@ -1156,58 +772,6 @@ const Index = () => {
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     </div>
-<<<<<<< HEAD
-                                                                                                ) : post.user_id ==
-                                                                                                    current_ID ? (
-                                                                                                    <div className="card-post-toolbar">
-                                                                                                        <div className="dropdown">
-                                                                                                            <span
-                                                                                                                className="dropdown-toggle"
-                                                                                                                data-bs-toggle="dropdown"
-                                                                                                                aria-haspopup="true"
-                                                                                                                aria-expanded="false"
-                                                                                                                role="button">
-                                                                                                                <i className="ri-more-fill" />
-                                                                                                            </span>
-                                                                                                            <div className="dropdown-menu m-0 p-0">
-                                                                                                                <a
-                                                                                                                    className="dropdown-item p-3"
-                                                                                                                    href="#">
-                                                                                                                    <button
-                                                                                                                        className="d-flex text-start  border-0 bg-transparent"
-                                                                                                                        onClick={() => {
-                                                                                                                            deleteComment(
-                                                                                                                                comment.comment_id
-                                                                                                                            );
-                                                                                                                        }}>
-                                                                                                                        <AiOutlineDelete className="fs-4" />
-                                                                                                                        <div className="data ms-2">
-                                                                                                                            <h6>Delete</h6>
-                                                                                                                        </div>
-                                                                                                                    </button>
-                                                                                                                </a>
-                                                                                                                <a
-                                                                                                                    className="dropdown-item p-3"
-                                                                                                                    href="#">
-                                                                                                                    <button
-                                                                                                                        className="d-flex text-start align-items-top border-0 bg-transparent"
-                                                                                                                        id={`editCommentBTN${comment.comment_id}`}
-                                                                                                                        onClick={() => {
-                                                                                                                            editComment(
-                                                                                                                                comment.comment_id
-                                                                                                                            );
-                                                                                                                        }}>
-                                                                                                                        <AiOutlineEdit className="fs-4" />
-                                                                                                                        <div className="data ms-2">
-                                                                                                                            <h6>Edit</h6>
-                                                                                                                        </div>
-                                                                                                                    </button>
-                                                                                                                </a>
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                ) : null}
-=======
                                                                                                     : (post.user_id == current_ID) ?
                                                                                                         <div className="card-post-toolbar">
                                                                                                             <div className="dropdown">
@@ -1242,7 +806,6 @@ const Index = () => {
                                                                                                             </div>
                                                                                                         </div>
                                                                                                         : null}
->>>>>>> 77fb92dffdae558d57799ea01df78b335eed7dd5
                                                                                             </div>
                                                                                         </div>
                                                                                         {/* COMMENT CONTENT */}
@@ -1251,28 +814,12 @@ const Index = () => {
                                                                                     <div className="comment-data-block ms-3">
                                                                                         <div className="comment-data-block ms-3">
                                                                                             <div className="mt-3">
-<<<<<<< HEAD
-                                                                                                <p
-                                                                                                    className="mb-0"
-                                                                                                    id={`comment${comment.comment_id}`}>
-                                                                                                    {comment.comment_content}
-                                                                                                </p>
-                                                                                            </div>
-                                                                                            <div className="d-flex flex-wrap align-items-center comment-activity border-top">
-                                                                                                <p className="text-primary-emphasis m-1">
-                                                                                                    like
-                                                                                                </p>
-                                                                                                <p className="text-primary-emphasis m-1">
-                                                                                                    reply
-                                                                                                </p>
-=======
                                                                                                 <p className="mb-0" id={`comment${comment.comment_id}`}>{comment.comment_content}</p>
                                                                                             </div>
                                                                                             <div className="d-flex flex-wrap align-items-center comment-activity border-top">
                                                                                                 <p className='text-primary-emphasis m-1'>like</p>
                                                                                                 <p className='text-primary-emphasis m-1'>reply</p>
 
->>>>>>> 77fb92dffdae558d57799ea01df78b335eed7dd5
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -1281,44 +828,6 @@ const Index = () => {
                                                                                     className="comment-text mb-3"
                                                                                     id={`editCommentForm${comment.comment_id}`}
                                                                                     action=""
-<<<<<<< HEAD
-                                                                                    style={{ display: "none" }}
-                                                                                    onSubmit={handleEditCommentSubmit}>
-                                                                                    {/* COMMENT INPUT */}
-                                                                                    <div className="row">
-                                                                                        <div className="col-lg-8">
-                                                                                            <input
-                                                                                                className="form-control"
-                                                                                                type="text"
-                                                                                                defaultValue={
-                                                                                                    comment.comment_content
-                                                                                                }
-                                                                                                id={`editCommentInput${comment.comment_id}`}
-                                                                                                onChange={() =>
-                                                                                                    handleEditComment(
-                                                                                                        comment.comment_id
-                                                                                                    )
-                                                                                                }
-                                                                                            />
-                                                                                        </div>
-                                                                                        <div className="col-lg-3">
-                                                                                            <div className="d-flex">
-                                                                                                <button
-                                                                                                    type="submit"
-                                                                                                    className="btn btn-outline-secondary border">
-                                                                                                    Update
-                                                                                                </button>
-                                                                                                <button
-                                                                                                    onClick={() => {
-                                                                                                        cancleCommentEdit(
-                                                                                                            comment.comment_id
-                                                                                                        );
-                                                                                                    }}
-                                                                                                    className="btn btn-outline-secondary border"
-                                                                                                    type="button">
-                                                                                                    Comment
-                                                                                                </button>
-=======
                                                                                     style={{ display: 'none' }}
                                                                                     onSubmit={handleEditCommentSubmit}
                                                                                 >
@@ -1331,38 +840,12 @@ const Index = () => {
                                                                                             <div className='d-flex'>
                                                                                                 <button type='submit' className='btn btn-outline-secondary border'>Update</button>
                                                                                                 <button onClick={() => { cancleCommentEdit(comment.comment_id) }} className='btn btn-outline-secondary border' type='button'>Comment</button>
->>>>>>> 77fb92dffdae558d57799ea01df78b335eed7dd5
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
                                                                                 </form>
                                                                             </div>
                                                                         </div>
-<<<<<<< HEAD
-                                                                    );
-                                                                }
-                                                            })}
-                                                            <form
-                                                                className="comment-text d-flex align-items-center mb-3 "
-                                                                onSubmit={handleCreateComment}>
-                                                                {/* COMMENT INPUT */}
-                                                                <div className="col-lg-10">
-                                                                    <input
-                                                                        type="text"
-                                                                        id={post.post_id}
-                                                                        name={current_ID}
-                                                                        className="form-control rounded"
-                                                                        placeholder="Enter Your Comment"
-                                                                        onChange={handleChange}
-                                                                    />
-                                                                </div>
-                                                                <div className="col-lg-2">
-                                                                    <button
-                                                                        type="submit"
-                                                                        className="btn btn-outline-secondary border">
-                                                                        Comment
-                                                                    </button>
-=======
 
                                                                     )
                                                                 }
@@ -1374,18 +857,11 @@ const Index = () => {
                                                                 </div>
                                                                 <div className='col-lg-2'>
                                                                     <button type='submit' onClick={() => { window.location.assign('/home'); }} className='btn btn-outline-secondary border'>Comment</button>
->>>>>>> 77fb92dffdae558d57799ea01df78b335eed7dd5
                                                                 </div>
                                                             </form>
                                                         </div>
                                                     </div>
                                                 </div>
-<<<<<<< HEAD
-                                            );
-                                        })}
-                                    </div>
-                                </div>
-=======
                                             )
                                         })}
                                     </div>
@@ -1394,18 +870,12 @@ const Index = () => {
 
 
 
->>>>>>> 77fb92dffdae558d57799ea01df78b335eed7dd5
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <Footer />
-<<<<<<< HEAD
-        </>
-    );
-};
-=======
 
         </>
     )
@@ -1413,5 +883,4 @@ const Index = () => {
 
 export default Index
 
->>>>>>> 77fb92dffdae558d57799ea01df78b335eed7dd5
 
