@@ -12,7 +12,8 @@ const EditProfile = () => {
 
     const navigate = useNavigate()
     const [inputs, setInputs] = useState({});
-
+    const [file, setFile] = useState(null);
+    // const {id}= useParams();
 
     useEffect(() => {
         getUsers();
@@ -42,14 +43,22 @@ const EditProfile = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault(); // to prevent the page from refresh on submit
-        console.log(inputs, "My inputs")
 
 
+        const formEditData = new FormData();
 
-        axios.put(`http://localhost/React/React_project/backend/log_reg.php/${id}/edit`,inputs)
+        formEditData.append("first_name", inputs['first_name']);
+        formEditData.append("last_name", inputs['last_name']);
+        formEditData.append("phone", inputs['phone']);
+        formEditData.append("password", inputs['password']);
+        formEditData.append("file", file);
+
+        console.log(formEditData);
+
+        axios.post(`http://localhost/React/React_Project/backend/editProfile.php/${id}/edit`, formEditData)
             .then(function (response) {
                 console.log(response.data);
-                navigate('/EditProfile/:id/edit');
+                navigate(`/EditProfile/${id}/edit`);
                 toast.success('Updated Successfully 👌');
             })
     }
@@ -142,7 +151,7 @@ const EditProfile = () => {
 
                                                         <div className="form-group col-sm-6">
                                                             <label htmlFor="cname" className="form-label">Image</label>
-                                                            <input type="file" className="form-control"  id="file" name='image' onChange={handleChange} />
+                                                            <input type="file" className="form-control" name="file" id="file"onChange={(e) => setFile(e.target.files[0])}/>
                                                         </div>
 
                                                     </div>
