@@ -33,6 +33,12 @@ switch ($method) {
             $file = $_FILES["file"] ;
         }
 
+        if($_POST["group_id"] == null){
+        $group_id = "";
+        } else {
+            $group_id = $_POST["group_id"] ;
+        }
+
         if($file != ""){
             $targetDir = "../frontend/src/components/images/";
             $fileName = basename($file["name"]);
@@ -40,10 +46,10 @@ switch ($method) {
             
             if (move_uploaded_file($file["tmp_name"], $targetPath)) {
             echo "File uploaded successfully";
-                $sql = "INSERT INTO posts (user_id , content , post_image)
-                        VALUES ( ? , ? , ? )" ;
+                $sql = "INSERT INTO posts (user_id , content , post_image, group_id)
+                        VALUES ( ? , ? , ? , ?)" ;
                 $query = $con->prepare($sql);
-                $query->execute([$user_id , $text , $fileName ]);
+                $query->execute([$user_id , $text , $fileName, $group_id ]);
                 break;
             } else {
             echo "Error uploading file";
