@@ -4,6 +4,14 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 
 ///////////////// body ///////////////
+import './components/js/libs.min.js';
+import './components/js/slider.js';
+import './components/js/masonry.pkgd.min.js';
+import './components/js/enchanter.js';
+// import './js/sweetalert.js';
+import './components/js/charts/weather-chart.js';
+import './components/js/app.js';
+import './components/js/lottie.js';
 
 ///////////////// main ////////////////
 import Profile from "./components/main/Profile";

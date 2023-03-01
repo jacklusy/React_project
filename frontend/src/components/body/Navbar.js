@@ -234,12 +234,16 @@ function Navbar() {
 
               <li className="nav-item dropdown">
                 <a href="/Profile" className="   d-flex align-items-center dropdown-toggle" id="drop-down-arrow" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<<<<<<< HEAD
+                {!photoUrl ? <img src={require('../images/default.jpg')} alt="userimg" className="avatar-60 rounded-circle img-fluid" /> : <img src={require(`../images/${photoUrl}`)} alt="userimg" className="avatar-60 rounded-circle img-fluid" />}
+=======
                     {/* IMAGE NAVBAR FOR USER */}
                     {!photoUrl ? ( 
                       <img src="/images/user/default.jpg" alt="userimg" className="img-fluid rounded-circle me-3" /> 
                     ): ( 
                       <img src={require(`../images/${photoUrl}`)} alt="userimg" className="img-fluid rounded-circle me-3" />
                     )}
+>>>>>>> 77fb92dffdae558d57799ea01df78b335eed7dd5
                   <div className="caption">
                     <h6 className="mb-0 line-height"> {inputs.first_name} <span> {inputs.last_name} </span></h6>
                   </div>

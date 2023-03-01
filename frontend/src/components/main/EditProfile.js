@@ -116,7 +116,7 @@ const EditProfile = () => {
                                                         <div className="col-md-12" >
                                                             <div className="profile-img-edit">
                                                                 <div className='profile-img'>
-                                                                    {!photoUrl ? <img src="/images/user/default.jpg" alt="userimg" className="avatar-60 rounded-circle img-fluid" /> : <img src={'/images/user/' + photoUrl} alt="userimg" className="avatar-60 rounded-circle img-fluid" />}
+                                                                {!photoUrl ? <img src={require('../images/default.jpg')} alt="userimg" className="avatar-60 rounded-circle img-fluid" /> : <img src={require(`../images/${photoUrl}`)} alt="userimg" className="avatar-60 rounded-circle img-fluid" />}
                                                                 </div>
                                                                 <div className="p-image">
                                                                     <i className="ri-pencil-line upload-button text-white" />
