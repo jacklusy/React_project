@@ -30,9 +30,9 @@ const LeftSidebar = () => {
             </li>
 
 
-            <li className="">
+            {/* <li className="">
               <a href="/Addfrind" ><i className="ri-pages-line" /><span>Add Friends</span><i className="ri-arrow-right-s-line iq-arrow-right" /></a>
-            </li>
+            </li> */}
 
 
             <li className>
