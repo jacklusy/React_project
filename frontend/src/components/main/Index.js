@@ -688,50 +688,71 @@ const Index = () => {
                                                         </a>
                                                       </div>
                                                     </div>
-                                                  </div>
-                                                ) : post.user_id ==
-                                                  current_ID ? (
-                                                  <div className="card-post-toolbar">
-                                                    <div className="dropdown">
-                                                      <span
-                                                        className="dropdown-toggle"
-                                                        data-bs-toggle="dropdown"
-                                                        aria-haspopup="true"
-                                                        aria-expanded="false"
-                                                        role="button">
-                                                        <i className="ri-more-fill" />
-                                                      </span>
-                                                      <div className="dropdown-menu m-0 p-0">
-                                                        <a
-                                                          className="dropdown-item p-3"
-                                                          href="#">
-                                                          <button
-                                                            className="d-flex text-start  border-0 bg-transparent"
-                                                            onClick={() => {
-                                                              deleteComment(
-                                                                comment.comment_id
-                                                              );
-                                                            }}>
-                                                            <AiOutlineDelete className="fs-4" />
-                                                            <div className="data ms-2">
-                                                              <h6>Delete</h6>
-                                                            </div>
-                                                          </button>
-                                                        </a>
-                                                        <a
-                                                          className="dropdown-item p-3"
-                                                          href="#">
-                                                          <button
-                                                            className="d-flex text-start align-items-top border-0 bg-transparent"
-                                                            id={`editCommentBTN${comment.comment_id}`}
-                                                            onClick={() => {
-                                                              editComment(
-                                                                comment.comment_id
-                                                              );
-                                                            }}>
-                                                            <AiOutlineEdit className="fs-4" />
-                                                            <div className="data ms-2">
-                                                              <h6>Edit</h6>
+
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div className="col-sm-12">
+                                        {/* ALL POSTS */}
+                                        {posts.map((post, index_post) => {
+                                            var flagLike = false;
+                                            return (
+                                                <div className="card card-block card-stretch" key={index_post}>
+                                                    <div className="card-body">
+                                                        <div className="user-post-data">
+                                                            <div className="d-flex justify-content-between">
+                                                                {/* POST USER IMAGE */}
+                                                                <div className="me-3">
+                                                                    {/* {post.image !== 'null' ?(
+                                                                    <img className="rounded-circle img-fluid" width={'60px'} src={require(`../images/${post.image}`)} alt="" />
+
+
+                                                                   ):(
+                                                                    <img className="rounded-circle img-fluid" width={'60px'} src={require(`../images/profile.jpg`)} alt="" />
+
+                                                                   )}
+                                                                    */}
+
+
+                                                                </div>
+                                                                <div className="w-100">
+                                                                    <div className="d-flex justify-content-between">
+                                                                        <div>
+                                                                            {photoUrl == null ? <img src="/images/user/default.jpg" alt="userimg" className="avatar-60 rounded-circle img-fluid" /> : <img  src={require(`../images/${post.image}`)}l alt="userimg" className="avatar-60 rounded-circle img-fluid" />}
+                                                                            <h5 className="mb-0 d-inline-block" style={{ paddingLeft: '1rem' }}>{post.first_name}</h5>
+                                                                            <p className="mb-0 text-primary">{post.created_at}</p>
+                                                                        </div>
+                                                                        {(post.user_id == current_ID) ?
+                                                                            <div className="card-post-toolbar">
+                                                                                <div className="dropdown">
+                                                                                    <span className="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
+                                                                                        <i className="ri-more-fill" />
+                                                                                    </span>
+                                                                                    <div className="dropdown-menu m-0 p-0">
+                                                                                        <a className="dropdown-item p-3" href="#">
+                                                                                            <button className="d-flex text-start  border-0 bg-transparent" onClick={() => { deletePost(post.post_id) }}>
+                                                                                                <AiOutlineDelete className='fs-4' />
+                                                                                                <div className="data ms-2">
+                                                                                                    <h6>Delete</h6>
+                                                                                                </div>
+                                                                                            </button>
+                                                                                        </a>
+                                                                                        <a className="dropdown-item p-3" href="#">
+                                                                                            <button className="d-flex text-start align-items-top border-0 bg-transparent" id={`editPostBTN${post.post_id}`} onClick={() => { editPost(post.post_id) }}>
+                                                                                                <AiOutlineEdit className='fs-4' />
+                                                                                                <div className="data ms-2">
+                                                                                                    <h6>Edit</h6>
+                                                                                                </div>
+                                                                                            </button>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            : null}
+                                                                    </div>
+                                                                </div>
+
                                                             </div>
                                                           </button>
                                                         </a>
