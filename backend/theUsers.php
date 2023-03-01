@@ -94,3 +94,9 @@ switch($method){
             echo json_encode($response); // to send this message as a Json (you can read it in inspect -- Newtwork)
             break;
 }
+
+
+
+
+
+

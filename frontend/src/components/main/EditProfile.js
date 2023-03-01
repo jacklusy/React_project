@@ -12,7 +12,7 @@ const EditProfile = () => {
 
     const navigate = useNavigate()
     const [inputs, setInputs] = useState({});
-    // const {id}= useParams();
+
 
     useEffect(() => {
         getUsers();
@@ -44,7 +44,9 @@ const EditProfile = () => {
         event.preventDefault(); // to prevent the page from refresh on submit
         console.log(inputs, "My inputs")
 
-        axios.put(`http://localhost/React/React_project/backend/log_reg.php/${id}/edit`, inputs)
+
+
+        axios.put(`http://localhost/React/React_project/backend/log_reg.php/${id}/edit`,inputs)
             .then(function (response) {
                 console.log(response.data);
                 navigate('/EditProfile/:id/edit');
@@ -140,7 +142,7 @@ const EditProfile = () => {
 
                                                         <div className="form-group col-sm-6">
                                                             <label htmlFor="cname" className="form-label">Image</label>
-                                                            <input type="file" className="form-control" name='image' id="image" onChange={handleChange} />
+                                                            <input type="file" className="form-control"  id="file" name='image' onChange={handleChange} />
                                                         </div>
 
                                                     </div>
