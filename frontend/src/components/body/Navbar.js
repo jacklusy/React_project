@@ -1,46 +1,48 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 <script src="https://kit.fontawesome.com/b56885f075.js" crossorigin="anonymous"></script>
 
 function Navbar() {
-  let id= localStorage.getItem("Id");
+  let id = localStorage.getItem("Id");
 
 
 
 
   const navigate = useNavigate()
-  const [inputs, setInputs]=useState({}); 
+  const [inputs, setInputs] = useState({});
   // const {id}= useParams();
 
-  useEffect(()=>{
-      getUsers();
-  },[] );
+  useEffect(() => {
+    getUsers();
+  }, []);
 
 
   const getUsers = () => {
-      let id= localStorage.getItem("Id");
-      
-      axios.get(`http://localhost/React/React_project/backend/log_reg.php/${id}`,inputs)
-      .then(function(response){
-          console.log(response.data);
-          setInputs(response.data);
+    let id = localStorage.getItem("Id");
+
+    axios.get(`http://localhost/React/React_project/backend/log_reg.php/${id}`, inputs)
+      .then(function (response) {
+        console.log(response.data);
+        setInputs(response.data);
       })
-    }
+  }
+
+
+
+  const photoUrl =  inputs.image;
 
 
 
 
-
-
-    return (
-      <div className="iq-top-navbar">
+  return (
+    <div className="iq-top-navbar">
       <div className="iq-navbar-custom">
         <nav className="navbar navbar-expand-lg navbar-light p-0">
           <div className="iq-navbar-logo d-flex justify-content-between">
-          <div className="iq-menu-bt align-self-center">
+            <div className="iq-menu-bt align-self-center">
               <div className="wrapper-menu">
                 <div className="main-circle"><i className="ri-menu-line" /></div>
               </div>
@@ -49,7 +51,7 @@ function Navbar() {
             <a href="/home">
               <img src="/images/logo3.png" className="img-fluid" alt="" />
             </a>
-            
+
           </div>
           <div className="iq-search-bar device-search">
             <form action="#" className="searchbox">
@@ -62,7 +64,7 @@ function Navbar() {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav  ms-auto navbar-list">
-             
+
               <li className="nav-item dropdown">
                 <a href="#" className="dropdown-toggle" id="group-drop" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i className="ri-group-line" /></a>
                 <div className="sub-drop sub-drop-large dropdown-menu" aria-labelledby="group-drop">
@@ -99,20 +101,22 @@ function Navbar() {
                   </div>
                 </div>
               </li>
-              
-             
+
+
+
+
               <li className="nav-item dropdown">
                 <a href="/Profile" className="   d-flex align-items-center dropdown-toggle" id="drop-down-arrow" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <img src="/images/user/1.jpg" className="img-fluid rounded-circle me-3" alt="user" />
+                    {!photoUrl ? <img src="/images/user/default.jpg" alt="userimg" className="img-fluid rounded-circle me-3" /> : <img src={'/images/user/' + photoUrl} alt="userimg" className="img-fluid rounded-circle me-3" />}
                   <div className="caption">
-                    <h6 className="mb-0 line-height"> { inputs.first_name } <span> { inputs.last_name } </span></h6>
+                    <h6 className="mb-0 line-height"> {inputs.first_name} <span> {inputs.last_name} </span></h6>
                   </div>
                 </a>
                 <div className="sub-drop dropdown-menu caption-menu" aria-labelledby="drop-down-arrow">
                   <div className="card shadow-none m-0">
                     <div className="card-header  bg-primary">
                       <div className="header-title">
-                        <h5 className="mb-0 text-white">Hello { inputs.first_name } <span> { inputs.last_name } </span></h5>
+                        <h5 className="mb-0 text-white">Hello {inputs.first_name} <span> {inputs.last_name} </span></h5>
                         <span className="text-white font-size-12">Available</span>
                       </div>
                     </div>
@@ -139,15 +143,15 @@ function Navbar() {
                           </div>
                         </div>
                       </Link>
-                        <div className="d-flex align-items-center iq-sub-card iq-bg-warning-hover right-sidebar-toggle ">
-                          <div className="rounded card-icon bg-soft-info">
-                            <i className="ri-account-box-line" />
-                          </div>
-                          <div className="ms-3">
-                            <h6 className="mb-0 ">Friends</h6>
-                            <p className="mb-0 font-size-12">Manage your account parameters.</p>
-                          </div>
+                      <div className="d-flex align-items-center iq-sub-card iq-bg-warning-hover right-sidebar-toggle ">
+                        <div className="rounded card-icon bg-soft-info">
+                          <i className="ri-account-box-line" />
                         </div>
+                        <div className="ms-3">
+                          <h6 className="mb-0 ">Friends</h6>
+                          <p className="mb-0 font-size-12">Manage your account parameters.</p>
+                        </div>
+                      </div>
                       {/* <a href="../app/privacy-setting.html" className="iq-sub-card iq-bg-danger-hover">
                         <div className="d-flex align-items-center">
                           <div className="rounded card-icon bg-soft-danger">
@@ -160,7 +164,7 @@ function Navbar() {
                           </div>
                         </div>
                       </a> */}
-                      
+
                       {/* <div className="right-sidebar-toggle bg-primary text-white mt-3">
                         <i className="ri-account-box-line" />
                       </div> */}
@@ -173,12 +177,12 @@ function Navbar() {
                   </div>
                 </div>
               </li>
-            </ul>               
+            </ul>
           </div>
         </nav>
       </div>
-      </div>  
-      );
+    </div>
+  );
 }
 
 export default Navbar

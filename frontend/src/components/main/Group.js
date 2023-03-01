@@ -121,6 +121,8 @@ const Group = () => {
             </div>
           </div>
 
+          <button type="submit" className="btn btn-primary d-block w-100"><i className="ri-add-line pe-2" />Create New Group</button>
+
           <div id="content-page" className="content-page">
             <div className="container">
               <div className="d-grid gap-3 d-grid-template-1fr-19">

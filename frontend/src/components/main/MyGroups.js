@@ -10,7 +10,7 @@ import { Button } from 'react-bootstrap';
 
 
 
-const Group = () => {
+const MyGroups = () => {
 
   const current_ID = JSON.parse(localStorage.getItem('Id'));
 
@@ -89,7 +89,7 @@ const Group = () => {
       })
   }
 
-  // لحذب طلب الاضافة 
+  // لحذف طلب الاضافة 
   const removeRequest = (GroupId) => {
     let inputs = { user_id: current_ID, group_id: GroupId };
     axios.put(`http://localhost/React/React_project/backend/getPendingMember.php/edit`, inputs)
@@ -221,7 +221,7 @@ const Group = () => {
   );
 }
 
-export default Group
+export default MyGroups
 
 
 

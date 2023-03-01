@@ -144,6 +144,7 @@ const Index = () => {
         axios.delete(`http://localhost/React/React_Project/backend/comments.php/${id}`).then(function (response) {
             getComments();
         })
+
     }
 
     const editComment = (id) => {
@@ -180,6 +181,8 @@ const Index = () => {
         document.getElementById(`comment${id}`).style.display = 'block';
         document.getElementById(`editCommentForm${id}`).style.display = 'none';
         document.getElementById(`editCommentBTN${id}`).style.display = 'inline-block';
+        window.location.assign('/home');
+
 
     }
 
@@ -212,10 +215,15 @@ const Index = () => {
     const removeLikePost = (e) => {
         e.preventDefault();
         console.log(inputs)
-          axios.post('http://localhost/React/React_Project/backend/likeDelete.php/' , inputs).then(
+        axios.post('http://localhost/React/React_Project/backend/likeDelete.php/', inputs).then(
             getPosts()
         )
     }
+
+
+    const photoUrl = inputs.image;
+    // console.log(inputs);
+
 
     // Return
     return (
@@ -246,7 +254,7 @@ const Index = () => {
                                             <div className="card-body">
                                                 <div className="d-flex align-items-center">
                                                     <div className="user-img">
-                                                        <img src="/images/user/1.jpg" alt="userimg" className="avatar-60 rounded-circle" />
+                                                        {!photoUrl ? <img src="/images/user/default.jpg" alt="userimg" className="avatar-60 rounded-circle img-fluid" /> : <img src={'/images/user/' + photoUrl} alt="userimg" className="avatar-60 rounded-circle img-fluid" />}
                                                     </div>
                                                     <div
                                                         className="post-text ms-3 w-100 "
@@ -332,7 +340,8 @@ const Index = () => {
                                                                 <div className="w-100">
                                                                     <div className="d-flex justify-content-between">
                                                                         <div>
-                                                                            <h5 className="mb-0 d-inline-block">{post.first_name}</h5>
+                                                                            {!photoUrl ? <img src="/images/user/default.jpg" alt="userimg" className="avatar-60 rounded-circle img-fluid" /> : <img src={'/images/user/' + photoUrl} alt="userimg" className="avatar-60 rounded-circle img-fluid" />}
+                                                                            <h5 className="mb-0 d-inline-block" style={{ paddingLeft: '1rem' }}>{post.first_name}</h5>
                                                                             <p className="mb-0 text-primary">{post.created_at}</p>
                                                                         </div>
                                                                         {(post.user_id == current_ID) ?
@@ -403,7 +412,7 @@ const Index = () => {
 
 
 
-                                                                    <img id={`imgPost${post.post_id}`} className="img-thumnail rounded w-100" src={require(`../images/${post.post_image}`)} alt='' />
+                                                                    <img id={`imgPost${post.post_id}`} className="img-thumnail rounded w-100 v-10 sizephoto" style={{ height: '30rem', objectFit: 'contain' }} src={require(`../images/${post.post_image}`)} alt='' />
 
 
 
@@ -444,9 +453,9 @@ const Index = () => {
                                                                 {/* IMAGE POST */}
                                                                 <div className="row-span-2 row-span-md-1 justify-content-center">
                                                                     <hr />
-                                                                    {post.post_image !== 'null' ?(
-                                                                    <p id={`post${post.post_id}`} className="mt-3 mb-4 pb-2">{post.content}</p>
-                                                                    ):(
+                                                                    {post.post_image !== 'null' ? (
+                                                                        <p id={`post${post.post_id}`} className="mt-3 mb-4 pb-2">{post.content}</p>
+                                                                    ) : (
                                                                         <img className="rounded-circle img-fluid" width={'60px'} src={require(`../images/profile.jpg`)} alt="" />
 
                                                                     )
@@ -462,36 +471,37 @@ const Index = () => {
 
                                                         {/* LIKE AND COMMENT ICON */}
 
-                                                   
-                                                    <div className="comment-area mt-3"> 
-                                                    
-                                                        <>
-                                                            <div className="d-flex justify-content-between align-items-center flex-wrap">
-                                                                <div className="like-block position-relative d-flex align-items-center">
-                                                                    <div className="d-flex align-items-center">
-                                                                        <div className="like-data">
-                                                                            <div className="dropdown">
-                                                                                {/* BUTTON LIKE */}
-                                                                                {likes.map((like , index_like) => {
-                                                                                if (like.user_id === current_ID && like.post_id === post.post_id){
-                                                                                return ( flagLike = true )
-                                                                                }})}
 
-                                                                                {( flagLike === true ) ?
-                                                                                <form action="" onSubmit={removeLikePost}>
-                                                                                    <button className='border-0 bg-transparent' onClick={()=>handleLikePost(post.post_id)}>
-                                                                                        <AiFillLike className='fs-3 text-primary' />
-                                                                                        {/* LIKE NUMBER */}
-                                                                                    </button>
-                                                                                </form>
-                                                                                :
-                                                                                <form action=""  onSubmit={likePost}>
-                                                                                    <button className='border-0 bg-transparent'  onClick={()=>handleLikePost(post.post_id)}>
-                                                                                        <AiOutlineLike className='fs-3 text-light' />
-                                                                                        {/* LIKE NUMBER */}
-                                                                                    </button>
-                                                                                </form>
-                                                                                 }
+                                                        <div className="comment-area mt-3">
+
+                                                            <>
+                                                                <div className="d-flex justify-content-between align-items-center flex-wrap">
+                                                                    <div className="like-block position-relative d-flex align-items-center">
+                                                                        <div className="d-flex align-items-center">
+                                                                            <div className="like-data">
+                                                                                <div className="dropdown">
+                                                                                    {/* BUTTON LIKE */}
+                                                                                    {likes.map((like, index_like) => {
+                                                                                        if (like.user_id === current_ID && like.post_id === post.post_id) {
+                                                                                            return (flagLike = true)
+                                                                                        }
+                                                                                    })}
+
+                                                                                    {(flagLike === true) ?
+                                                                                        <form action="" onSubmit={removeLikePost}>
+                                                                                            <button className='border-0 bg-transparent' onClick={() => handleLikePost(post.post_id)}>
+                                                                                                <AiFillLike className='fs-3 text-primary' />
+                                                                                                {/* LIKE NUMBER */}
+                                                                                            </button>
+                                                                                        </form>
+                                                                                        :
+                                                                                        <form action="" onSubmit={likePost}>
+                                                                                            <button className='border-0 bg-transparent' onClick={() => handleLikePost(post.post_id)}>
+                                                                                                <AiOutlineLike className='fs-3 text-light' />
+                                                                                                {/* LIKE NUMBER */}
+                                                                                            </button>
+                                                                                        </form>
+                                                                                    }
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -635,7 +645,7 @@ const Index = () => {
                                                                     <input type="text" id={post.post_id} name={current_ID} className="form-control rounded" placeholder="Enter Your Comment" onChange={handleChange} />
                                                                 </div>
                                                                 <div className='col-lg-2'>
-                                                                    <button type='submit' className='btn btn-outline-secondary border'>Comment</button>
+                                                                    <button type='submit' onClick={() => { window.location.assign('/home'); }} className='btn btn-outline-secondary border'>Comment</button>
                                                                 </div>
                                                             </form>
                                                         </div>
