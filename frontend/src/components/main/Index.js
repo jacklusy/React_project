@@ -237,8 +237,8 @@ const Index = () => {
         <div className="wrapper">
           <div id="content-page" className="content-page">
             <div className="container">
-              <div className="row">
-                <div className="col-lg-12 row m-0 p-0">
+              <div className="row justify-content-center">
+                <div className="col-lg-10 row m-0 p-0">
                   <div className="col-sm-12">
                     {/* POST FORM */}
                     <form
@@ -350,10 +350,10 @@ const Index = () => {
                                 {/* POST USER IMAGE */}
                                 <div className="me-3">
                                   {!post.image ?(
-                                        <img className="rounded-circle avatar-60" src={require('../images/default_user.jpeg')} alt="" />
+                                        <img className="rounded-circle avatar-40" src={require('../images/default_user.jpeg')} alt="" />
                                       ):(
 
-                                        <img className="rounded-circle avatar-60" src={require(`../images/${post.image}`)} alt="" />
+                                        <img className="rounded-circle avatar-40" src={require(`../images/${post.image}`)} alt="" />
 
                                     )}
                                    
@@ -361,14 +361,14 @@ const Index = () => {
                                 <div className="w-100">
                                   <div className="d-flex justify-content-between">
                                     <div>
-                                      <h5 className="mb-0 d-inline-block">
+                                      <p className="mb-0 d-inline-block">
                                         {post.first_name}
-                                      </h5>
-                                      <p className="mb-0 text-primary">
+                                      </p>
+                                      <p className="mb-0 text-primary" style={{ fontSize: "8px" }}>
                                         {post.created_at}
                                       </p>
                                     </div>
-                                    {post.user_id == current_ID ? (
+                                    {post.user_id === current_ID ? (
                                       <div className="card-post-toolbar">
                                         <div className="dropdown">
                                           <span
@@ -417,11 +417,23 @@ const Index = () => {
                                 </div>
                               </div>
                             </div>
+                            <hr />
                             {post.post_image !== "a" ? (
                               <>
+                                {/* IMAGE POST */}
+                                <div className="row-span-md-1 justify-content-center text-center ms-5 me-5">
+                                  <img
+                                    id={`imgPost${post.post_id}`}
+                                    className="img-thumnail border"
+                                    src={require(`../images/${post.post_image}`)}
+                                    style={{height: "42em", width: "46em"}}
+                                    alt=""
+                                  />
+
+                                </div>
                                 {/* CONTENT POST */}
-                                <div className="mt-3">
-                                    <p id={`post${post.post_id}`} className="mt-3 mb-4 pb-2">{post.content}</p>
+                                <div className="mt-1 ms-5 me-5">
+                                    <p id={`post${post.post_id}`} className="mt-2 mb-1 pb-2 fw-bolder">{post.content}</p>
                                 </div>
                                 {/* EDIT POST */}
                                 <div className="user-post">
@@ -438,7 +450,7 @@ const Index = () => {
                                         defaultValue={post.content}
                                         id={`editPostInput${post.post_id}`}
                                         onChange={() =>
-                                          handleEditPost(post.post_id)
+                                            handleEditPost(post.post_id)
                                         }
                                       />
 
@@ -470,16 +482,15 @@ const Index = () => {
                                   </div>
                                 </div>
                                 {/* IMAGE POST */}
-                                <div className="row-span-2 row-span-md-1 justify-content-center">
-                                  <hr />
-
+                                {/* <div className="row-span-md-1 justify-content-center">
                                   <img
                                     id={`imgPost${post.post_id}`}
                                     className="img-thumnail rounded w-100"
                                     src={require(`../images/${post.post_image}`)}
                                     alt=""
                                   />
-                                </div>
+
+                                </div> */}
                               </>
                             ) : (
                               // POPUP FORM POST
@@ -559,8 +570,7 @@ const Index = () => {
 
                             {/* LIKE AND COMMENT ICON */}
 
-                            <div className="comment-area mt-3">
-                              <>
+                            <div className="comment-area p-3">
                                 <div className="d-flex justify-content-between align-items-center flex-wrap">
                                   <div className="like-block position-relative d-flex align-items-center">
                                     <div className="d-flex align-items-center">
@@ -606,8 +616,6 @@ const Index = () => {
                                     </div>
                                   </div>
                                 </div>
-                              </>
-
                               <hr />
                               {/* COMMENT CONTAINER */}
                               {comments.map((comment, index_comment) => {
@@ -688,71 +696,50 @@ const Index = () => {
                                                         </a>
                                                       </div>
                                                     </div>
-
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div className="col-sm-12">
-                                        {/* ALL POSTS */}
-                                        {posts.map((post, index_post) => {
-                                            var flagLike = false;
-                                            return (
-                                                <div className="card card-block card-stretch" key={index_post}>
-                                                    <div className="card-body">
-                                                        <div className="user-post-data">
-                                                            <div className="d-flex justify-content-between">
-                                                                {/* POST USER IMAGE */}
-                                                                <div className="me-3">
-                                                                    {/* {post.image !== 'null' ?(
-                                                                    <img className="rounded-circle img-fluid" width={'60px'} src={require(`../images/${post.image}`)} alt="" />
-
-
-                                                                   ):(
-                                                                    <img className="rounded-circle img-fluid" width={'60px'} src={require(`../images/profile.jpg`)} alt="" />
-
-                                                                   )}
-                                                                    */}
-
-
-                                                                </div>
-                                                                <div className="w-100">
-                                                                    <div className="d-flex justify-content-between">
-                                                                        <div>
-                                                                            {photoUrl == null ? <img src="/images/user/default.jpg" alt="userimg" className="avatar-60 rounded-circle img-fluid" /> : <img  src={require(`../images/${post.image}`)}l alt="userimg" className="avatar-60 rounded-circle img-fluid" />}
-                                                                            <h5 className="mb-0 d-inline-block" style={{ paddingLeft: '1rem' }}>{post.first_name}</h5>
-                                                                            <p className="mb-0 text-primary">{post.created_at}</p>
-                                                                        </div>
-                                                                        {(post.user_id == current_ID) ?
-                                                                            <div className="card-post-toolbar">
-                                                                                <div className="dropdown">
-                                                                                    <span className="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
-                                                                                        <i className="ri-more-fill" />
-                                                                                    </span>
-                                                                                    <div className="dropdown-menu m-0 p-0">
-                                                                                        <a className="dropdown-item p-3" href="#">
-                                                                                            <button className="d-flex text-start  border-0 bg-transparent" onClick={() => { deletePost(post.post_id) }}>
-                                                                                                <AiOutlineDelete className='fs-4' />
-                                                                                                <div className="data ms-2">
-                                                                                                    <h6>Delete</h6>
-                                                                                                </div>
-                                                                                            </button>
-                                                                                        </a>
-                                                                                        <a className="dropdown-item p-3" href="#">
-                                                                                            <button className="d-flex text-start align-items-top border-0 bg-transparent" id={`editPostBTN${post.post_id}`} onClick={() => { editPost(post.post_id) }}>
-                                                                                                <AiOutlineEdit className='fs-4' />
-                                                                                                <div className="data ms-2">
-                                                                                                    <h6>Edit</h6>
-                                                                                                </div>
-                                                                                            </button>
-                                                                                        </a>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            : null}
-                                                                    </div>
-                                                                </div>
-
+                                                  </div>
+                                                ) : post.user_id ==
+                                                  current_ID ? (
+                                                  <div className="card-post-toolbar">
+                                                    <div className="dropdown">
+                                                      <span
+                                                        className="dropdown-toggle"
+                                                        data-bs-toggle="dropdown"
+                                                        aria-haspopup="true"
+                                                        aria-expanded="false"
+                                                        role="button">
+                                                        <i className="ri-more-fill" />
+                                                      </span>
+                                                      <div className="dropdown-menu m-0 p-0">
+                                                        <a
+                                                          className="dropdown-item p-3"
+                                                          href="#">
+                                                          <button
+                                                            className="d-flex text-start  border-0 bg-transparent"
+                                                            onClick={() => {
+                                                              deleteComment(
+                                                                comment.comment_id
+                                                              );
+                                                            }}>
+                                                            <AiOutlineDelete className="fs-4" />
+                                                            <div className="data ms-2">
+                                                              <h6>Delete</h6>
+                                                            </div>
+                                                          </button>
+                                                        </a>
+                                                        <a
+                                                          className="dropdown-item p-3"
+                                                          href="#">
+                                                          <button
+                                                            className="d-flex text-start align-items-top border-0 bg-transparent"
+                                                            id={`editCommentBTN${comment.comment_id}`}
+                                                            onClick={() => {
+                                                              editComment(
+                                                                comment.comment_id
+                                                              );
+                                                            }}>
+                                                            <AiOutlineEdit className="fs-4" />
+                                                            <div className="data ms-2">
+                                                              <h6>Edit</h6>
                                                             </div>
                                                           </button>
                                                         </a>
@@ -786,7 +773,7 @@ const Index = () => {
                                           </div>
                                         </div>
                                         <form
-                                          className="comment-text mb-3"
+                                          className="comment-text"
                                           id={`editCommentForm${comment.comment_id}`}
                                           action=""
                                           style={{ display: "none" }}
@@ -848,7 +835,7 @@ const Index = () => {
                                     onChange={handleChange}
                                   />
                                 </div>
-                                <div className="col-lg-2">
+                                <div className="col-lg-2 ms-3">
                                   <button
                                     type="submit"
                                     className="btn btn-outline-secondary border">

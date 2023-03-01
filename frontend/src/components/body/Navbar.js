@@ -6,7 +6,8 @@ import { useNavigate } from 'react-router-dom';
 <script src="https://kit.fontawesome.com/b56885f075.js" crossorigin="anonymous"></script>
 
 function Navbar() {
-  let id = localStorage.getItem("Id");
+  const id = JSON.parse(localStorage.getItem('Id'));
+
   const navigate = useNavigate()
   const [inputs, setInputs] = useState({});
   const [users,setUsers] = useState([]);
@@ -41,7 +42,7 @@ function Navbar() {
         // لعرض جميع المستخدمين في الموقع
         const getUsers = () => {
 
-            axios.get("http://localhost:80/frontend/back_end/user.php/users")
+            axios.get("http://localhost/React/React_Project/backend/theUsers.php/")
             .then((respone)=>{
                 setUsers(respone.data)
                 console.log(respone.data);
@@ -51,14 +52,13 @@ function Navbar() {
     // اللي بعثهم المستخدم pending عرض جميع طلبات الصداقة في حالة 
     const getFriendsPending = () => {
 
-        axios.get(`http://localhost:80/frontend/back_end/acceptFriend.php/${id}`)
+        axios.get(`http://localhost/React/React_Project/backend/acceptFriend.php/${id}`)
         .then((respone)=>{
             console.log(respone.data);
-            let pendingRequest = respone.data.map((ele)=>{
+            const pendingRequest = respone.data.map((ele)=>{
                 return ele.friend_id
             })
             setpendingRequest(pendingRequest);
-            console.log(pendingRequest);
             setpendingFriends(respone.data)
         })
     }
@@ -67,13 +67,12 @@ function Navbar() {
     
     const getFriendsAccepted = () => {
 
-        axios.get(`http://localhost:80/frontend/back_end/friends.php/${id}`)
+        axios.get(`http://localhost/React/React_Project/backend/friends.php/${id}`)
         .then((respone)=>{
             console.log(respone.data);
             let friends = respone.data.map((ele)=>{
                 return ele.friend_id
             })
-            console.log(friends);
             setfriends(friends);
             setAcceptedFriends(respone.data)
         })
@@ -83,39 +82,22 @@ function Navbar() {
 
         const getFriendsRequest = () => {
 
-            axios.get(`http://localhost:80/frontend/back_end/friendRequests.php/${id}`)
+            axios.get(`http://localhost/React/React_Project/backend/friendRequests.php/${id}`)
             .then((respone)=>{
                 console.log(respone.data);
-                let requestFriend = respone.data.map((ele)=>{
+                const requestFriend = respone.data.map((ele)=>{
                     return ele.user_id
                 })
-                console.log(requestFriend);
                 setrequestFriend(requestFriend);
                 setRequestFriends(respone.data)
             })
         }
 
-        
-    //  pending وحالته بتكون friends  اضافة صديق جديد في جدول ال 
-    const AddFriends = (friendId) => {
-        let inputs = {user_id:id , friend_id:friendId};
-        axios.post(`http://localhost:80/frontend/back_end/friends.php/save`,inputs)
-        .then((respone)=>{
-            console.log(respone.data);
-            getUsers();
-            getFriendsPending();
-            getFriendsRequest();
-        })
-
-
-        
-    }
-
     
     // status الموافقة على طلب الصداقة وتغيير ال 
     const AcceptFriend = (friendId) => {
         let inputs = {user_id:id , friend_id:friendId};
-        axios.put(`http://localhost:80/frontend/back_end/friends.php/edit`,inputs)
+        axios.put(`http://localhost/React/React_Project/backend/friends.php/edit`,inputs)
         .then((respone)=>{
             console.log(respone.data);
             getFriendsPending();
@@ -123,40 +105,25 @@ function Navbar() {
             getFriendsRequest();
         })
 
-
+        window.location.assign('/home')
         
     }
 
        
     // الغاء ارسال طلب الصداقة
     const removeRequest = (friendId) => {
-        let inputs = {user_id:id , friend_id:friendId};
-        axios.put(`http://localhost:80/frontend/back_end/removeRequest.php/edit`,inputs)
+        const inputs = {user_id:id , friend_id:friendId};
+        axios.put(`http://localhost/React/React_Project/backend/removeRequest.php/edit`,inputs)
         .then((respone)=>{
             console.log(respone.data);
             getFriendsPending();
             getFriendsAccepted();
+            getFriendsRequest();
         })
 
 
         
     }
-    
-    // حذف الصداقة
-    const removeFriend = (friendId) => {
-        let inputs = {user_id:id , friend_id:friendId};
-        axios.put(`http://localhost:80/frontend/back_end/removeFriends.php`,inputs)
-        .then((respone)=>{
-            console.log(respone.data);
-            getFriendsPending();
-            getFriendsAccepted();
-            
-        })
-
-
-        
-    }
-
 
 
   const photoUrl =  inputs.image;
@@ -204,22 +171,62 @@ function Navbar() {
                     </div>
                     <div className="card-body p-0">
 
-                      {/* FRIND REEQUIST */}
-                      <div className="iq-friend-request">
-                        <div className="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
-                          <div className="d-flex align-items-center">
-                            <img className="avatar-40 rounded" src="/images/user/01.jpg" alt="" />
-                            <div className="ms-3">
-                              <h6 className="mb-0 ">Jaques Amole</h6>
-                              <p className="mb-0">40 friends</p>
-                            </div>
-                          </div>
-                          <div className="d-flex align-items-center">
-                            <a href="javascript:void();" className="me-3 btn btn-primary rounded">Confirm</a>
-                            <a href="javascript:void();" className="me-3 btn btn-secondary rounded">Delete Request</a>
-                          </div>
-                        </div>
-                      </div>
+                    {/* FRIND REEQUIST */}
+                    {users.filter(function(ele) {
+                    // لحتى ما اطبع المستخد اللي عامل تسجيل دخول
+                    if (ele.id === id) {
+                        return false; // skip
+                      }
+                      console.log(users)
+                    return true;
+                    }).map((ele,index)=>{
+                        return(
+                          <Link>     
+                            {/* <div className="iq-friend-request">
+                              <div className="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
+                                <div className="d-flex align-items-center">
+                                  <img className="avatar-40 rounded" src="/images/user/01.jpg" alt="" />
+                                  <div className="ms-3">
+                                    <h6 className="mb-0 ">{ele.first_name}</h6>
+                                    <p className="mb-0">{ele.email}</p>
+                                  </div>
+                                </div>
+                                <button className="me-3 btn btn-secondary rounded" onClick={()=>removeRequest(ele.id)}>Delete Request</button>
+                                <button type="submit" className="me-3 btn btn-primary rounded" onClick={()=>AcceptFriend(ele.id)}>Accept</button>
+                              </div> 
+                            </div>  */}
+                            
+                           {(() => {
+                                if (requestFriend.includes(ele.id)){
+                                              return (
+                                                <div className="iq-friend-request">
+                                                  <div className="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
+                                                    <div className="d-flex align-items-center">
+                                                      <img className="avatar-40 rounded" src="/images/user/01.jpg" alt="" />
+                                                      <div className="ms-3">
+                                                        <h6 className="mb-0 ">{ele.first_name}</h6>
+                                                        <p className="mb-0">{ele.email}</p>
+                                                      </div>
+                                                    </div>
+                                                    <div className="d-flex align-items-center">
+                                                      <div className="ms-5">
+                                                        <button className="me-3 btn btn-secondary rounded" onClick={()=>removeRequest(ele.id)}>Delete</button>
+                                                        <button className=" btn btn-primary rounded" onClick={()=>AcceptFriend(ele.id)}>Accept</button>
+                                                      </div>
+                                                    </div>
+                                                  </div> 
+                                                </div>  
+                                                // <></>
+                                          )
+                                          // if(friends.includes(ele.id)){
+                                          //     return (
+                                          //       <></>
+                                          // )}
+                                }})()}
+                            </Link> 
+                      )})}
+
+
                       <div className="text-center">
                         {/* SHOW ALL PEOPLE IN PAGE WITH ALL GROUP */}
                         <a href="#" className=" btn text-primary">View More Request</a>
@@ -234,12 +241,12 @@ function Navbar() {
 
               <li className="nav-item dropdown">
                 <a href="/Profile" className="   d-flex align-items-center dropdown-toggle" id="drop-down-arrow" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {/* IMAGE NAVBAR FOR USER */}
-                    {!photoUrl ? ( 
-                      <img src="/images/user/default.jpg" alt="userimg" className="img-fluid rounded-circle me-3" /> 
-                    ): ( 
-                      <img src={require(`../images/${photoUrl}`)} alt="userimg" className="img-fluid rounded-circle me-3" />
-                    )}
+                      {/* IMAGE NAVBAR FOR USER */}
+                      {!photoUrl ? ( 
+                        <img src="/images/user/default.jpg" alt="userimg" className="rounded-circle me-3" /> 
+                      ): ( 
+                        <img src={require(`../images/${photoUrl}`)} alt="userimg" className="rounded-circle me-3" />
+                      )}
                   <div className="caption">
                     <h6 className="mb-0 line-height"> {inputs.first_name} <span> {inputs.last_name} </span></h6>
                   </div>
