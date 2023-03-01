@@ -543,6 +543,8 @@ const GroupDetails = () => {
                                                 </div>
                                             </form>
                                             {/* //// END map post////// */}
+                                            {/* //// END map post////// */}
+                                            {/* //// END map post////// */}
                                             {posts.map((post, index_post) => {
                                                 var flagLike = false;
                                                 return (
