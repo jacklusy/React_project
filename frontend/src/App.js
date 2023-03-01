@@ -35,6 +35,7 @@ import Register from "./components/main/Register";
 import { ToastContainer } from "react-toastify";
 import MyGroups from "./components/main/MyGroups";
 import ErrorMessage from "./components/main/messageLogin";
+// import MyGroups from "./components/main/MyGroups";
 //import Login from "./components/main/Login";
 
 
@@ -42,7 +43,7 @@ import ErrorMessage from "./components/main/messageLogin";
 const App = () => {
   const isLoggedin = sessionStorage.getItem('isloggedin');
   let isLoggedIn = JSON.parse(isLoggedin);
-  console.log(isLoggedin);
+  // console.log(isLoggedin);
   return (
 
     <div>

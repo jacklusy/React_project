@@ -170,6 +170,10 @@ const GroupDetails = () => {
                                             </ul>
                                         </div>
                                     </div>
+
+                                        {/* end of member requests */}
+
+
                                     <div className="card">
                                        
                                         <div className="card-bod">

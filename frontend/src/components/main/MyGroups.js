@@ -89,7 +89,7 @@ const MyGroups = () => {
       })
   }
 
-  // لحذب طلب الاضافة 
+  // لحذف طلب الاضافة 
   const removeRequest = (GroupId) => {
     let inputs = { user_id: current_ID, group_id: GroupId };
     axios.put(`http://localhost/React/React_project/backend/getPendingMember.php/edit`, inputs)
@@ -222,6 +222,7 @@ const MyGroups = () => {
 }
 
 export default MyGroups;
+
 
 
 

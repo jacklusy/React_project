@@ -16,7 +16,7 @@ $method = $_SERVER['REQUEST_METHOD']; // there is a case of GEt when we want to 
 switch($method){
     case 'POST':
         $user = json_decode(file_get_contents('php://input'));
-        print_r($user);
+        // print_r($user);
 
         // Recieve data from database
     case "GET":
