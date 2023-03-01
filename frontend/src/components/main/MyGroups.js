@@ -141,8 +141,6 @@ const MyGroups = () => {
                   return false;
                 }).map((element, index) => (
 
-
-
                   <div className="card mb-0">
                     <div className="top-bg-image">
                       <img src="/images/page-img/profile-bg1.jpg" className="img-fluid w-100" alt="group-bg" />
@@ -221,7 +219,8 @@ const MyGroups = () => {
   );
 }
 
-export default MyGroups
+export default MyGroups;
+
 
 
 

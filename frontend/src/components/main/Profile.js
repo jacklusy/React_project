@@ -11,7 +11,6 @@ import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
 
-
     const navigate = useNavigate()
     const [inputs, setInputs] = useState({});
     const id = JSON.parse(localStorage.getItem('Id'));
@@ -131,7 +130,7 @@ const Profile = () => {
                                                 </div>
                                                 <div className="user-detail text-center mb-3">
                                                     <div className="profile-img">
-                                                        {!photoUrl ? <img src="/images/user/default.jpg" alt="userimg" className="avatar-60 rounded-circle img-fluid" /> : <img src={'/images/user/' +photoUrl} alt="userimg" className="avatar-60 rounded-circle img-fluid" />}
+                                                    {!photoUrl ? <img src={require('../images/default.jpg')} alt="userimg" className="avatar-60 rounded-circle img-fluid" /> : <img src={require(`../images/${photoUrl}`)} alt="userimg" className="avatar-60 rounded-circle img-fluid" />}
                                                     </div>
                                                     <div className="profile-detail">
                                                         <h3 className> {inputs.first_name} <span> {inputs.last_name} </span></h3>

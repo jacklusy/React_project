@@ -42,7 +42,7 @@ function Navbar() {
         // لعرض جميع المستخدمين في الموقع
         const getUsers = () => {
 
-            axios.get("http://localhost/React/React_Project/backend/theUsers.php/")
+            axios.get("http://localhost/React/React_project/backend/theUsers.php/")
             .then((respone)=>{
                 setUsers(respone.data)
                 console.log(respone.data);
@@ -52,7 +52,7 @@ function Navbar() {
     // اللي بعثهم المستخدم pending عرض جميع طلبات الصداقة في حالة 
     const getFriendsPending = () => {
 
-        axios.get(`http://localhost/React/React_Project/backend/acceptFriend.php/${id}`)
+        axios.get(`http://localhost/React/React_project/backend/acceptFriend.php/${id}`)
         .then((respone)=>{
             console.log(respone.data);
             const pendingRequest = respone.data.map((ele)=>{
@@ -67,7 +67,7 @@ function Navbar() {
     
     const getFriendsAccepted = () => {
 
-        axios.get(`http://localhost/React/React_Project/backend/friends.php/${id}`)
+        axios.get(`http://localhost/React/React_project/backend/friends.php/${id}`)
         .then((respone)=>{
             console.log(respone.data);
             let friends = respone.data.map((ele)=>{
@@ -82,7 +82,7 @@ function Navbar() {
 
         const getFriendsRequest = () => {
 
-            axios.get(`http://localhost/React/React_Project/backend/friendRequests.php/${id}`)
+            axios.get(`http://localhost/React/React_project/backend/friendRequests.php/${id}`)
             .then((respone)=>{
                 console.log(respone.data);
                 const requestFriend = respone.data.map((ele)=>{
@@ -93,11 +93,27 @@ function Navbar() {
             })
         }
 
+        
+    //  pending وحالته بتكون friends  اضافة صديق جديد في جدول ال 
+    const AddFriends = (friendId) => {
+        let inputs = {user_id:id , friend_id:friendId};
+        axios.post(`http://localhost/React/React_project/backend/friends.php/save`,inputs)
+        .then((respone)=>{
+            console.log(respone.data);
+            getUsers();
+            getFriendsPending();
+            getFriendsRequest();
+        })
+
+
+        
+    }
+
     
     // status الموافقة على طلب الصداقة وتغيير ال 
     const AcceptFriend = (friendId) => {
         let inputs = {user_id:id , friend_id:friendId};
-        axios.put(`http://localhost/React/React_Project/backend/friends.php/edit`,inputs)
+        axios.put(`http://localhost/React/React_project/backend/friends.php/edit`,inputs)
         .then((respone)=>{
             console.log(respone.data);
             getFriendsPending();
@@ -112,8 +128,8 @@ function Navbar() {
        
     // الغاء ارسال طلب الصداقة
     const removeRequest = (friendId) => {
-        const inputs = {user_id:id , friend_id:friendId};
-        axios.put(`http://localhost/React/React_Project/backend/removeRequest.php/edit`,inputs)
+        let inputs = {user_id:id , friend_id:friendId};
+        axios.put(`http://localhost/React/React_project/backend/removeRequest.php/edit`,inputs)
         .then((respone)=>{
             console.log(respone.data);
             getFriendsPending();
@@ -124,6 +140,22 @@ function Navbar() {
 
         
     }
+    
+    // حذف الصداقة
+    const removeFriend = (friendId) => {
+        let inputs = {user_id:id , friend_id:friendId};
+        axios.put(`http://localhost/React/React_project/backend/removeFriends.php`,inputs)
+        .then((respone)=>{
+            console.log(respone.data);
+            getFriendsPending();
+            getFriendsAccepted();
+            
+        })
+
+
+        
+    }
+
 
 
   const photoUrl =  inputs.image;
