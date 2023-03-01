@@ -27,3 +27,15 @@ code {
   width: 500px !important;
   height: 500px;
 }
+
+input[type="file"]::file-selector-button{
+  color: #fff;
+    background-color: #406b72;
+    border-color: #406b72;
+    font-weight: 400;
+    line-height: 1.8;
+    font-size: .875rem;
+    border-radius: 5px;
+    border: none;
+    padding: .375rem .75rem;
+}

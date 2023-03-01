@@ -10,6 +10,7 @@ $user = file_get_contents('php://input'); // to read the data from react(witch i
 
 // we can see it in inspect -- Network -- Payload and Preview
 
+
 $method = $_SERVER['REQUEST_METHOD']; // there is a case of GEt when we want to bring data , and case of POSt when we want to send data
 switch($method){
 
@@ -35,10 +36,11 @@ switch($method){
             $db =$con->prepare($sql);
             $db->execute();
             $data= $db->fetchAll(PDO::FETCH_ASSOC);
+            // print_r($data);
         
         }
-
-    echo json_encode($data);
+        
+        echo json_encode($data);
     break;
 
         // Send data to database
@@ -67,14 +69,13 @@ switch($method){
              // Edit Profile //
              case "PUT":
                 $user = json_decode(file_get_contents('php://input')); // to make php read this as an object from react
-                
-                $path = explode('/', $_SERVER['REQUEST_URI']);
                 // print_r($user);
+                $path = explode('/', $_SERVER['REQUEST_URI']);
                 if ($user === null && json_last_error() !== JSON_ERROR_NONE) {
                     // handle the error
                     echo "Error decoding JSON: " . json_last_error_msg();
                 } else {
-                    
+
                     $db = crud::connect()->prepare("UPDATE users SET first_name=:first_name, last_name=:last_name, email=:email, password=:password, phone=:phone,  image=:image, Created_at=:created WHERE id=:id");
                     $created_at = date('Y-m-d');
                 // $db->bindValue(':id' , $user->id);
@@ -94,5 +95,11 @@ switch($method){
                 }
                 echo json_encode($response); // to send this message as a Json (you can read it in inspect -- Newtwork)
                 break;
+
+
+
+
+
             }
-        }
+
+}

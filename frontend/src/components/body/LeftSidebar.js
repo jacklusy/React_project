@@ -30,9 +30,6 @@ const LeftSidebar = () => {
             </li>
 
 
-            <li className="">
-              <a href="/Chat" ><i className="ri-pages-line" /><span>Friends</span><i className="ri-arrow-right-s-line iq-arrow-right" /></a>
-            </li>
 
 
             <li className>

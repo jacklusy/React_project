@@ -16,7 +16,7 @@ import {
 const GroupDetails = () => {
 
     const { id } = useParams();
-    const current_ID = JSON.parse(localStorage.getItem('id'));
+    const current_ID = JSON.parse(localStorage.getItem('Id'));
 
     const [groups, setGroups] = useState([]);
     const [allGroups, setDataGroups] = useState([]);
@@ -241,12 +241,14 @@ const GroupDetails = () => {
 
         formData.append("post", inputs);
         formData.append("user_id", current_ID);
+        formData.append("group_id", id);
         formData.append("file", file);
         try {
             const response = await axios.post(
                 "http://localhost/React/React_Project/backend/posts.php/", formData
             );
-            console.log(response.data,'test jack');
+            console.log(response.data, 'test');
+            window.location.assign(`/groups/${id}/show`);
         } catch (error) {
             console.error(error);
         }
@@ -439,13 +441,12 @@ const GroupDetails = () => {
                                                     </div>
                                                     <div className="info">
                                                         <h4>{groups.group_name}</h4>
-                                                        <p className="mb-0"><i className="ri-lock-fill pe-2" />Private Group . 323 members</p>
+                                                        <p className="mb-0"><i className="ri-lock-fill pe-2" />Private Group . 7 members</p>
                                                     </div>
                                                 </div>
 
                                             </div>
                                         </div>
-
                                         <div className="col-lg-7">
                                             {/* POST FORM */}
                                             <form
@@ -545,12 +546,10 @@ const GroupDetails = () => {
                                             {/* //// END map post////// */}
                                             {/* //// END map post////// */}
                                             {/* //// END map post////// */}
-                                            {posts.map((post, index_post) => {
+                                            {posts.filter(post => post.group_id == id).map((post, index_post) => {
                                                 var flagLike = false;
                                                 return (
-                                                    <div
-                                                        className="card card-block card-stretch"
-                                                        key={index_post}>
+                                                    <div className="card card-block card-stretch" key={index_post}>
                                                         <div className="card-body">
                                                             <div className="user-post-data">
                                                                 <div className="d-flex justify-content-between">
@@ -559,11 +558,8 @@ const GroupDetails = () => {
                                                                         {!post.image ? (
                                                                             <img className="rounded-circle avatar-60" src={require('../images/default_user.jpeg')} alt="" />
                                                                         ) : (
-
                                                                             <img className="rounded-circle avatar-60" src={require(`../images/${post.image}`)} alt="" />
-
                                                                         )}
-
                                                                     </div>
                                                                     <div className="w-100">
                                                                         <div className="d-flex justify-content-between">
@@ -1126,9 +1122,9 @@ const GroupDetails = () => {
                                                         <div className="card shadow-none m-0">
                                                             <div className="card-header d-flex justify-content-between bg-primary">
                                                                 <div className="header-title">
-                                                                    <h5 className="mb-0 text-white">Group Request</h5>
+                                                                    <h5 className="mb-0 text-white">Group Members</h5>
                                                                 </div>
-                                                                <small className="badge  bg-light text-dark ">{pendingRequestGroups.length}</small>
+                                                                <small className="badge  bg-light text-dark ">{usersGroups.length}</small>
                                                             </div>
                                                             <div className="card-body p-0" >
                                                                 <div className="iq-friend-request" style={{ padding: '.5rem 0' }}>

@@ -41,8 +41,9 @@ import './assets/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css'
 import Login from "./components/main/Login";
 import Register from "./components/main/Register";
 import { ToastContainer } from "react-toastify";
-import ErrorMessage from "./components/main/messageLogin";
 import MyGroups from "./components/main/MyGroups";
+import ErrorMessage from "./components/main/messageLogin";
+// import MyGroups from "./components/main/MyGroups";
 //import Login from "./components/main/Login";
 
 
@@ -54,22 +55,25 @@ const App = () => {
   return (
 
     <div>
-    <ToastContainer
-position="top-center"
-autoClose={2000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
->
-</ToastContainer>
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      >
+      </ToastContainer>
 
-<Router>
+      <Router>
         {isLoggedIn ? (
           <Routes>
+            <Route exact path="/" element={<Index />} />
+            <Route exact path="/Register" element={<Index />} />
+
             <Route exact path="/home" element={<Index />} />
 
             <Route exact path="/Profile" element={<Profile />} />
@@ -106,7 +110,7 @@ pauseOnHover
             </Routes>
           )
         }
-      </Router> 
+      </Router>
     </div>
   );
 }

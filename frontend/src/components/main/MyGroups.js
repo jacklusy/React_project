@@ -219,7 +219,8 @@ const MyGroups = () => {
   );
 }
 
-export default MyGroups
+export default MyGroups;
+
 
 
 
