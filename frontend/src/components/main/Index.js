@@ -1,55 +1,52 @@
-
-
-import React from 'react'
-import { useState, useEffect, useParams } from 'react';
-import axios from 'axios';
-import { AiOutlineLike, AiOutlineComment, AiOutlineDelete, AiOutlineEdit, AiFillLike } from "react-icons/ai";
-import Navbar from '../body/Navbar';
-import RightSidebar from '../body/RightSidebar';
-import LeftSidebar from '../body/LeftSidebar';
-import Footer from '../body/Footer';
-
+import React from "react";
+import { useState, useEffect, useParams } from "react";
+import axios from "axios";
+import {
+  AiOutlineLike,
+  AiOutlineComment,
+  AiOutlineDelete,
+  AiOutlineEdit,
+  AiFillLike,
+} from "react-icons/ai";
+import Navbar from "../body/Navbar";
+import RightSidebar from "../body/RightSidebar";
+import LeftSidebar from "../body/LeftSidebar";
+import Footer from "../body/Footer";
 
 const Index = () => {
+  const current_Fname = JSON.parse(localStorage.getItem("first_name"));
+  const current_Lname = JSON.parse(localStorage.getItem("last_name"));
+  const current_ID = JSON.parse(localStorage.getItem("Id"));
+  const current_Email = JSON.parse(localStorage.getItem("email"));
 
-    const current_Fname = JSON.parse(localStorage.getItem('first_name'));
-    const current_Lname = JSON.parse(localStorage.getItem('last_name'));
-    const current_ID = JSON.parse(localStorage.getItem('Id'));
-    const current_Email = JSON.parse(localStorage.getItem('email'));
+  const [inputs, setInputs] = useState("");
+  const [posts, setPosts] = useState([]);
+  const [likes, setLikes] = useState([]);
+  const [comments, setComments] = useState([]);
+  const [file, setFile] = useState(null);
 
+  useEffect(() => {
+    getPosts();
+    getComments();
+  }, []);
 
-    const [inputs, setInputs] = useState("")
-    const [posts, setPosts] = useState([]);
-    const [likes, setLikes] = useState([]);
-    const [comments, setComments] = useState([]);
-    const [file, setFile] = useState(null);
+  // Posts
 
+  function getPosts() {
+    axios
+      .get(`http://localhost/React/React_project/backend/posts.php`)
 
-    useEffect(() => {
-        getPosts();
+      .then((response) => {
+        setPosts(response.data);
         getComments();
-    }, [])
+        getLikes();
+      });
+  }
 
+  const handleImagePost = async (e) => {
+    e.preventDefault();
 
-    // Posts
-
-
-    function getPosts() {
-
-
-        axios.get(`http://localhost/React/React_project/backend/posts.php`)
-
-            .then(response => {
-                setPosts(response.data);
-                getComments();
-                getLikes();
-            })
-    }
-
-    const handleImagePost = async (e) => {
-        e.preventDefault();
-
-        const formData = new FormData();
+    const formData = new FormData();
 
         formData.append("post", inputs);
         formData.append("user_id", current_ID);
@@ -65,178 +62,176 @@ const Index = () => {
         }
     };
 
-    const handlePost = (e) => {
-        const value = e.target.value;
-        setInputs(value)
+  const handlePost = (e) => {
+    const value = e.target.value;
+    setInputs(value);
+  };
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    const post_id = e.target.id;
+    const user_id = e.target.name;
+    setInputs({ comment_content: value, post_id: post_id, user_id: user_id });
+  };
+
+  const editPost = (id) => {
+    document.getElementById(`post${id}`).style.display = "none";
+    document.getElementById(`editPostForm${id}`).style.display = "block";
+    document.getElementById(`editPostBTN${id}`).style.display = "none";
+  };
+
+  const handleEditPost = (id) => {
+    const post_id = id;
+    const value = document.getElementById(`editPostInput${id}`).value;
+    setInputs({ post_content: value, post_id: post_id });
+  };
+
+  const handleEditPostSubmit = async (e) => {
+    e.preventDefault();
+
+    const formEditData = new FormData();
+
+    formEditData.append("post_content", inputs["post_content"]);
+    formEditData.append("post_id", inputs["post_id"]);
+    formEditData.append("file", file);
+
+    console.log(formEditData);
+
+    try {
+      const response = await axios.post(
+        "http://localhost/React/React_Project/backend/postEdit.php/",
+        formEditData
+      );
+      console.log(response.data);
+      window.location.assign("/home");
+    } catch (error) {
+      console.error(error);
     }
+  };
 
-    const handleChange = (e) => {
-        const value = e.target.value;
-        const post_id = e.target.id;
-        const user_id = e.target.name;
-        setInputs({ 'comment_content': value, 'post_id': post_id, 'user_id': user_id })
-    }
+  const deletePost = (id) => {
+    axios
+      .delete(`http://localhost/React/React_Project/backend/posts.php/${id}`)
+      .then(function (response) {});
+    window.location.assign("/home");
+  };
 
+  // Comments
 
+  function getComments() {
+    axios
+      .get(`http://localhost/React/React_Project/backend/comments.php/`)
+      .then((response) => {
+        setComments(response.data);
+      });
+  }
 
-    const editPost = (id) => {
-        document.getElementById(`post${id}`).style.display = 'none';
-        document.getElementById(`editPostForm${id}`).style.display = 'block';
-        document.getElementById(`editPostBTN${id}`).style.display = 'none';
-    }
+  const handleCreateComment = (e) => {
+    e.preventDefault();
+    console.log(inputs);
+    axios
+      .post(
+        "http://localhost/React/React_Project/backend/comments.php/",
+        inputs
+      )
+      .then
+      // window.location.assign('/home')
+      ();
+  };
 
-    const handleEditPost = (id) => {
-        const post_id = id;
-        const value = document.getElementById(`editPostInput${id}`).value;
-        setInputs({ 'post_content': value, 'post_id': post_id })
-    }
+  const deleteComment = (id) => {
+    axios
+      .delete(`http://localhost/React/React_Project/backend/comments.php/${id}`)
+      .then(function (response) {
+        getComments();
+      });
+  };
 
-    const handleEditPostSubmit = async (e) => {
-        e.preventDefault();
+  const editComment = (id) => {
+    document.getElementById(`comment${id}`).style.display = "none";
+    document.getElementById(`editCommentForm${id}`).style.display = "block";
+    document.getElementById(`editCommentBTN${id}`).style.display = "none";
+  };
 
-        const formEditData = new FormData();
+  const handleEditComment = (id) => {
+    const comment_id = id;
+    const value = document.getElementById(`editCommentInput${id}`).value;
+    setInputs({ comment_content: value, comment_id: comment_id });
+  };
 
-        formEditData.append("post_content", inputs['post_content']);
-        formEditData.append("post_id", inputs['post_id']);
-        formEditData.append("file", file);
+  const handleEditCommentSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .put("http://localhost/React/React_Project/backend/comments.php/", inputs)
+      .then
+      // window.location.assign('/')
+      ();
+  };
 
-        console.log(formEditData);
+  const foucsOnComment = (id) => {
+    document.getElementById(id).focus();
+  };
 
-        try {
-            const response = await axios.post(
-                "http://localhost/React/React_Project/backend/postEdit.php/", formEditData
-            );
-            console.log(response.data);
-            window.location.assign('/home');
-        } catch (error) {
-            console.error(error);
-        }
-    };
+  const canclePostEdit = (id) => {
+    document.getElementById(`post${id}`).style.display = "block";
+    document.getElementById(`editPostForm${id}`).style.display = "none";
+    document.getElementById(`editPostBTN${id}`).style.display = "inline-block";
+    document.getElementById(`imgPost${id}`).style.display = "block";
+  };
 
+  const cancleCommentEdit = (id) => {
+    document.getElementById(`comment${id}`).style.display = "block";
+    document.getElementById(`editCommentForm${id}`).style.display = "none";
+    document.getElementById(`editCommentBTN${id}`).style.display =
+      "inline-block";
+  };
 
+  // Likes
 
-    const deletePost = (id) => {
-        axios.delete(`http://localhost/React/React_Project/backend/posts.php/${id}`).then(function (response) {
-        })
-        window.location.assign('/home');
-    }
+  const getLikes = () => {
+    axios
+      .get(`http://localhost/React/React_project/backend/likes.php/`)
+      .then((response) => {
+        setLikes(response.data);
+      });
+  };
 
+  const handleLikePost = (id) => {
+    const post_id = id;
+    const user_id = current_ID;
+    setInputs({ user_id: user_id, post_id: post_id });
+  };
 
-    // Comments
+  const likePost = (e) => {
+    e.preventDefault();
+    console.log(inputs);
 
+    axios
+      .post("http://localhost/React/React_project/backend/likes.php/", inputs)
+      .then(getPosts());
+  };
+  const removeLikePost = (e) => {
+    e.preventDefault();
+    console.log(inputs);
+    axios
+      .post(
+        "http://localhost/React/React_Project/backend/likeDelete.php/",
+        inputs
+      )
+      .then(getPosts());
+  };
 
-    function getComments() {
-        axios.get(`http://localhost/React/React_Project/backend/comments.php/`)
-            .then(response => {
-                setComments(response.data);
-            })
-    }
+  // Return
+  return (
+    <>
+      <Navbar />
 
-    const handleCreateComment = (e) => {
-        e.preventDefault();
-        console.log(inputs)
-        axios.post('http://localhost/React/React_Project/backend/comments.php/', inputs).then(
-            // window.location.assign('/home')
-        )
-    }
-
-    const deleteComment = (id) => {
-        axios.delete(`http://localhost/React/React_Project/backend/comments.php/${id}`).then(function (response) {
-            getComments();
-        })
-
-    }
-
-    const editComment = (id) => {
-        document.getElementById(`comment${id}`).style.display = 'none';
-        document.getElementById(`editCommentForm${id}`).style.display = 'block';
-        document.getElementById(`editCommentBTN${id}`).style.display = 'none';
-    }
-
-    const handleEditComment = (id) => {
-        const comment_id = id;
-        const value = document.getElementById(`editCommentInput${id}`).value;
-        setInputs({ 'comment_content': value, 'comment_id': comment_id })
-    }
-
-    const handleEditCommentSubmit = (e) => {
-        e.preventDefault();
-        axios.put('http://localhost/React/React_Project/backend/comments.php/', inputs).then(
-            // window.location.assign('/')
-        )
-    }
-
-    const foucsOnComment = (id) => {
-        document.getElementById(id).focus();
-    }
-
-    const canclePostEdit = (id) => {
-        document.getElementById(`post${id}`).style.display = 'block';
-        document.getElementById(`editPostForm${id}`).style.display = 'none';
-        document.getElementById(`editPostBTN${id}`).style.display = 'inline-block';
-        document.getElementById(`imgPost${id}`).style.display = 'block';
-    }
-
-    const cancleCommentEdit = (id) => {
-        document.getElementById(`comment${id}`).style.display = 'block';
-        document.getElementById(`editCommentForm${id}`).style.display = 'none';
-        document.getElementById(`editCommentBTN${id}`).style.display = 'inline-block';
-        window.location.assign('/home');
-
-
-    }
-
-    // Likes
-
-
-    const getLikes = () => {
-
-        axios.get(`http://localhost/React/React_project/backend/likes.php/`)
-            .then(response => {
-                setLikes(response.data);
-            })
-    }
-
-    const handleLikePost = (id) => {
-        const post_id = id;
-        const user_id = current_ID;
-        setInputs({ 'user_id': user_id, 'post_id': post_id })
-    }
-
-    const likePost = (e) => {
-        e.preventDefault();
-        console.log(inputs)
-
-        axios.post('http://localhost/React/React_project/backend/likes.php/', inputs).then(
-
-            getPosts()
-        )
-    }
-    const removeLikePost = (e) => {
-        e.preventDefault();
-        console.log(inputs)
-        axios.post('http://localhost/React/React_Project/backend/likeDelete.php/', inputs).then(
-            getPosts()
-        )
-    }
-
-
-    const photoUrl = inputs.image;
-    // console.log(inputs);
-
-
-    // Return
-    return (
-        <>
-
-            <Navbar />
-
-            <RightSidebar />
-            <LeftSidebar />
-            <div>
-                <meta charSet="utf-8" />
+      <RightSidebar />
+      <LeftSidebar />
+      <div>
+        {/* <meta charSet="utf-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-                <title>Posts</title>
+                <title>Posts</title> */}
 
                 <div className="wrapper">
                     <div id="content-page" className="content-page">
@@ -401,100 +396,137 @@ const Index = () => {
                                                                                 id={`editPostInput${post.post_id}`} onChange={() => handleEditPost(post.post_id)}
                                                                             />
 
-                                                                            <br />
+                                      <br />
 
-                                                                            <div className='w-100 d-flex'>
-                                                                                <input
-                                                                                    type="file"
-                                                                                    id="file"
-                                                                                    onChange={(e) => setFile(e.target.files[0])}
-                                                                                />
-                                                                                <button className='btn btn-outline-secondary border w-25 me-2' type='submit'>Update</button>
-                                                                                <button className="btn btn-primary w-25" onClick={() => { canclePostEdit(post.post_id) }} type='button'>Cancle</button>
-                                                                            </div>
-                                                                        </form>
-                                                                    </div>
-                                                                </div>
-                                                                {/* IMAGE POST */}
-                                                                <div className="row-span-2 row-span-md-1 justify-content-center">
-                                                                    <hr />
+                                      <div className="w-100 d-flex">
+                                        <input
+                                          type="file"
+                                          id="file"
+                                          onChange={(e) =>
+                                            setFile(e.target.files[0])
+                                          }
+                                        />
+                                        <button
+                                          className="btn btn-outline-secondary border w-25 me-2"
+                                          type="submit">
+                                          Update
+                                        </button>
+                                        <button
+                                          className="btn btn-primary w-25"
+                                          onClick={() => {
+                                            canclePostEdit(post.post_id);
+                                          }}
+                                          type="button">
+                                          Cancle
+                                        </button>
+                                      </div>
+                                    </form>
+                                  </div>
+                                </div>
+                                {/* IMAGE POST */}
+                                {/* <div className="row-span-md-1 justify-content-center">
+                                  <img
+                                    id={`imgPost${post.post_id}`}
+                                    className="img-thumnail rounded w-100"
+                                    src={require(`../images/${post.post_image}`)}
+                                    alt=""
+                                  />
 
+                                </div> */}
+                              </>
+                            ) : (
+                              // POPUP FORM POST
+                              <>
+                                {/* CONTENT POST */}
+                                {/* <div className="mt-3">
+                                    <p id={`post${post.post_id}`} className="mt-3 mb-4 pb-2">{post.content}</p>
+                                </div> */}
+                                {/* EDIT POST */}
+                                <div className="user-post">
+                                  <div className=" d-grid grid-rows-2 grid-flow-col gap-3">
+                                    <form
+                                      className="card card-block card-stretch"
+                                      id={`editPostForm${post.post_id}`}
+                                      action=""
+                                      style={{ display: "none" }}
+                                      onSubmit={handleEditPostSubmit}>
+                                      <textarea
+                                        className="form-control rounded"
+                                        type="text"
+                                        defaultValue={post.content}
+                                        id={`editPostInput${post.post_id}`}
+                                        onChange={() =>
+                                          handleEditPost(post.post_id)
+                                        }
+                                      />
 
+                                      <br />
 
-                                                                    <img id={`imgPost${post.post_id}`} className="img-thumnail rounded w-100 v-10 sizephoto" style={{ height: '30rem', objectFit: 'contain' }} src={require(`../images/${post.post_image}`)} alt='' />
+                                      <div className="w-100 d-flex">
+                                        <input
+                                          type="file"
+                                          id="file"
+                                          onChange={(e) =>
+                                            setFile(e.target.files[0])
+                                          }
+                                        />
+                                        <button
+                                          className="btn btn-outline-secondary border w-25 me-2"
+                                          type="submit">
+                                          Update
+                                        </button>
+                                        <button
+                                          className="btn btn-primary w-25"
+                                          onClick={() => {
+                                            canclePostEdit(post.post_id);
+                                          }}
+                                          type="button">
+                                          Cancle
+                                        </button>
+                                      </div>
+                                    </form>
+                                  </div>
+                                </div>
+                                {/* OLD IMAGE POST */}
+                                <div className="row-span-2 row-span-md-1 justify-content-center">
+                                  <hr />
+                                  {/* {post.post_image !== "null" ? (
+                                    <p
+                                      id={`post${post.post_id}`}
+                                      className="mt-3 mb-4 pb-2">
+                                      {post.content}
+                                    </p>
+                                  ) : (
+                                    <img
+                                      className="rounded-circle img-fluid"
+                                      width={"60px"}
+                                      src={require(`../images/profile.jpg`)}
+                                      alt=""
+                                    />
+                                  )} */}
 
+                                  {/* <img id={`imgPost${post.post_id}`}  className="img-thumnail rounded w-100" src={require(`../images/${post.post_image}`)} alt='' /> */}
+                                </div>
+                              </>
+                            )}
 
+                            {/* LIKE AND COMMENT ICON */}
 
-                                                                </div>
-                                                            </>
-                                                            :
-                                                            // POPUP FORM POST
-                                                            <>
-                                                                {/* CONTENT POST */}
-                                                                {/* <div className="mt-3">
-                                                                    <p id={`post${post.post_id}`} className="mt-3 mb-4 pb-2">{post.content}</p>
-                                                                </div> */}
-                                                                {/* EDIT POST */}
-                                                                <div className="user-post">
-                                                                    <div className=" d-grid grid-rows-2 grid-flow-col gap-3">
-                                                                        <form className="card card-block card-stretch" id={`editPostForm${post.post_id}`} action="" style={{ display: 'none' }} onSubmit={handleEditPostSubmit}>
-                                                                            <textarea
-                                                                                className="form-control rounded"
-                                                                                type="text"
-                                                                                defaultValue={post.content}
-                                                                                id={`editPostInput${post.post_id}`} onChange={() => handleEditPost(post.post_id)}
-                                                                            />
-
-                                                                            <br />
-
-                                                                            <div className='w-100 d-flex'>
-                                                                                <input
-                                                                                    type="file"
-                                                                                    id="file"
-                                                                                    onChange={(e) => setFile(e.target.files[0])}
-                                                                                />
-                                                                                <button className='btn btn-outline-secondary border w-25 me-2' type='submit'>Update</button>
-                                                                                <button className="btn btn-primary w-25" onClick={() => { canclePostEdit(post.post_id) }} type='button'>Cancle</button>
-                                                                            </div>
-                                                                        </form>
-                                                                    </div>
-                                                                </div>
-                                                                {/* IMAGE POST */}
-                                                                <div className="row-span-2 row-span-md-1 justify-content-center">
-                                                                    <hr />
-                                                                    {post.post_image !== 'null' ? (
-                                                                        <p id={`post${post.post_id}`} className="mt-3 mb-4 pb-2">{post.content}</p>
-                                                                    ) : (
-                                                                        <img className="rounded-circle img-fluid" width={'60px'} src={require(`../images/profile.jpg`)} alt="" />
-
-                                                                    )
-                                                                    }
-
-                                                                    {/* <img id={`imgPost${post.post_id}`}  className="img-thumnail rounded w-100" src={require(`../images/${post.post_image}`)} alt='' /> */}
-
-
-                                                                </div>
-                                                            </>
-
-                                                        }
-
-                                                        {/* LIKE AND COMMENT ICON */}
-
-
-                                                        <div className="comment-area mt-3">
-
-                                                            <>
-                                                                <div className="d-flex justify-content-between align-items-center flex-wrap">
-                                                                    <div className="like-block position-relative d-flex align-items-center">
-                                                                        <div className="d-flex align-items-center">
-                                                                            <div className="like-data">
-                                                                                <div className="dropdown">
-                                                                                    {/* BUTTON LIKE */}
-                                                                                    {likes.map((like, index_like) => {
-                                                                                        if (like.user_id === current_ID && like.post_id === post.post_id) {
-                                                                                            return (flagLike = true)
-                                                                                        }
-                                                                                    })}
+                            <div className="comment-area p-3">
+                                <div className="d-flex justify-content-between align-items-center flex-wrap">
+                                  <div className="like-block position-relative d-flex align-items-center">
+                                    <div className="d-flex align-items-center">
+                                      <div className="like-data">
+                                        <div className="dropdown">
+                                          {/* BUTTON LIKE */}
+                                          {likes.map((like, index_like) => {
+                                            if (
+                                              like.user_id === current_ID &&
+                                              like.post_id === post.post_id
+                                            ) {
+                                              return (flagLike = true);
+                                            }
+                                          })}
 
                                                                                     {(flagLike === true) ?
                                                                                         <form action="" onSubmit={removeLikePost}>
@@ -678,6 +710,4 @@ const Index = () => {
     )
 }
 
-export default Index
-
-
+export default Index;
