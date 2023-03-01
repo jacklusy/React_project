@@ -248,7 +248,7 @@ const Index = () => {
                                         <div className="col-lg-12 row m-0 p-0">
                                             <div className="col-sm-12">
                                                 {/* POST FORM */}
-                                                <form id="post-modal-data" onSubmit={handleImagePost} className="card card-block card-stretch ">
+                                                    <form id="post-modal-data" onSubmit={handleImagePost} className="card card-block card-stretch ">
                                                     <div className="card-header d-flex justify-content-between">
                                                         <div className="header-title">
                                                             <h4 className="card-title">Create Post</h4>

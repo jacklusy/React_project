@@ -7,6 +7,8 @@ import Navbar from '../body/Navbar';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import '../../assets/css/CreateGroup.css';
+import CreateGroup from './CreateGroup';
 
 
 
@@ -17,6 +19,16 @@ const Group = () => {
   const [groups, setGroups] = useState([]);
   const [pendingMembers, setPendingMembers] = useState([]);
   const [acceptedMembers, setAcceptedMembers] = useState([]);
+
+  const [text, setText] = useState("");
+const [file, setFile] = useState(null);
+const [groupDescription, setGroupDescription] = useState(null);
+
+const[showUpdateForm,setShowUpdateForm]=useState(false);
+const ShowUpdateForm = () => {
+  {showUpdateForm ? setShowUpdateForm(false) : setShowUpdateForm(true)}
+}
+
 
 
   useEffect(() => {
@@ -94,8 +106,30 @@ const Group = () => {
 
   }
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  let i = 1;
+    const formData = new FormData();
+    formData.append("text", text);
+    formData.append("user_id", current_ID);
+    formData.append("file", file);
+    // formData.append("group_description", groupDescription);
+
+    try {
+      const response = await axios.post(
+        "http://localhost/React/React_project/backend/groups.php",
+        formData
+      );
+      console.log(response.data);
+      window.location.assign('/Group');
+
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
 
   return (
     <>
@@ -120,7 +154,14 @@ const Group = () => {
               </div>
             </div>
           </div>
+          
 
+
+          <button className="button_submit" onClick={()=>ShowUpdateForm()}>Create new Group</button>
+          {showUpdateForm&& <CreateGroup handleSubmit={handleSubmit} setText={setText} setFile={setFile} setGroupDescription={setGroupDescription} text={text} />}
+
+
+          {/* <button type="submit" className="btn btn-primary d-block w-100"><i className="ri-add-line pe-2" />Create New Group</button> */}
           <div id="content-page" className="content-page">
             <div className="container">
               <div className="d-grid gap-3 d-grid-template-1fr-19">

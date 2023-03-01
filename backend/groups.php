@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     print_r($user_id);
     print_r($file);
   
-    $targetDir = "../src/components/images/";
+    $targetDir = "../frontend/src/components/images/";
     $fileName = basename($file["name"]);
     $targetPath = $targetDir . $fileName;
   
