@@ -33,8 +33,9 @@ import './assets/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css'
 import Login from "./components/main/Login";
 import Register from "./components/main/Register";
 import { ToastContainer } from "react-toastify";
-import ErrorMessage from "./components/main/messageLogin";
 import MyGroups from "./components/main/MyGroups";
+import ErrorMessage from "./components/main/messageLogin";
+// import MyGroups from "./components/main/MyGroups";
 //import Login from "./components/main/Login";
 
 
@@ -70,7 +71,7 @@ pauseOnHover
 
             <Route exact path="/Group" element={<Group />} />
             <Route exact path="/Mygroups" element={<MyGroups />} />
-            <Route exact path="/groups/:id/show" element={<GroupDetails />} />
+            <Route exact path="/groupd/:id/show" element={<GroupDetails />} />
 
             <Route exact path="/Chat" element={<Chat />} />
             <Route exact path="/Email" element={<Email />} />

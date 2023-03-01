@@ -26,7 +26,12 @@ const Login = () => {
     getUser()
   }, []);
 
-console.log(users);
+// console.log(email);
+// console.log(password);
+// console.log(users);
+
+
+
   const ProceedLogin = (e) => {
     e.preventDefault();
     for (const user of users) {
@@ -59,6 +64,7 @@ console.log(users);
       const getUser = ()=> {
         axios.get('http://localhost/React/React_Project/backend/log_reg.php').then(function(response){
             setUsers(response.data)
+            console.log(response.data);
         })
     }
 
