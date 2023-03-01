@@ -1,6 +1,6 @@
-<?php require('config.php');?>
+<?php require('config.php');
 
-<?php
+
 error_reporting(E_ALL);
 ini_set('display_error',1);
 header('Access-Control-Allow-Origin:*');
@@ -74,10 +74,10 @@ switch($method){
         echo json_encode( $response);
         break;
 
-        case "PUT":
+    case "PUT":
 
         $user = json_decode(file_get_contents('php://input'));
-// print_r($user);break;
+        // print_r($user);break;
         $sql = "UPDATE  friends SET  status = :status  WHERE user_id = :user_id and friend_id = :friend_id ";
         $stmt =$conn->prepare($sql);
         $status = "accepted";
@@ -85,7 +85,7 @@ switch($method){
         $stmt->bindParam(':user_id', $user->friend_id);
         $stmt->bindParam(':friend_id', $user->user_id);
         $stmt->execute();
-        //
+        
 
         $sql = "INSERT INTO friends ( id , user_id , friend_id , status ) VALUES ( null , :user_id , :friend_id ,:status)";
         $stmt =$conn->prepare($sql);

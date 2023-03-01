@@ -157,7 +157,7 @@ const ShowUpdateForm = () => {
           
 
 
-          <button className="button_submit" onClick={()=>ShowUpdateForm()}>Create new Group</button>
+          <button className="button_submit fw-bolder text-dark" onClick={()=>ShowUpdateForm()}  style={{backgroundColor : 'rgba(80,181,255,.1)'}}>Create new Group</button>
           {showUpdateForm&& <CreateGroup handleSubmit={handleSubmit} setText={setText} setFile={setFile} setGroupDescription={setGroupDescription} text={text} />}
 
 

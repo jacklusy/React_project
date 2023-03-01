@@ -272,6 +272,7 @@ const Index = () => {
                                                         />
                                                     </div>
                                                 </div>
+
                                                 <hr />
                                             </div>
                                 {posts.map((post, index_post) => {
@@ -490,6 +491,7 @@ const Index = () => {
                                                                 </div>
                                                                 {/* IMAGE POST */}
                                                                 {/* <div className="row-span-md-1 justify-content-center">
+
                                   <img
                                     id={`imgPost${post.post_id}`}
                                     className="img-thumnail rounded w-100"

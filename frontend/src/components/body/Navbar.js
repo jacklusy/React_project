@@ -6,7 +6,8 @@ import { useNavigate } from 'react-router-dom';
 <script src="https://kit.fontawesome.com/b56885f075.js" crossorigin="anonymous"></script>
 
 function Navbar() {
-  let id = localStorage.getItem("Id");
+  const id = JSON.parse(localStorage.getItem('Id'));
+
   const navigate = useNavigate()
   const [inputs, setInputs] = useState({});
   const [users,setUsers] = useState([]);
@@ -54,11 +55,10 @@ function Navbar() {
         axios.get(`http://localhost/React/React_project/backend/acceptFriend.php/${id}`)
         .then((respone)=>{
             console.log(respone.data);
-            let pendingRequest = respone.data.map((ele)=>{
+            const pendingRequest = respone.data.map((ele)=>{
                 return ele.friend_id
             })
             setpendingRequest(pendingRequest);
-            console.log(pendingRequest);
             setpendingFriends(respone.data)
         })
     }
@@ -73,7 +73,6 @@ function Navbar() {
             let friends = respone.data.map((ele)=>{
                 return ele.friend_id
             })
-            console.log(friends);
             setfriends(friends);
             setAcceptedFriends(respone.data)
         })
@@ -86,10 +85,9 @@ function Navbar() {
             axios.get(`http://localhost/React/React_project/backend/friendRequests.php/${id}`)
             .then((respone)=>{
                 console.log(respone.data);
-                let requestFriend = respone.data.map((ele)=>{
+                const requestFriend = respone.data.map((ele)=>{
                     return ele.user_id
                 })
-                console.log(requestFriend);
                 setrequestFriend(requestFriend);
                 setRequestFriends(respone.data)
             })
@@ -123,7 +121,7 @@ function Navbar() {
             getFriendsRequest();
         })
 
-
+        window.location.assign('/home')
         
     }
 
@@ -136,6 +134,7 @@ function Navbar() {
             console.log(respone.data);
             getFriendsPending();
             getFriendsAccepted();
+            getFriendsRequest();
         })
 
 
@@ -204,22 +203,43 @@ function Navbar() {
                     </div>
                     <div className="card-body p-0">
 
-                      {/* FRIND REEQUIST */}
-                      <div className="iq-friend-request">
-                        <div className="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
-                          <div className="d-flex align-items-center">
-                            <img className="avatar-40 rounded" src="/images/user/01.jpg" alt="" />
-                            <div className="ms-3">
-                              <h6 className="mb-0 ">Jaques Amole</h6>
-                              <p className="mb-0">40 friends</p>
-                            </div>
-                          </div>
-                          <div className="d-flex align-items-center">
-                            <a href="javascript:void();" className="me-3 btn btn-primary rounded">Confirm</a>
-                            <a href="javascript:void();" className="me-3 btn btn-secondary rounded">Delete Request</a>
-                          </div>
-                        </div>
-                      </div>
+                    {/* FRIND REEQUIST */}
+                    {users.filter(function(ele) {
+                    // لحتى ما اطبع المستخد اللي عامل تسجيل دخول
+                    if (ele.id === id) {
+                        return false; // skip
+                      }
+                      console.log(users)
+                    return true;
+                    }).map((ele,index)=>{
+                        return(
+                          <Link>      
+                           {(() => {
+                                if (requestFriend.includes(ele.id)){
+                                              return (
+                                                <div className="iq-friend-request">
+                                                  <div className="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
+                                                    <div className="d-flex align-items-center">
+                                                      <img className="avatar-40 rounded" src="/images/user/01.jpg" alt="" />
+                                                      <div className="ms-3">
+                                                        <h6 className="mb-0 ">{ele.first_name}</h6>
+                                                        <p className="mb-0">{ele.email}</p>
+                                                      </div>
+                                                    </div>
+                                                    <div className="d-flex align-items-center">
+                                                      <div className="ms-5">
+                                                        <button className="me-3 btn btn-secondary rounded" onClick={()=>removeRequest(ele.id)}>Delete</button>
+                                                        <button className=" btn btn-primary rounded" onClick={()=>AcceptFriend(ele.id)}>Accept</button>
+                                                      </div>
+                                                    </div>
+                                                  </div> 
+                                                </div>  
+                                          )
+                                }})()}
+                            </Link> 
+                      )})}
+
+
                       <div className="text-center">
                         {/* SHOW ALL PEOPLE IN PAGE WITH ALL GROUP */}
                         <a href="#" className=" btn text-primary">View More Request</a>
@@ -234,12 +254,12 @@ function Navbar() {
 
               <li className="nav-item dropdown">
                 <a href="/Profile" className="   d-flex align-items-center dropdown-toggle" id="drop-down-arrow" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {/* IMAGE NAVBAR FOR USER */}
-                    {!photoUrl ? ( 
-                      <img src="/images/user/default.jpg" alt="userimg" className="img-fluid rounded-circle me-3" /> 
-                    ): ( 
-                      <img src={require(`../images/${photoUrl}`)} alt="userimg" className="img-fluid rounded-circle me-3" />
-                    )}
+                      {/* IMAGE NAVBAR FOR USER */}
+                      {!photoUrl ? ( 
+                        <img src="/images/user/default.jpg" alt="userimg" className="rounded-circle me-3" /> 
+                      ): ( 
+                        <img src={require(`../images/${photoUrl}`)} alt="userimg" className="rounded-circle me-3" />
+                      )}
                   <div className="caption">
                     <h6 className="mb-0 line-height"> {inputs.first_name} <span> {inputs.last_name} </span></h6>
                   </div>

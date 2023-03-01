@@ -52,9 +52,8 @@ function RightSidebar() {
               <div className="right-sidebar-panel p-0">
                 <div className="card shadow-none">
                   <div className="card-body p-0">
-                    <div className="media-height p-3" data-scrollbar="init">
-                    <div className="blogContainer">
-                        
+                    <div className="media-height" data-scrollbar="init">
+                    <p className='row border-bottom border-dark py-2 px-3' style={{backgroundColor : 'rgba(80,181,255,.1)'}}>Frinds</p> 
                         {/* Blog-Box1  */}
                         {users.filter(function(ele) {
                                 // لحتى ما اطبع المستخد اللي عامل تسجيل دخول
@@ -62,33 +61,27 @@ function RightSidebar() {
                                     return false; // skip
                                 }
                                 return true;
-                                }).map((ele,index)=>{
-                                    return(
-                       
-                                <div className="blogBtn">
+                            }).map((ele,index)=>{
+                                return(
+                                    
+                                    <div className="blogBtn ms-2 me-2">
                                     {(() => {
                                             if (pendingRequest.includes(ele.id) || friends.includes(ele.id) || requestFriend.includes(ele.id)){
                                                 if(friends.includes(ele.id)){
                                                     return (
-
-                                                        <a href='/Chat' >
-                                                            <div className="d-flex align-items-center mb-4">
+                                                        <a href='/Profile' >
+                                                            <div className="d-flex align-items-center">
                                                                 <div className="iq-profile-avatar status-online">
-                                                                <img className="rounded-circle avatar-50" src={require(`../../components/images/${ele.image}`)} alt="" />
+                                                                    <img className="rounded-circle avatar-50" src={require(`../../components/images/${ele.image}`)} alt="" />
                                                                 </div>
-                                                                <div className="ms-3">
+                                                                <div className="ms-3 me-3">
                                                                 <h6 className="mb-0">{ele.first_name}</h6>
                                                                 <p className="mb-0">{ele.email} </p>
                                                                 </div>
                                                             </div>
                                                         </a>
 
-                                                    )
-
-                                                }
-                                            
-                                            }
-                                    })()}
+                                                    )}}})()}
                                 </div>
                         )})}
                     </div>
@@ -96,7 +89,6 @@ function RightSidebar() {
               </div>
             </div>
           </div>
-        </div> 
             
   );
 }
