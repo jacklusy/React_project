@@ -340,7 +340,7 @@ const Index = () => {
                                                                 <div className="w-100">
                                                                     <div className="d-flex justify-content-between">
                                                                         <div>
-                                                                            {!photoUrl ? <img src="/images/user/default.jpg" alt="userimg" className="avatar-60 rounded-circle img-fluid" /> : <img src={'/images/user/' + photoUrl} alt="userimg" className="avatar-60 rounded-circle img-fluid" />}
+                                                                            {photoUrl == null ? <img src="/images/user/default.jpg" alt="userimg" className="avatar-60 rounded-circle img-fluid" /> : <img  src={require(`../images/${post.image}`)}l alt="userimg" className="avatar-60 rounded-circle img-fluid" />}
                                                                             <h5 className="mb-0 d-inline-block" style={{ paddingLeft: '1rem' }}>{post.first_name}</h5>
                                                                             <p className="mb-0 text-primary">{post.created_at}</p>
                                                                         </div>
