@@ -426,7 +426,7 @@ const Index = () => {
                                     id={`imgPost${post.post_id}`}
                                     className="img-thumnail border"
                                     src={require(`../images/${post.post_image}`)}
-                                    style={{height: "42em", width: "46em"}}
+                                    style={{height: "100%", width: "100%"}}
                                     alt=""
                                   />
 

@@ -81,12 +81,7 @@ function RightSidebar() {
                                                             </div>
                                                         </a>
 
-                                                    )
-
-                                                }
-                                            
-                                            }
-                                    })()}
+                                                    )}}})()}
                                 </div>
                         )})}
                     </div>
