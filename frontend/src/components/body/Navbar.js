@@ -41,7 +41,7 @@ function Navbar() {
         // لعرض جميع المستخدمين في الموقع
         const getUsers = () => {
 
-            axios.get("http://localhost:80/frontend/back_end/user.php/users")
+            axios.get("http://localhost/React/React_project/backend/theUser.php/theUsers")
             .then((respone)=>{
                 setUsers(respone.data)
                 console.log(respone.data);
@@ -51,7 +51,7 @@ function Navbar() {
     // اللي بعثهم المستخدم pending عرض جميع طلبات الصداقة في حالة 
     const getFriendsPending = () => {
 
-        axios.get(`http://localhost:80/frontend/back_end/acceptFriend.php/${id}`)
+        axios.get(`http://localhost/React/React_project/backend/acceptFriend.php/${id}`)
         .then((respone)=>{
             console.log(respone.data);
             let pendingRequest = respone.data.map((ele)=>{
@@ -67,7 +67,7 @@ function Navbar() {
     
     const getFriendsAccepted = () => {
 
-        axios.get(`http://localhost:80/frontend/back_end/friends.php/${id}`)
+        axios.get(`http://localhost/React/React_project/backend/friends.php/${id}`)
         .then((respone)=>{
             console.log(respone.data);
             let friends = respone.data.map((ele)=>{
@@ -83,7 +83,7 @@ function Navbar() {
 
         const getFriendsRequest = () => {
 
-            axios.get(`http://localhost:80/frontend/back_end/friendRequests.php/${id}`)
+            axios.get(`http://localhost/React/React_project/backend/friendRequests.php/${id}`)
             .then((respone)=>{
                 console.log(respone.data);
                 let requestFriend = respone.data.map((ele)=>{
@@ -99,7 +99,7 @@ function Navbar() {
     //  pending وحالته بتكون friends  اضافة صديق جديد في جدول ال 
     const AddFriends = (friendId) => {
         let inputs = {user_id:id , friend_id:friendId};
-        axios.post(`http://localhost:80/frontend/back_end/friends.php/save`,inputs)
+        axios.post(`http://localhost/React/React_project/backend/friends.php/save`,inputs)
         .then((respone)=>{
             console.log(respone.data);
             getUsers();
@@ -115,7 +115,7 @@ function Navbar() {
     // status الموافقة على طلب الصداقة وتغيير ال 
     const AcceptFriend = (friendId) => {
         let inputs = {user_id:id , friend_id:friendId};
-        axios.put(`http://localhost:80/frontend/back_end/friends.php/edit`,inputs)
+        axios.put(`http://localhost/React/React_project/backend/friends.php/edit`,inputs)
         .then((respone)=>{
             console.log(respone.data);
             getFriendsPending();
@@ -131,7 +131,7 @@ function Navbar() {
     // الغاء ارسال طلب الصداقة
     const removeRequest = (friendId) => {
         let inputs = {user_id:id , friend_id:friendId};
-        axios.put(`http://localhost:80/frontend/back_end/removeRequest.php/edit`,inputs)
+        axios.put(`http://localhost/React/React_project/backend/removeRequest.php/edit`,inputs)
         .then((respone)=>{
             console.log(respone.data);
             getFriendsPending();
@@ -145,7 +145,7 @@ function Navbar() {
     // حذف الصداقة
     const removeFriend = (friendId) => {
         let inputs = {user_id:id , friend_id:friendId};
-        axios.put(`http://localhost:80/frontend/back_end/removeFriends.php`,inputs)
+        axios.put(`http://localhost/React/React_project/backend/removeFriends.php`,inputs)
         .then((respone)=>{
             console.log(respone.data);
             getFriendsPending();

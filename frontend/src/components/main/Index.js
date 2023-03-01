@@ -254,7 +254,7 @@ const Index = () => {
                                             <div className="card-body">
                                                 <div className="d-flex align-items-center">
                                                     <div className="user-img">
-                                                        {!photoUrl ? <img src="/images/user/default.jpg" alt="userimg" className="avatar-60 rounded-circle img-fluid" /> : <img src={'/images/user/' + photoUrl} alt="userimg" className="avatar-60 rounded-circle img-fluid" />}
+                                                        {!photoUrl ? <img src="/images/user/Post.jpg" alt="userimg" className="avatar-60 rounded-circle img-fluid" /> : <img src={'/images/user/' + photoUrl} alt="userimg" className="avatar-60 rounded-circle img-fluid" />}
                                                     </div>
                                                     <div
                                                         className="post-text ms-3 w-100 "
@@ -272,6 +272,10 @@ const Index = () => {
                                                 </div>
                                                 <hr />
                                             </div>
+                                            {posts.map((post, index_post) => {
+                                            var flagLike = false;
+                                            return (
+                                                <>
                                             <div className="modal fade" id="post-modal" tabIndex={-1} aria-labelledby="post-modalLabel" aria-hidden="true">
                                                 <div className="modal-dialog   modal-fullscreen-sm-down">
                                                     <div className="modal-content">
@@ -282,7 +286,7 @@ const Index = () => {
                                                         <div className="modal-body">
                                                             <div className="d-flex align-items-center">
                                                                 <div className="user-img">
-                                                                    <img src="/images/user/1.jpg" alt="userimg" className="avatar-60 rounded-circle img-fluid" />
+                                                                    <img src={require(`../images/${post.image}`)} alt="userimg" className="avatar-60 rounded-circle img-fluid" />
                                                                 </div>
                                                                 <div className="post-text ms-3 w-100">
                                                                     <input
@@ -312,9 +316,14 @@ const Index = () => {
                                                     </div>
                                                 </div>
                                             </div>
+                                            </>
+                                            )
+                                        })}
                                         </form>
                                     </div>
                                     <div className="col-sm-12">
+
+
                                         {/* ALL POSTS */}
                                         {posts.map((post, index_post) => {
                                             var flagLike = false;
@@ -340,7 +349,7 @@ const Index = () => {
                                                                 <div className="w-100">
                                                                     <div className="d-flex justify-content-between">
                                                                         <div>
-                                                                            {photoUrl == null ? <img src="/images/user/default.jpg" alt="userimg" className="avatar-60 rounded-circle img-fluid" /> : <img  src={require(`../images/${post.image}`)}l alt="userimg" className="avatar-60 rounded-circle img-fluid" />}
+                                                                             <img  src={require(`../images/${post.image}`)}l alt="userimg" className="avatar-60 rounded-circle img-fluid" />
                                                                             <h5 className="mb-0 d-inline-block" style={{ paddingLeft: '1rem' }}>{post.first_name}</h5>
                                                                             <p className="mb-0 text-primary">{post.created_at}</p>
                                                                         </div>
@@ -519,8 +528,7 @@ const Index = () => {
                                                                                 <div className="user-post-data">
                                                                                     <div className="d-flex justify-content-between">
                                                                                         <div className="me-2">
-                                                                                            <img src="/images/user/02.jpg" width={'60px'} alt="userimg" className="rounded-circle img-fluid" />
-                                                                                        </div>
+                                                                                        <img src={require(`../images/${comment.image}`)} alt="userimg" className="avatar-60 rounded-circle img-fluid" />                                                                                        </div>
                                                                                         <div className="w-100">
                                                                                             <div className="d-flex justify-content-between">
                                                                                                 <div className='mt-1'>

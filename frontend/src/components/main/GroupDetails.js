@@ -238,8 +238,6 @@ const GroupDetails = () => {
 
                                             </div>
                                         </div>
-
-
                                         
                                         <div className="col-lg-7">
                                             <div id="post-modal-data" className="card">
@@ -341,9 +339,9 @@ const GroupDetails = () => {
                                                         <div className="card shadow-none m-0">
                                                             <div className="card-header d-flex justify-content-between bg-primary">
                                                                 <div className="header-title">
-                                                                    <h5 className="mb-0 text-white">Group Request</h5>
+                                                                    <h5 className="mb-0 text-white">Group Members</h5>
                                                                 </div>
-                                                                <small className="badge  bg-light text-dark ">{pendingRequestGroups.length}</small>
+                                                                <small className="badge  bg-light text-dark ">{usersGroups.length}</small>
                                                             </div>
                                                             <div className="card-body p-0" >
                                                                 <div className="iq-friend-request" style={{ padding: '.5rem 0' }}>
