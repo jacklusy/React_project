@@ -10,7 +10,7 @@ import { Button } from 'react-bootstrap';
 
 
 
-const Group = () => {
+const MyGroups = () => {
 
   const current_ID = JSON.parse(localStorage.getItem('Id'));
 
@@ -221,7 +221,7 @@ const Group = () => {
   );
 }
 
-export default Group
+export default MyGroups;
 
 
 
