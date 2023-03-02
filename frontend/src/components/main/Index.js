@@ -269,7 +269,7 @@ const Index = () => {
                                                             type="text"
                                                             className="form-control rounded"
                                                             id={current_ID}
-                                                            placeholder="Write something here 1..."
+                                                            placeholder="Write something here ..."
                                                             style={{ border: "none" }}
                                                         />
                                                     </div>
@@ -314,7 +314,7 @@ const Index = () => {
                                                                         type="text"
                                                                         className="form-control rounded"
                                                                         id={current_ID}
-                                                                        placeholder="Write something here 2..."
+                                                                        placeholder="Write something here ..."
                                                                         style={{ border: "none" }}
                                                                         onChange={handlePost}
                                                                     />
