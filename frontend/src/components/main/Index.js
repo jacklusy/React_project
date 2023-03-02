@@ -137,8 +137,8 @@ const Index = () => {
                 inputs
             )
             .then
-            // window.location.assign('/home')
             ();
+        window.location.assign('/home')
     };
 
     const deleteComment = (id) => {
@@ -223,7 +223,7 @@ const Index = () => {
             .then(getPosts());
     };
     // localStorage.clear()
-    console.log(posts);
+    // console.log(posts);
     // Return
     return (
         <>
@@ -269,16 +269,15 @@ const Index = () => {
                                                             type="text"
                                                             className="form-control rounded"
                                                             id={current_ID}
-                                                            placeholder="Write something here..."
+                                                            placeholder="Write something here 1..."
                                                             style={{ border: "none" }}
                                                         />
                                                     </div>
                                                 </div>
+
                                                 <hr />
                                             </div>
-                                {posts.map((post, index_post) => {
-                                var flagLike = false;
-                                return (
+
                                             <div
                                                 className="modal fade"
                                                 id="post-modal"
@@ -301,24 +300,26 @@ const Index = () => {
                                                         <div className="modal-body">
                                                             <div className="d-flex align-items-center">
                                                                 <div className="user-img">
-                                                                {!post.image ? (
+                                                                    {!image ? (
                                                                         <img className="rounded-circle avatar-60" src={require('../images/default_user.jpeg')} alt="" />
                                                                     ) : (
 
                                                                         <img className="rounded-circle avatar-60" src={require(`../images/${image}`)} alt="" />
 
                                                                     )}
+
                                                                 </div>
                                                                 <div className="post-text ms-3 w-100">
                                                                     <input
                                                                         type="text"
                                                                         className="form-control rounded"
                                                                         id={current_ID}
-                                                                        placeholder="Write something here..."
+                                                                        placeholder="Write something here 2..."
                                                                         style={{ border: "none" }}
                                                                         onChange={handlePost}
                                                                     />
                                                                 </div>
+
                                                             </div>
                                                             <hr />
                                                             <ul className="d-flex flex-wrap align-items-center list-inline m-0 p-0">
@@ -341,8 +342,7 @@ const Index = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                        );
-                                    })}
+
                                         </form>
                                     </div>
                                     <div className="col-sm-12 p-2">
@@ -429,6 +429,12 @@ const Index = () => {
                                                         <hr />
                                                         {post.post_image !== "a" ? (
                                                             <>
+
+                                                                {/* CONTENT POST */}
+                                                                <div className="mt-1 ms-5 me-5">
+                                                                    <p id={`post${post.post_id}`} className="mt-2 mb-1 pb-2 fw-bolder">{post.content}</p>
+                                                                </div>
+
                                                                 {/* IMAGE POST */}
                                                                 <div className="row-span-md-1 justify-content-center text-center ms-5 me-5">
                                                                     <img
@@ -440,10 +446,7 @@ const Index = () => {
                                                                     />
 
                                                                 </div>
-                                                                {/* CONTENT POST */}
-                                                                <div className="mt-1 ms-5 me-5">
-                                                                    <p id={`post${post.post_id}`} className="mt-2 mb-1 pb-2 fw-bolder">{post.content}</p>
-                                                                </div>
+
                                                                 {/* EDIT POST */}
                                                                 <div className="user-post">
                                                                     <div className=" d-grid grid-rows-2 grid-flow-col gap-3">
@@ -492,6 +495,7 @@ const Index = () => {
                                                                 </div>
                                                                 {/* IMAGE POST */}
                                                                 {/* <div className="row-span-md-1 justify-content-center">
+
                                   <img
                                     id={`imgPost${post.post_id}`}
                                     className="img-thumnail rounded w-100"
@@ -627,6 +631,7 @@ const Index = () => {
                                                             </div>
                                                             <hr />
                                                             {/* COMMENT CONTAINER */}
+
                                                             {comments.map((comment, index_comment) => {
                                                                 if (comment.post_id == post.post_id) {
                                                                     return (
@@ -637,12 +642,13 @@ const Index = () => {
                                                                                 <div className="user-post-data">
                                                                                     <div className="d-flex justify-content-between">
                                                                                         <div className="me-2">
-                                                                                            <img
-                                                                                                src="/images/user/02.jpg"
-                                                                                                width={"60px"}
-                                                                                                alt="userimg"
-                                                                                                className="rounded-circle img-fluid"
-                                                                                            />
+                                                                                            {!comment.image ? (
+                                                                                                <img className="rounded-circle avatar-60" src={require('../images/default_user.jpeg')} alt="" />
+                                                                                            ) : (
+
+                                                                                                <img className="rounded-circle avatar-60" src={require(`../images/${comment.image}`)} alt="" />
+
+                                                                                            )}
                                                                                         </div>
                                                                                         <div className="w-100">
                                                                                             <div className="d-flex justify-content-between">

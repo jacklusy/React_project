@@ -45,7 +45,7 @@ import MyGroups from "./components/main/MyGroups";
 import ErrorMessage from "./components/main/messageLogin";
 // import MyGroups from "./components/main/MyGroups";
 //import Login from "./components/main/Login";
-
+import Navbar from "./components/body/Navbar.js";
 
 
 const App = () => {
@@ -72,6 +72,7 @@ const App = () => {
         {isLoggedIn ? (
           <Routes>
             <Route exact path="/" element={<Index />} />
+            {/* <Route exact path="/Navbar" element={<Navbar />} /> */}
             <Route exact path="/Register" element={<Index />} />
 
             <Route exact path="/home" element={<Index />} />

@@ -188,7 +188,7 @@ const ShowUpdateForm = () => {
                       </div>
                       <div className="group-info pt-3 pb-3">
                         <h4>{element.group_name}<a href="../app/group-detail.html"></a></h4>
-                        <p>Lorem Ipsum datcccccccccccca</p>
+                        
                       </div>
                       <div className="group-details d-inline-block pb-3">
                         <ul className="d-flex align-items-center justify-content-between list-inline m-0 p-0">
