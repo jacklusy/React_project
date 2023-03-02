@@ -55,22 +55,25 @@ const App = () => {
   return (
 
     <div>
-    <ToastContainer
-position="top-center"
-autoClose={2000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
->
-</ToastContainer>
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      >
+      </ToastContainer>
 
-<Router>
+      <Router>
         {isLoggedIn ? (
           <Routes>
+            <Route exact path="/" element={<Index />} />
+            <Route exact path="/Register" element={<Index />} />
+
             <Route exact path="/home" element={<Index />} />
 
             <Route exact path="/Profile" element={<Profile />} />
@@ -107,7 +110,7 @@ pauseOnHover
             </Routes>
           )
         }
-      </Router> 
+      </Router>
     </div>
   );
 }
