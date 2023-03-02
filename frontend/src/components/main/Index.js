@@ -18,6 +18,7 @@ const Index = () => {
     const current_Lname = JSON.parse(localStorage.getItem("last_name"));
     const current_ID = JSON.parse(localStorage.getItem("Id"));
     const current_Email = JSON.parse(localStorage.getItem("email"));
+    const image = JSON.parse(localStorage.getItem("image"));
 
     const [inputs, setInputs] = useState("");
     const [posts, setPosts] = useState([]);
@@ -221,7 +222,8 @@ const Index = () => {
             )
             .then(getPosts());
     };
-
+    // localStorage.clear()
+    console.log(posts);
     // Return
     return (
         <>
@@ -303,7 +305,7 @@ const Index = () => {
                                                                         <img className="rounded-circle avatar-60" src={require('../images/default_user.jpeg')} alt="" />
                                                                     ) : (
 
-                                                                        <img className="rounded-circle avatar-60" src={require(`../images/${post.image}`)} alt="" />
+                                                                        <img className="rounded-circle avatar-60" src={require(`../images/${image}`)} alt="" />
 
                                                                     )}
                                                                 </div>

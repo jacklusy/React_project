@@ -38,10 +38,11 @@ const Login = () => {
       if (email.length === 0 || password.length === 0) {
         setError(true)
       } else {
-        if (user.email === email && user.password === password && Object.entries(email).length > 0 && Object.entries(password).length > 0) {
+        if (user.email === email && user.password === password) {
           localStorage.setItem('Id', JSON.stringify(user.id));
           localStorage.setItem('Email', JSON.stringify(user.email));
           localStorage.setItem('Password', JSON.stringify(user.password));
+          localStorage.setItem('image', JSON.stringify(user.image));
           let isloggedin = JSON.stringify(true)
           sessionStorage.setItem('isloggedin', isloggedin);
           toast.success('Welcome User ❤️');
