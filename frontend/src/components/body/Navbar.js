@@ -136,7 +136,7 @@ function Navbar() {
         getFriendsAccepted();
         getFriendsRequest();
       })
-
+    }
 
        
   // حذف الصداقة
@@ -147,6 +147,7 @@ function Navbar() {
         // console.log(respone.data);
         getFriendsPending();
         getFriendsAccepted();
+        getFriendsRequest();
 
       })
 
@@ -215,7 +216,7 @@ function Navbar() {
                           <Link>      
                            {(() => {
                                 if (pendingRequest.includes(ele.id) ||  requestFriend.includes(ele.id)){
-                                  if(requestFriend.includes(ele.id)){
+                                  if(requestFriend.includes(ele.id) ||  requestFriend.includes(ele.id)){
                                               return (
                                                 <div className="iq-friend-request">
                                                   <div className="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
