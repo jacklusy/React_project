@@ -17,7 +17,7 @@ const LeftSidebar = () => {
         <nav className="iq-sidebar-menu">
           <ul id="iq-sidebar-toggle" className="iq-menu">
 
-            <li className="active">
+            <li id='Profile' className="">
               <a href="/Profile" className=" ">
                 <i className="las la-user" /><span>Profile</span>
               </a>
@@ -26,6 +26,12 @@ const LeftSidebar = () => {
             <li className="=">
               <a href="/Group" className=" ">
                 <i className="las la-users" /><span>Group</span>
+              </a>
+            </li>
+
+            <li className="=">
+              <a href="/alluser" className=" ">
+                <i className="las la-users" /><span>All User</span>
               </a>
             </li>
 

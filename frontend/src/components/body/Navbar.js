@@ -134,7 +134,6 @@ function Navbar() {
             console.log(respone.data);
             getFriendsPending();
             getFriendsAccepted();
-            getFriendsRequest();
         })
 
 
@@ -215,12 +214,13 @@ function Navbar() {
                         return(
                           <Link>      
                            {(() => {
-                                if (requestFriend.includes(ele.id)){
+                                if (pendingRequest.includes(ele.id) ||  requestFriend.includes(ele.id)){
+                                  if(requestFriend.includes(ele.id)){
                                               return (
                                                 <div className="iq-friend-request">
                                                   <div className="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
                                                     <div className="d-flex align-items-center">
-                                                      <img className="avatar-40 rounded" src="/images/user/01.jpg" alt="" />
+                                                      <img className="avatar-40 rounded" src={require(`../../components/images/${ele.image}`)} alt="" />
                                                       <div className="ms-3">
                                                         <h6 className="mb-0 ">{ele.first_name}</h6>
                                                         <p className="mb-0">{ele.email}</p>
@@ -228,14 +228,19 @@ function Navbar() {
                                                     </div>
                                                     <div className="d-flex align-items-center">
                                                       <div className="ms-5">
-                                                        <button className="me-3 btn btn-secondary rounded" onClick={()=>removeRequest(ele.id)}>Delete</button>
-                                                        <button className=" btn btn-primary rounded" onClick={()=>AcceptFriend(ele.id)}>Accept</button>
+                                                        <Link>
+                                                            <button className="me-3 btn btn-secondary rounded" onClick={()=>removeFriend(ele.id)}>Delete</button>
+                                                        </Link>
+                                                        <Link>
+                                                            <button className=" btn btn-primary rounded" onClick={()=>AcceptFriend(ele.id)}>Accept</button>
+                                                        </Link>
                                                       </div>
                                                     </div>
                                                   </div> 
                                                 </div>  
-                                          )
-                                }})()}
+                                                  )}
+                                          
+                                        }})()}
                             </Link> 
                       )})}
 

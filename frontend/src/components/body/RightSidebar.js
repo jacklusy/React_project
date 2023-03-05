@@ -66,22 +66,22 @@ function RightSidebar() {
                                     
                                     <div className="blogBtn ms-2 me-2">
                                     {(() => {
-                                            if (pendingRequest.includes(ele.id) || friends.includes(ele.id) || requestFriend.includes(ele.id)){
-                                                if(friends.includes(ele.id)){
-                                                    return (
-                                                        <a href='/Profile' >
-                                                            <div className="d-flex align-items-center">
-                                                                <div className="iq-profile-avatar status-online">
-                                                                    <img className="rounded-circle avatar-50" src={require(`../../components/images/${ele.image}`)} alt="" />
-                                                                </div>
-                                                                <div className="ms-3 me-3">
-                                                                <h6 className="mb-0">{ele.first_name}</h6>
-                                                                <p className="mb-0">{ele.email} </p>
-                                                                </div>
-                                                            </div>
-                                                        </a>
+                                    if (pendingRequest.includes(ele.id) || friends.includes(ele.id) || requestFriend.includes(ele.id)){
+                                        if(friends.includes(ele.id)){
+                                            return (
+                                                <a href='/Profile' >
+                                                    <div className="d-flex align-items-center">
+                                                        <div className="iq-profile-avatar status-online">
+                                                            <img className="rounded-circle avatar-50" src={require(`../../components/images/${ele.image}`)} alt="" />
+                                                        </div>
+                                                        <div className="ms-3 me-3">
+                                                        <h6 className="mb-0">{ele.first_name}</h6>
+                                                        <p className="mb-0">{ele.email} </p>
+                                                        </div>
+                                                    </div>
+                                                </a>
 
-                                                    )}}})()}
+                                            )}}})()}
                                 </div>
                         )})}
                     </div>

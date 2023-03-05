@@ -30,8 +30,8 @@ const Profile = () => {
     const [requestFriend,setrequestFriend] = useState([]);
     const [comments, setComments] = useState([]);
     // const {id}= useParams();
-
     const [posts, setPosts] = useState([]);
+    
     const current_Fname = JSON.parse(localStorage.getItem("first_name"));
     const current_Lname = JSON.parse(localStorage.getItem("last_name"));
     const current_ID = JSON.parse(localStorage.getItem("Id"));
@@ -270,13 +270,12 @@ const Profile = () => {
             
         })
 
-
-        
     }
 
 
     const photoUrl =  inputs.image;
     console.log(photoUrl);
+   
 
 
     return (
@@ -924,7 +923,8 @@ const Profile = () => {
                                                                                                                 </div>
                                                                                                             </div>
                                                                                                         </div>
-                                                                                )}}})()}
+                                                                                 )}}})()} 
+                                                                                
                                                                                 </div>
                                                                         )})}
                                                                 </div>

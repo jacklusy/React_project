@@ -16,7 +16,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 // import { toast } from 'react-toastify';
 
-const Profile = () => {
+const AllUser = () => {
 
     const navigate = useNavigate()
     const [inputs, setInputs] = useState({});
@@ -26,6 +26,7 @@ const Profile = () => {
     const [acceptrdFriends,setAcceptedFriends] = useState([]);  
     const [pendingFriends,setpendingFriends] = useState([]);
     const [pendingRequest,setpendingRequest] = useState([]);
+    const [requestFriends,setRequestFriends] = useState([]);
     const [friends,setfriends] = useState([]);
     const [requestFriend,setrequestFriend] = useState([]);
     const [comments, setComments] = useState([]);
@@ -228,6 +229,8 @@ const Profile = () => {
               console.log(respone.data);
           })
       }
+
+    
       
         //   عرض جميع طلبات الصداقة الذين تمت الموافقة عليهم
         const getFriendsAccepted = () => {
@@ -247,7 +250,7 @@ const Profile = () => {
         // اللي بعثهم المستخدم pending عرض جميع طلبات الصداقة في حالة 
     const getFriendsPending = () => {
 
-        axios.get(`http://localhost:80/frontend/back_end/acceptFriend.php/${id}`)
+        axios.get(`http://localhost/React/React_Project/backend/acceptFriend.php/${id}`)
         .then((respone)=>{
             console.log(respone.data);
             let pendingRequest = respone.data.map((ele)=>{
@@ -258,6 +261,37 @@ const Profile = () => {
             setpendingFriends(respone.data)
         })
     }
+
+    // عرض طلبات الصداقة الخاصة بالمستخدم واللي لسا ما وافق عليهم
+
+    const getFriendsRequest = () => {
+
+      axios.get(`http://localhost/React/React_Project/backend/friendRequests.php/${id}`)
+      .then((respone)=>{
+          console.log(respone.data);
+          let requestFriend = respone.data.map((ele)=>{
+              return ele.user_id
+          })
+          console.log(requestFriend);
+          setrequestFriend(requestFriend);
+          setRequestFriends(respone.data)
+      })
+  }
+
+    //  pending وحالته بتكون friends  اضافة صديق جديد في جدول ال 
+    const AddFriends = (friendId) => {
+      let inputs = {user_id:id , friend_id:friendId};
+      axios.post(`http://localhost/React/React_Project/backend/friends.php/save`,inputs)
+      .then((respone)=>{
+          console.log(respone.data);
+          getUsers();
+          getFriendsPending();
+          getFriendsRequest();
+      })
+
+
+      
+  }
 
          // حذف الصداقة
     const removeFriend = (friendId) => {
@@ -296,49 +330,7 @@ const Profile = () => {
                             <div className="row">
                                 <div className="col-sm-12">
 
-                                    {/* COVER AND USER IMAGE */}
-                                    <div className="card">
-                                        <div className="card-body profile-page p-0">
-
-                                            <div className="profile-header">
-                                                <div className="position-relative">
-                                                    <img src="/images/page-img/profile-bg1.jpg" alt="profile-bg" className="rounded img-fluid" />
-
-                                                </div>
-                                                <div className="user-detail text-center mb-3">
-                                                    <div className="profile-img">
-                                                    {!photoUrl ? <img src={require('../images/default.jpg')} alt="userimg" className="avatar-60 rounded-circle img-fluid" /> : <img src={require(`../images/${photoUrl}`)} alt="userimg" className="avatar-60 rounded-circle img-fluid" />}
-                                                    </div>
-                                                    <div className="profile-detail">
-                                                        <h3 className> {inputs.first_name} <span> {inputs.last_name} </span></h3>
-                                                    </div>
-                                                </div>
-                                                <div className="profile-info p-3 d-flex align-items-center justify-content-between position-relative">
-                                                        {/* {users.filter(function(ele) {
-                                                            // لحتى ما اطبع المستخد اللي عامل تسجيل دخول
-                                                            if (ele.id === id) {
-                                                                return false; // skip
-                                                            }
-                                                            console.log(users)
-                                                            return true;
-                                                            }).map((ele,index)=>{
-                                                                return(
-                                                                <Link>      
-                                                                {(() => {
-                                                                        if (friends.includes(ele.id)){
-                                                                                    return (
-                                                                                        <div className="iq-friend-request">
-                                                                                            <button name="" id="" class="btn btn-primary"  onClick={()=>removeFriend(ele.id)}>Delete Friend</button>
-                                                                                        </div>  
-                                                                                )
-                                                                            }})()}
-                                                                 </Link> 
-                                                            )})
-                                                            } */}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
 
                                     {/* TOP NAV BAR */}
                                     <div className="card">
@@ -346,13 +338,8 @@ const Profile = () => {
                                             <div className="user-tabing">
                                                 <ul className="nav nav-pills d-flex align-items-center justify-content-center profile-feed-items p-0 m-0">
                                                     <li className="nav-item col-12 col-sm-3 p-0">
-                                                        <a className="nav-link active" href="#pills-timeline-tab" data-bs-toggle="pill" data-bs-target="#timeline" role="button">Timeline</a>
+                                                        <a className="nav-link" href="#pills-friends-tab" style={{colo: '#406b72'}} data-bs-toggle="pill" data-bs-target="#friends" role="button"> Friend Request</a>
                                                     </li>
-
-                                                    <li className="nav-item col-12 col-sm-3 p-0">
-                                                        <a className="nav-link" href="#pills-friends-tab" data-bs-toggle="pill" data-bs-target="#friends" role="button"> Friend Request</a>
-                                                    </li>
-
                                                 </ul>
                                             </div>
                                         </div>
@@ -362,7 +349,89 @@ const Profile = () => {
 
                                         {/* PROFILE CONTENT */}
                                         <div className="col-sm-12">
-                                            
+                                            <div className="card">
+                                                    <h4 className='text-center text-white p-2' style={{backgroundColor: '#406b72'}}>Add Friends</h4>
+                                                <div className="card-body">
+                                                    <div className="friend-list-tab mt-2">
+                                                        <div className="tab-content">
+                                                            <div className="tab-pane fade active show" id="all-friends" role="tabpanel">
+                                                                <div className="card-body p-0">
+                                                                    {/* Blog-Box1  */}
+                                                                    {users.filter(function(ele) {
+                                                                            // لحتى ما اطبع المستخد اللي عامل تسجيل دخول
+                                                                            if (ele.id === id) {
+                                                                                return false; // skip
+                                                                            }
+                                                                            return true;
+                                                                        }).map((ele,index)=>{
+                                                                            return(
+                                                                            <div className="row justify-content-center">
+                                                                                                    {(() => {
+                                                                                                            if (pendingRequest.includes(ele.id) || friends.includes(ele.id) || requestFriend.includes(ele.id)){
+                                                                                                                if(friends.includes(ele.id)){
+                                                                                                                    return (
+                                                                                                                        <Link>
+                                                                                                                        <div className="col-lg-12 m-1 border-bottom p-1 border-3">
+                                                                                                                      <div className="d-flex align-items-center justify-content-between">
+                                                                                                                          <div className="d-flex align-items-center">
+                                                                                                                              <a href="#">
+                                                                                                                                  <img src={require(`../../components/images/${ele.image}`)} alt="profile-img" className="rounded-circle img-fluid avatar-80" />
+                                                                                                                              </a>
+                                                                                                                              <div className="friend-info ms-3">
+                                                                                                                                  <h4>{ele.first_name}</h4>
+                                                                                                                                  <p className="mb-0">{ele.email}</p>
+                                                                                                                              </div>
+                                                                                                                          </div>
+                                                                                                                          <div className="card-header-toolbar d-flex align-items-center">
+                                                                                                                              <div className="dropdown">
+                                                                                                                                      <button className="dropdown-toggle btn text-white me-2" style={{backgroundColor: '#406b72'}} onClick={()=>removeFriend(ele.id)}  id="dropdownMenuButton01" data-bs-toggle="dropdown" aria-expanded="true" role="button">
+                                                                                                                                          <i className="ri-check-line me-1 text-white" />Remove friends
+                                                                                                                                      </button>
+                                                                                                                                  </div>
+                                                                                                                              </div>
+                                                                                                                          </div>
+                                                                                                                        </div>
+                                                                                                                        </Link>
+                                                                                                                        )
+
+                                                                                                                }   
+                                                                                                            
+                                                                                                            }else{
+                                                                                                                return ( 
+                                                                                                                    <Link>
+                                                                                                                    <div className="col-lg-12 m-1 border-bottom p-1 border-3">
+                                                                                                                      <div className="d-flex align-items-center justify-content-between">
+                                                                                                                          <div className="d-flex align-items-center">
+                                                                                                                              <a href="#">
+                                                                                                                                  <img src={require(`../../components/images/${ele.image}`)} alt="profile-img" className="rounded-circle img-fluid avatar-80" />
+                                                                                                                              </a>
+                                                                                                                              <div className="friend-info ms-3">
+                                                                                                                                  <h4>{ele.first_name}</h4>
+                                                                                                                                  <p className="mb-0">{ele.email}</p>
+                                                                                                                              </div>
+                                                                                                                          </div>
+                                                                                                                          <div className="card-header-toolbar d-flex align-items-center">
+                                                                                                                              <div className="dropdown">
+                                                                                                                                      <button className="dropdown-toggle btn text-white me-2" style={{backgroundColor: '#406b72'}}   onClick={()=>AddFriends(ele.id)} id="dropdownMenuButton01" data-bs-toggle="dropdown" aria-expanded="true" role="button">
+                                                                                                                                          <i className="ri-check-line me-1 text-white" />add friends
+                                                                                                                                      </button>
+                                                                                                                                  </div>
+                                                                                                                              </div>
+                                                                                                                          </div>
+                                                                                                                        </div>
+                                                                                                                    </Link>
+                                                                                                              
+                                                                                                                )}})()}
+                                                                                                  </div>
+                                                                                
+                                                                            
+                                                                        )})}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                 <div className="col-sm-12 text-center">
                                     <img src="/images/page-img/page-load-loader.gif" alt="loader" style={{ height: '100px' }} />
@@ -378,4 +447,4 @@ const Profile = () => {
     );
 }
 
-export default Profile
+export default AllUser
