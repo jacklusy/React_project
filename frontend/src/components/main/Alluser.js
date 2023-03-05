@@ -381,7 +381,7 @@ const AllUser = () => {
                                           <div className="dropdown">
                                             {(() => {
                                               if (pendingRequest.includes(ele.id) || friends.includes(ele.id) || requestFriend.includes(ele.id)) {
-                                                if (friends.includes(ele.id)) {
+                                                // if (friends.includes(ele.id)) {
                                                   return (
                                                     <Link>
                                                       <button className="dropdown-toggle btn text-white me-2" style={{ backgroundColor: '#406b72' }} onClick={() => removeFriend(ele.id)} id="dropdownMenuButton01" data-bs-toggle="dropdown" aria-expanded="true" role="button">
@@ -390,7 +390,7 @@ const AllUser = () => {
                                                     </Link>
                                                   )
 
-                                                }
+                                                // }
 
 
                                               } else {
