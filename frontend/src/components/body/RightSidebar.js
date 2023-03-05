@@ -90,7 +90,7 @@ function RightSidebar() {
                 </div>
             </div>
         </div>
-
+</div>
     );
 }
 

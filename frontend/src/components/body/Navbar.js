@@ -136,7 +136,7 @@ function Navbar() {
         getFriendsAccepted();
         getFriendsRequest();
       })
-
+    }
 
        
   // حذف الصداقة
@@ -147,6 +147,7 @@ function Navbar() {
         // console.log(respone.data);
         getFriendsPending();
         getFriendsAccepted();
+        getFriendsRequest();
 
       })
 
@@ -215,7 +216,7 @@ function Navbar() {
                           <Link>      
                            {(() => {
                                 if (pendingRequest.includes(ele.id) ||  requestFriend.includes(ele.id)){
-                                  if(requestFriend.includes(ele.id)){
+                                  if(requestFriend.includes(ele.id) ||  requestFriend.includes(ele.id)){
                                               return (
                                                 <div className="iq-friend-request">
                                                   <div className="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
@@ -229,7 +230,7 @@ function Navbar() {
                                                     <div className="d-flex align-items-center">
                                                       <div className="ms-5">
                                                         <Link>
-                                                            <button className="me-3 btn btn-secondary rounded" onClick={()=>removeRequest(ele.id)}>Delete</button>
+                                                            <button className="me-3 btn btn-secondary rounded" onClick={()=>removeFriend(ele.id)}>Delete</button>
                                                         </Link>
                                                         <Link>
                                                             <button className=" btn btn-primary rounded" onClick={()=>AcceptFriend(ele.id)}>Accept</button>
