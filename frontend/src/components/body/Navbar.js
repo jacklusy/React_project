@@ -138,9 +138,7 @@ function Navbar() {
       })
 
 
-
-  }
-
+       
   // حذف الصداقة
   const removeFriend = (friendId) => {
     let inputs = { user_id: id, friend_id: friendId };
@@ -203,43 +201,49 @@ function Navbar() {
                     </div>
                     <div className="card-body p-0">
 
-                      {/* FRIND REEQUIST */}
-                      {users.filter(function (ele) {
-                        // لحتى ما اطبع المستخد اللي عامل تسجيل دخول
-                        if (ele.id === id) {
-                          return false; // skip
-                        }
-                        // console.log(users)
-                        return true;
-                      }).map((ele, index) => {
-                        return (
-                          <Link>
-                            {(() => {
-                              if (requestFriend.includes(ele.id)) {
-                                return (
-                                  <div className="iq-friend-request">
-                                    <div className="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
-                                      <div className="d-flex align-items-center">
-                                        <img className="avatar-40 rounded" src="/images/user/01.jpg" alt="" />
-                                        <div className="ms-3">
-                                          <h6 className="mb-0 ">{ele.first_name}</h6>
-                                          <p className="mb-0">{ele.email}</p>
-                                        </div>
-                                      </div>
-                                      <div className="d-flex align-items-center">
-                                        <div className="ms-5">
-                                          <button className="me-3 btn btn-secondary rounded" onClick={() => removeRequest(ele.id)}>Delete</button>
-                                          <button className=" btn btn-primary rounded" onClick={() => AcceptFriend(ele.id)}>Accept</button>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                )
-                              }
-                            })()}
-                          </Link>
-                        )
-                      })}
+
+                    {/* FRIND REEQUIST */}
+                    {users.filter(function(ele) {
+                    // لحتى ما اطبع المستخد اللي عامل تسجيل دخول
+                    if (ele.id === id) {
+                        return false; // skip
+                      }
+                      console.log(users)
+                    return true;
+                    }).map((ele,index)=>{
+                        return(
+                          <Link>      
+                           {(() => {
+                                if (pendingRequest.includes(ele.id) ||  requestFriend.includes(ele.id)){
+                                  if(requestFriend.includes(ele.id)){
+                                              return (
+                                                <div className="iq-friend-request">
+                                                  <div className="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
+                                                    <div className="d-flex align-items-center">
+                                                      <img className="avatar-40 rounded" src={require(`../../components/images/${ele.image}`)} alt="" />
+                                                      <div className="ms-3">
+                                                        <h6 className="mb-0 ">{ele.first_name}</h6>
+                                                        <p className="mb-0">{ele.email}</p>
+                                                      </div>
+                                                    </div>
+                                                    <div className="d-flex align-items-center">
+                                                      <div className="ms-5">
+                                                        <Link>
+                                                            <button className="me-3 btn btn-secondary rounded" onClick={()=>removeFriend(ele.id)}>Delete</button>
+                                                        </Link>
+                                                        <Link>
+                                                            <button className=" btn btn-primary rounded" onClick={()=>AcceptFriend(ele.id)}>Accept</button>
+                                                        </Link>
+                                                      </div>
+                                                    </div>
+                                                  </div> 
+                                                </div>  
+                                                  )}
+                                          
+                                        }})()}
+                            </Link> 
+                      )})}
+
 
 
                       <div className="text-center">

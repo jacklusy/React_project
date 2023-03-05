@@ -105,10 +105,10 @@ const Index = () => {
                 formEditData
             );
             console.log(response.data);
-            window.location.assign("/home");
         } catch (error) {
             console.error(error);
         }
+        window.location.assign("/home");
     };
 
     const deletePost = (id) => {
@@ -166,8 +166,8 @@ const Index = () => {
         axios
             .put("http://localhost/React/React_Project/backend/comments.php/", inputs)
             .then
-            // window.location.assign('/')
             ();
+            window.location.assign('/')
     };
 
     const foucsOnComment = (id) => {
@@ -240,7 +240,7 @@ const Index = () => {
                     <div id="content-page" className="content-page">
                         <div className="container">
                             <div className="row justify-content-center">
-                                <div className="col-lg-10 row m-0 p-0">
+                                <div className="col-lg-12 row m-0 p-0">
                                     <div className="col-sm-12">
                                         {/* POST FORM */}
                                         <form
@@ -434,7 +434,7 @@ const Index = () => {
                                                                         id={`imgPost${post.post_id}`}
                                                                         className="img-thumnail border"
                                                                         src={require(`../images/${post.post_image}`)}
-                                                                        style={{ height: "42em", width: "46em" }}
+                                                                        style={{ height: "42em", width: "100%" }}
                                                                         alt=""
                                                                     />
 
