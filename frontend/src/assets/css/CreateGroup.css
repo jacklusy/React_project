@@ -237,23 +237,23 @@
 #form {
     background-color: #23c483;
     padding: 50px;
-    width: 400px;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: auto;
+    text-align: center;
 
 }
   .feed-form {
     margin-top: 36px;
     display: flex;
     flex-direction: column;
-    width: 300px;
+    text-align: center;
     
   }
   
-  .feed-form input {
+  #text {
     height: 54px;
     border-radius: 5px;
     background: white;
@@ -263,12 +263,13 @@
     font-weight: 300;
     font-size: 14px;
     color: #4B4B4B;
+    border: 1px solid #ced4da;
+
   }
   
-  .button_submit:hover, .feed-form input:hover {
-    transform: scale(1.009);
-    box-shadow: 0px 0px 3px 0px #212529;
-  }
+ #file {
+  padding: 1rem 0;
+ }
   
   .button_submit {
     width: 100%;
@@ -282,5 +283,13 @@
     text-transform: uppercase;
   }
   
+  .avatar-135 {
+    height: 20rem !important;
+    width: 20rem;
+    line-height: 130px;
+  }
 
+  .group-icon {
+    margin-top: -9.375rem !important;
+}
   /* ########################################################################### */

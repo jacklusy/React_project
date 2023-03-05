@@ -39,7 +39,7 @@ const MyGroups = () => {
   }
 
 
-// To add a member to a group
+  // To add a member to a group
 
   const AddToGroup = (groupId) => {
     let inputs = { user_id: current_ID, group_id: groupId };
@@ -53,9 +53,9 @@ const MyGroups = () => {
       })
   }
 
-  
-  const  deleteGroup = (id) => {
-    axios.delete(`http://localhost/React/the_project/Project_Backend/groups.php/${id}`).then(function(response){
+
+  const deleteGroup = (id) => {
+    axios.delete(`http://localhost/React/the_project/Project_Backend/groups.php/${id}`).then(function (response) {
       getGroups();
     })
   }
@@ -151,7 +151,6 @@ const MyGroups = () => {
                       </div>
                       <div className="group-info pt-3 pb-3">
                         <h4>{element.group_name}<a href="../app/group-detail.html"></a></h4>
-                        <p>Lorem Ipsum datcccccccccccca</p>
                       </div>
                       <div className="group-details d-inline-block pb-3">
                         <ul className="d-flex align-items-center justify-content-between list-inline m-0 p-0">
@@ -191,13 +190,15 @@ const MyGroups = () => {
                         </a>
                       </div>
                     </div> */}
-                                    <Link to={`/groups/${element.group_id}/show`}>
-                                    <Button variant="primary">show group</Button>
+                    <div>
+                        <Link to={`/groups/${element.group_id}/show`}>
+                          <Button variant="primary"  >show group</Button>
 
-                                </Link>
-                             <Link>
-                                <Button variant="danger" onClick={() => {deleteGroup(element.group_id)}} >Delete</Button>
-                            </Link>
+                        </Link>
+                        <Link>
+                          <Button variant="danger"  style={{marginLeft:'.5rem'}} onClick={() => { deleteGroup(element.group_id) }} >Delete</Button>
+                        </Link>
+                      </div>
                     </div>
                     {/* <a href='/GroupDetails'>
                       <button type="submit" className="btn btn-primary d-block w-100">Join</button>
