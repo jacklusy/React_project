@@ -22,6 +22,7 @@ const GroupDetails = () => {
     const [allGroups, setDataGroups] = useState([]);
     const [usersGroups, setUserGroups] = useState([]);
     const [pendingRequestGroups, setPendingRequestGroups] = useState([]);
+    const image = JSON.parse(localStorage.getItem("image"));
 
     const [myAcceptedGroups, setMyAcceptrdGroups] = useState([]);
 
@@ -461,11 +462,13 @@ const GroupDetails = () => {
                                                 <div className="card-body">
                                                     <div className="d-flex align-items-center">
                                                         <div className="user-img">
-                                                            <img
-                                                                src="/images/user/1.jpg"
-                                                                alt="userimg"
-                                                                className="avatar-60 rounded-circle"
-                                                            />
+                                                            {!image ? (
+                                                                <img className="rounded-circle avatar-60" src={require('../images/default_user.jpeg')} alt="" />
+                                                            ) : (
+
+                                                                <img className="rounded-circle avatar-60" src={require(`../images/${image}`)} alt="" />
+
+                                                            )}
                                                         </div>
                                                         <div
                                                             className="post-text ms-3 w-100 "
@@ -504,11 +507,14 @@ const GroupDetails = () => {
                                                             <div className="modal-body">
                                                                 <div className="d-flex align-items-center">
                                                                     <div className="user-img">
-                                                                        <img
-                                                                            src="/images/user/1.jpg"
-                                                                            alt="userimg"
-                                                                            className="avatar-60 rounded-circle img-fluid"
-                                                                        />
+                                                                        {!image ? (
+                                                                            <img className="rounded-circle avatar-60" src={require('../images/default_user.jpeg')} alt="" />
+                                                                        ) : (
+
+                                                                            <img className="rounded-circle avatar-60" src={require(`../images/${image}`)} alt="" />
+
+                                                                        )}
+
                                                                     </div>
                                                                     <div className="post-text ms-3 w-100">
                                                                         <input
@@ -574,15 +580,8 @@ const GroupDetails = () => {
                                                                             {post.user_id == current_ID ? (
                                                                                 <div className="card-post-toolbar">
                                                                                     <div className="dropdown">
-                                                                                        <span
-                                                                                            className="dropdown-toggle"
-                                                                                            data-bs-toggle="dropdown"
-                                                                                            aria-haspopup="true"
-                                                                                            aria-expanded="false"
-                                                                                            role="button">
-                                                                                            <i className="ri-more-fill" />
-                                                                                        </span>
-                                                                                        <div className="dropdown-menu m-0 p-0">
+                                                                                       
+                                                                                        <div style={{display:"flex"}}>
                                                                                             <a
                                                                                                 className="dropdown-item p-3"
                                                                                                 href="#">
@@ -823,12 +822,13 @@ const GroupDetails = () => {
                                                                                     <div className="user-post-data">
                                                                                         <div className="d-flex justify-content-between">
                                                                                             <div className="me-2">
-                                                                                                <img
-                                                                                                    src="/images/user/02.jpg"
-                                                                                                    width={"60px"}
-                                                                                                    alt="userimg"
-                                                                                                    className="rounded-circle img-fluid"
-                                                                                                />
+                                                                                            {!comment.image ? (
+                                                                                                <img className="rounded-circle avatar-60" src={require('../images/default_user.jpeg')} alt="" />
+                                                                                            ) : (
+
+                                                                                                <img className="rounded-circle avatar-60" src={require(`../images/${comment.image}`)} alt="" />
+
+                                                                                            )}
                                                                                             </div>
                                                                                             <div className="w-100">
                                                                                                 <div className="d-flex justify-content-between">
@@ -896,15 +896,8 @@ const GroupDetails = () => {
                                                                                                         current_ID ? (
                                                                                                         <div className="card-post-toolbar">
                                                                                                             <div className="dropdown">
-                                                                                                                <span
-                                                                                                                    className="dropdown-toggle"
-                                                                                                                    data-bs-toggle="dropdown"
-                                                                                                                    aria-haspopup="true"
-                                                                                                                    aria-expanded="false"
-                                                                                                                    role="button">
-                                                                                                                    <i className="ri-more-fill" />
-                                                                                                                </span>
-                                                                                                                <div className="dropdown-menu m-0 p-0">
+                                                                                                               
+                                                                                                                <div style={{display:"flex"}}>
                                                                                                                     <a
                                                                                                                         className="dropdown-item p-3"
                                                                                                                         href="#">
