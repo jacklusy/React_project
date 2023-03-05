@@ -229,7 +229,7 @@ function Navbar() {
                                                     <div className="d-flex align-items-center">
                                                       <div className="ms-5">
                                                         <Link>
-                                                            <button className="me-3 btn btn-secondary rounded" onClick={()=>removeFriend(ele.id)}>Delete</button>
+                                                            <button className="me-3 btn btn-secondary rounded" onClick={()=>removeRequest(ele.id)}>Delete</button>
                                                         </Link>
                                                         <Link>
                                                             <button className=" btn btn-primary rounded" onClick={()=>AcceptFriend(ele.id)}>Accept</button>
