@@ -10,154 +10,153 @@ function Navbar() {
 
   const navigate = useNavigate()
   const [inputs, setInputs] = useState({});
-  const [users,setUsers] = useState([]);
-  const [pendingFriends,setpendingFriends] = useState([]);
-  const [acceptrdFriends,setAcceptedFriends] = useState([]);
-  const [requestFriends,setRequestFriends] = useState([]);  
-  const [pendingRequest,setpendingRequest] = useState([]);
-  const [friends,setfriends] = useState([]);
-  const [requestFriend,setrequestFriend] = useState([]);
-  
-  
+  const [users, setUsers] = useState([]);
+  const [pendingFriends, setpendingFriends] = useState([]);
+  const [acceptrdFriends, setAcceptedFriends] = useState([]);
+  const [requestFriends, setRequestFriends] = useState([]);
+  const [pendingRequest, setpendingRequest] = useState([]);
+  const [friends, setfriends] = useState([]);
+  const [requestFriend, setrequestFriend] = useState([]);
+
+
   const getusers = () => {
     let id = localStorage.getItem("Id");
-    
+
     axios.get(`http://localhost/React/React_project/backend/log_reg.php/${id}`, inputs)
       .then(function (response) {
-        console.log(response.data);
+        // console.log(response.data);  
         setInputs(response.data);
       })
-    }
-    
-    
-    useEffect(()=>{
+  }
+
+
+  useEffect(() => {
+    getUsers();
+    getusers();
+    getFriendsPending();
+    getFriendsAccepted();
+    getFriendsRequest();
+
+  }, []);
+
+  // لعرض جميع المستخدمين في الموقع
+  const getUsers = () => {
+
+    axios.get("http://localhost/React/React_project/backend/theUsers.php/")
+      .then((respone) => {
+        setUsers(respone.data)
+        // console.log(respone.data);
+      })
+  }
+
+  // اللي بعثهم المستخدم pending عرض جميع طلبات الصداقة في حالة 
+  const getFriendsPending = () => {
+
+    axios.get(`http://localhost/React/React_project/backend/acceptFriend.php/${id}`)
+      .then((respone) => {
+        // console.log(respone.data);
+        const pendingRequest = respone.data.map((ele) => {
+          return ele.friend_id
+        })
+        setpendingRequest(pendingRequest);
+        setpendingFriends(respone.data)
+      })
+  }
+  //   عرض جميع طلبات الصداقة الذين تمت الموافقة عليهم
+
+
+  const getFriendsAccepted = () => {
+
+    axios.get(`http://localhost/React/React_project/backend/friends.php/${id}`)
+      .then((respone) => {
+        // console.log(respone.data);
+        let friends = respone.data.map((ele) => {
+          return ele.friend_id
+        })
+        setfriends(friends);
+        setAcceptedFriends(respone.data)
+      })
+  }
+
+  // عرض طلبات الصداقة الخاصة بالمستخدم واللي لسا ما وافق عليهم
+
+  const getFriendsRequest = () => {
+
+    axios.get(`http://localhost/React/React_project/backend/friendRequests.php/${id}`)
+      .then((respone) => {
+        // console.log(respone.data);
+        const requestFriend = respone.data.map((ele) => {
+          return ele.user_id
+        })
+        setrequestFriend(requestFriend);
+        setRequestFriends(respone.data)
+      })
+  }
+
+
+  //  pending وحالته بتكون friends  اضافة صديق جديد في جدول ال 
+  const AddFriends = (friendId) => {
+    let inputs = { user_id: id, friend_id: friendId };
+    axios.post(`http://localhost/React/React_project/backend/friends.php/save`, inputs)
+      .then((respone) => {
+        // console.log(respone.data);
         getUsers();
-        getusers();
+        getFriendsPending();
+        getFriendsRequest();
+      })
+
+
+
+  }
+
+
+  // status الموافقة على طلب الصداقة وتغيير ال 
+  const AcceptFriend = (friendId) => {
+    let inputs = { user_id: id, friend_id: friendId };
+    axios.put(`http://localhost/React/React_project/backend/friends.php/edit`, inputs)
+      .then((respone) => {
+        // console.log(respone.data);
         getFriendsPending();
         getFriendsAccepted();
         getFriendsRequest();
+      })
 
-    },[]);
+    window.location.assign('/home')
 
-        // لعرض جميع المستخدمين في الموقع
-        const getUsers = () => {
-
-            axios.get("http://localhost/React/React_project/backend/theUsers.php/")
-            .then((respone)=>{
-                setUsers(respone.data)
-                console.log(respone.data);
-            })
-        }
-        
-    // اللي بعثهم المستخدم pending عرض جميع طلبات الصداقة في حالة 
-    const getFriendsPending = () => {
-
-        axios.get(`http://localhost/React/React_project/backend/acceptFriend.php/${id}`)
-        .then((respone)=>{
-            console.log(respone.data);
-            const pendingRequest = respone.data.map((ele)=>{
-                return ele.friend_id
-            })
-            setpendingRequest(pendingRequest);
-            setpendingFriends(respone.data)
-        })
-    }
-    //   عرض جميع طلبات الصداقة الذين تمت الموافقة عليهم
-
-    
-    const getFriendsAccepted = () => {
-
-        axios.get(`http://localhost/React/React_project/backend/friends.php/${id}`)
-        .then((respone)=>{
-            console.log(respone.data);
-            let friends = respone.data.map((ele)=>{
-                return ele.friend_id
-            })
-            setfriends(friends);
-            setAcceptedFriends(respone.data)
-        })
-    }
-
-        // عرض طلبات الصداقة الخاصة بالمستخدم واللي لسا ما وافق عليهم
-
-        const getFriendsRequest = () => {
-
-            axios.get(`http://localhost/React/React_project/backend/friendRequests.php/${id}`)
-            .then((respone)=>{
-                console.log(respone.data);
-                const requestFriend = respone.data.map((ele)=>{
-                    return ele.user_id
-                })
-                setrequestFriend(requestFriend);
-                setRequestFriends(respone.data)
-            })
-        }
-
-        
-    //  pending وحالته بتكون friends  اضافة صديق جديد في جدول ال 
-    const AddFriends = (friendId) => {
-        let inputs = {user_id:id , friend_id:friendId};
-        axios.post(`http://localhost/React/React_project/backend/friends.php/save`,inputs)
-        .then((respone)=>{
-            console.log(respone.data);
-            getUsers();
-            getFriendsPending();
-            getFriendsRequest();
-        })
+  }
 
 
-        
-    }
+  // الغاء ارسال طلب الصداقة
+  const removeRequest = (friendId) => {
+    let inputs = { user_id: id, friend_id: friendId };
+    axios.put(`http://localhost/React/React_project/backend/removeRequest.php/edit`, inputs)
+      .then((respone) => {
+        // console.log(respone.data);
+        getFriendsPending();
+        getFriendsAccepted();
+        getFriendsRequest();
+      })
 
-    
-    // status الموافقة على طلب الصداقة وتغيير ال 
-    const AcceptFriend = (friendId) => {
-        let inputs = {user_id:id , friend_id:friendId};
-        axios.put(`http://localhost/React/React_project/backend/friends.php/edit`,inputs)
-        .then((respone)=>{
-            console.log(respone.data);
-            getFriendsPending();
-            getFriendsAccepted();
-            getFriendsRequest();
-        })
-
-        window.location.assign('/home')
-        
-    }
 
        
-    // الغاء ارسال طلب الصداقة
-    const removeRequest = (friendId) => {
-        let inputs = {user_id:id , friend_id:friendId};
-        axios.put(`http://localhost/React/React_project/backend/removeRequest.php/edit`,inputs)
-        .then((respone)=>{
-            console.log(respone.data);
-            getFriendsPending();
-            getFriendsAccepted();
-        })
+  // حذف الصداقة
+  const removeFriend = (friendId) => {
+    let inputs = { user_id: id, friend_id: friendId };
+    axios.put(`http://localhost/React/React_project/backend/removeFriends.php`, inputs)
+      .then((respone) => {
+        // console.log(respone.data);
+        getFriendsPending();
+        getFriendsAccepted();
 
-
-        
-    }
-    
-    // حذف الصداقة
-    const removeFriend = (friendId) => {
-        let inputs = {user_id:id , friend_id:friendId};
-        axios.put(`http://localhost/React/React_project/backend/removeFriends.php`,inputs)
-        .then((respone)=>{
-            console.log(respone.data);
-            getFriendsPending();
-            getFriendsAccepted();
-            
-        })
-
-
-        
-    }
+      })
 
 
 
-  const photoUrl =  inputs.image;
+  }
+
+
+
+  const photoUrl = inputs.image;
 
 
 
@@ -202,6 +201,7 @@ function Navbar() {
                     </div>
                     <div className="card-body p-0">
 
+
                     {/* FRIND REEQUIST */}
                     {users.filter(function(ele) {
                     // لحتى ما اطبع المستخد اللي عامل تسجيل دخول
@@ -245,6 +245,7 @@ function Navbar() {
                       )})}
 
 
+
                       <div className="text-center">
                         {/* SHOW ALL PEOPLE IN PAGE WITH ALL GROUP */}
                         <a href="#" className=" btn text-primary">View More Request</a>
@@ -259,12 +260,12 @@ function Navbar() {
 
               <li className="nav-item dropdown">
                 <a href="/Profile" className="   d-flex align-items-center dropdown-toggle" id="drop-down-arrow" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      {/* IMAGE NAVBAR FOR USER */}
-                      {!photoUrl ? ( 
-                        <img src="/images/user/default.jpg" alt="userimg" className="rounded-circle me-3" /> 
-                      ): ( 
-                        <img src={require(`../images/${photoUrl}`)} alt="userimg" className="rounded-circle me-3" />
-                      )}
+                  {/* IMAGE NAVBAR FOR USER */}
+                  {!photoUrl ? (
+                    <img src={require('../images/default.jpg')} alt="userimg" className="rounded-circle me-3" />
+                  ) : (
+                    <img src={require(`../images/${photoUrl}`)} alt="userimg" className="rounded-circle me-3" />
+                  )}
                   <div className="caption">
                     <h6 className="mb-0 line-height"> {inputs.first_name} <span> {inputs.last_name} </span></h6>
                   </div>
@@ -309,22 +310,7 @@ function Navbar() {
                           <p className="mb-0 font-size-12">Manage your account parameters.</p>
                         </div>
                       </div>
-                      {/* <a href="../app/privacy-setting.html" className="iq-sub-card iq-bg-danger-hover">
-                        <div className="d-flex align-items-center">
-                          <div className="rounded card-icon bg-soft-danger">
-                            <i className="ri-lock-line" />
-                          </div>
-                          <div className="ms-3">
-                            <h6 className="mb-0 ">Privacy Settings</h6>
-                            <p className="mb-0 font-size-12">Control your privacy parameters.
-                            </p>
-                          </div>
-                        </div>
-                      </a> */}
-
-                      {/* <div className="right-sidebar-toggle bg-primary text-white mt-3">
-                        <i className="ri-account-box-line" />
-                      </div> */}
+                      
 
                       <div className="d-inline-block w-100 text-center p-3">
                         <a className="btn btn-primary iq-sign-btn" href="../dashboard/sign-in.html" role="button">Sign
