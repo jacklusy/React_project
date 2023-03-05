@@ -580,15 +580,8 @@ const GroupDetails = () => {
                                                                             {post.user_id == current_ID ? (
                                                                                 <div className="card-post-toolbar">
                                                                                     <div className="dropdown">
-                                                                                        <span
-                                                                                            className="dropdown-toggle"
-                                                                                            data-bs-toggle="dropdown"
-                                                                                            aria-haspopup="true"
-                                                                                            aria-expanded="false"
-                                                                                            role="button">
-                                                                                            <i className="ri-more-fill" />
-                                                                                        </span>
-                                                                                        <div className="dropdown-menu m-0 p-0">
+                                                                                       
+                                                                                        <div style={{display:"flex"}}>
                                                                                             <a
                                                                                                 className="dropdown-item p-3"
                                                                                                 href="#">
@@ -903,15 +896,8 @@ const GroupDetails = () => {
                                                                                                         current_ID ? (
                                                                                                         <div className="card-post-toolbar">
                                                                                                             <div className="dropdown">
-                                                                                                                <span
-                                                                                                                    className="dropdown-toggle"
-                                                                                                                    data-bs-toggle="dropdown"
-                                                                                                                    aria-haspopup="true"
-                                                                                                                    aria-expanded="false"
-                                                                                                                    role="button">
-                                                                                                                    <i className="ri-more-fill" />
-                                                                                                                </span>
-                                                                                                                <div className="dropdown-menu m-0 p-0">
+                                                                                                               
+                                                                                                                <div style={{display:"flex"}}>
                                                                                                                     <a
                                                                                                                         className="dropdown-item p-3"
                                                                                                                         href="#">

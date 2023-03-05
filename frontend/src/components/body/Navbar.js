@@ -258,7 +258,7 @@ function Navbar() {
                 <a href="/Profile" className="   d-flex align-items-center dropdown-toggle" id="drop-down-arrow" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   {/* IMAGE NAVBAR FOR USER */}
                   {!photoUrl ? (
-                    <img src="../images/default.jpg" alt="userimg" className="rounded-circle me-3" />
+                    <img src={require('../images/default.jpg')} alt="userimg" className="rounded-circle me-3" />
                   ) : (
                     <img src={require(`../images/${photoUrl}`)} alt="userimg" className="rounded-circle me-3" />
                   )}
